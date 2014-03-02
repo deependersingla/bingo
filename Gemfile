@@ -40,3 +40,30 @@ gem 'jbuilder', '~> 1.2'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'devise'
+gem 'foundation-rails', '5.0.3.1'
+gem 'mongoid', :github=>"mongoid/mongoid"
+gem 'sendgrid'
+gem 'simple_form'
+gem 'therubyracer', :platform=>:ruby
+gem 'thin'
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
+  gem 'hub', :require=>nil
+  gem 'rails_layout'
+end
+
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'database_cleaner', '1.0.1'
+  gem 'email_spec'
+  gem 'mongoid-rspec', '>= 1.10.0'
+end
+
