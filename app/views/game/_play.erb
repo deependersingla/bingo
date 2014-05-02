@@ -1,0 +1,42 @@
+<head>
+<style type="text/css">
+#portfolios {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+</style>
+</head>
+<% d = ComputerPlay.new(@matrix) %>
+<%cut_line = d.total_cut_lines %>
+<% cut_line %>
+<% d = ['B','I','N','G','O'] %>
+<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
+<h3><center><%= d[0..4] %></h3></center>
+<% if cut_line < 5 %>
+<% @matrix %>
+<table id="portfolios" style="float:center;width:400px;height:400px;" border="1" class="table table-bordered table-hover table-condensed" >
+
+	<% @matrix.each do |z| %>
+	<tr>
+		<% z.each do |x| %>
+		<th>
+			<% if x == 0 %>
+			<% x = "X" %>
+			<% end %>
+		<h3>	<%= x%> </h3>
+		</th>
+		<% end %>
+	</tr>
+	<% end %>
+</table>
+
+<br>
+<br>
+<%= form_tag("/game/search", method: "get") do %>
+  <%= label_tag(:q, "Enter number:") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Enter") %>
+<% end %>
+<% else %>
+<h1><center>YOU WIN</h1></center>
+<% end %>

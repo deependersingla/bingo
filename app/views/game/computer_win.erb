@@ -1,0 +1,27 @@
+
+<head>
+<style type="text/css">
+#portfolios {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+</style><h1><center>COMPUTER WIN </h1></center>
+<h2><center>haha You human, can never beat me </h2></center>
+<center>Computer Matrix</center>
+<table id="portfolios" style="float:center;width:400px;height:400px;" border="1" class="table table-bordered table-hover table-condensed" >
+
+	<% @matrix.each do |z| %>
+	<tr>
+		<% z.each do |x| %>
+		<th>
+			<% if x == 0 %>
+			<% x = "X" %>
+			<% end %>
+		<h3>	<%= x%> </h3>
+		</th>
+		<% end %>
+	</tr>
+	<% end %>
+</table>
+<br>
+<h3><center>Now, Please Pratice before playing again, In the meantime I am going to sleep. I don't want to get bored again</h3></center>
