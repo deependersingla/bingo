@@ -23,7 +23,7 @@ class GameController < ApplicationController
     end
   	# add a partial here so that ajax can be used
   end
-
+   skip_before_action :verify_authenticity_token
   def search
     Game.new.update_matrix(params[:q],current_user)
     redirect_to :action => :play
