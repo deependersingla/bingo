@@ -6,6 +6,7 @@ class Game
   field :opponent_matrix,   type: Array
   field :oponent_id,        type: String
   field :level,             type: Integer, default: 5
+  field :stop,              type: Time
   belongs_to :user
 
   def game_initialization(user, level = 5)

@@ -23,23 +23,24 @@
 }
 </style>
 </head>
+
+  <body>
+ <h3> <center>BINGO!</center></h3>
 <% d = ComputerPlay.new(@matrix) %>
 <%cut_line = d.total_cut_lines %>
 <% # change this to 7 * 7  or 9 * 9%>
-<% d = ['B','I','N','G','O'] %>
-<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
-<h3><center><%= d[0..4] %></h3></center>
+
 
 <% game = Game.where(user_id: current_user.id).last %>
 <% comp_matrix = game.opponent_matrix %>
 <% comp = ComputerPlay.new(comp_matrix) %>
-<%= cut_lines = comp.total_cut_lines %>
+<% cut_lines = comp.total_cut_lines %>
 
 
 <% if cut_line < game.level && cut_lines < game.level %>
 
 <% @matrix %>
-<table id="portfolios" style="float:center;width:400px;height:400px;" border="1" class="table table-bordered table-hover table-condensed" >
+<table id="portfolios" style="float:center;width:30%;" border="1" class="table table-bordered table-hover table-condensed" >
 
 	<% @matrix.each do |z| %>
 	<tr>
@@ -58,11 +59,21 @@
 	</tr>
 	<% end %>
 </table>
+
 <br>
-<br>
+
 <form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5" onclick="stopWatch()">Restart</button>
+
+<% d = ['B','I','N','G','O'] %>
+<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
+<h3><center>Your Score: <%= d[0..4] %></h3></center>
+
+<% d = ['B','I','N','G','O'] %>
+<% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
+<h3>Computer's Score: <%= d[0..4] %></h3>
 </form>
+
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
 <% Game.new.game_initialization(current_user, level) %>
@@ -95,21 +106,28 @@
 <% else %>
 <h1><center>COMPUTER WINS</h1></center>
 <% current_user.computer_win += 1 %>
+
 <h1><center>Human wins: <%= current_user.human_win %> </h1></center><br>
 <h1><center>Computer wins: <%= current_user.computer_win %> </h1></center><br>
 <h1><center>Tie: <%= current_user.tie %> </h1></center><br>
+<h1><center>Time taken: <%= game.stop %> </h1></center><br>
+
 <form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
 </form>
 <% end %>
 <% current_user.save %>
-
+<div id="grad4" style="width:25%; height:100%; position:fixed; top:0px; left:70%;">
+  <br>
+  <br>
+  <br>
+ 
+</div>
 
 <script language="javascript">
 
 function stopWatch() {
-  var n = d.getTime();
-  window.alert(n);
+window.alert("<%= game.stop=Time.now %>")
 }
  
         var tbl = document.getElementById("portfolios");
@@ -122,13 +140,13 @@ function stopWatch() {
  
         function getval(cel) {
         	cel=cel.innerHTML.substring(8,11);
-        	if(cel=='X  ')
+        	if(cel=='X   ')
         		{
         			window.alert("Oops! Click again.");
 
         		}
         		else {
-              c="<%= cut_line %>";
+              c="<% cut_line %>";
               
 
               post_to_url("/game/search", {q: cel});
@@ -161,3 +179,4 @@ function stopWatch() {
 		}
 
     </script>
+<body>
