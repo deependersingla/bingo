@@ -2,7 +2,7 @@ class GameController < ApplicationController
   before_filter :authenticate_user!
 
   def start_game
-    Game.new.game_initialization(current_user,"enter oponent in future")
+    Game.new.game_initialization(current_user)
     redirect_to :action => :play
   end
 
@@ -21,7 +21,7 @@ class GameController < ApplicationController
     # computer
     comp = ComputerPlay.new(game.opponent_matrix)
     cut_lines = comp.total_cut_lines
-    if cut_lines <= 7
+    if cut_lines <= game.level + 2
     @matrix = game.starter_matrix
     
     #else 
