@@ -17,18 +17,25 @@
   background-image: linear-gradient(#2d95b7, #23748e);
   border-color: #23748e #23748e hsl(195, 60%, 32.5%);
   color: #fff !important;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.16);
+  text-shadow: 0 -1px 0 
+  rgba(0, 0, 0, 0.16);
   -webkit-font-smoothing: antialiased;
 }
 </style>
 </head>
 <% d = ComputerPlay.new(@matrix) %>
 <%cut_line = d.total_cut_lines %>
-<% cut_line %>
 <% d = ['B','I','N','G','O'] %>
 <% (0..cut_line - 1).each {|i| d[i] = "X"} %>
 <h3><center><%= d[0..4] %></h3></center>
-<% if cut_line < 5 %>
+
+<% game = Game.where(user_id: current_user.id).last %>
+<% comp = ComputerPlay.new(game.opponent_matrix) %>
+<%= cut_lines = comp.total_cut_lines %>
+
+
+<% if cut_line < 5 && cut_lines < 5 %>
+
 <% @matrix %>
 <table id="portfolios" style="float:center;width:400px;height:400px;" border="1" class="table table-bordered table-hover table-condensed" >
 
@@ -54,12 +61,31 @@
 <form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
 </form>
-<% else %>
-<h1><center>YOU WIN</h1></center>
+<% elsif (cut_line >= 5) && (cut_lines <5) %>
 
+<h1><center>YOU WIN</h1></center>
+<form action="/game/start_game" align="center">
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
+</form>
+
+<% elsif (cut_line >= 5) && (cut_lines >=5) %>
+<h1><center>TIE</h1></center>
+<form action="/game/start_game" align="center">
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
+</form>
+
+<% else %>
+<h1><center>COMPUTER WINS</h1></center>
+<form action="/game/start_game" align="center">
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
+</form>
 <% end %>
 
+
+
 <script language="javascript">
+
+
  
         var tbl = document.getElementById("portfolios");
         if (tbl != null) {
@@ -74,10 +100,13 @@
         	if(cel=='X ')
         		{
         			window.alert("Oops! Click again.");
+
         		}
         		else {
-        			
-        			post_to_url("/game/search", {q: cel});
+              c="<%= cut_line %>";
+              
+
+              post_to_url("/game/search", {q: cel});
         			
         		}
         }
