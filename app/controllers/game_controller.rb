@@ -21,7 +21,7 @@ class GameController < ApplicationController
     # computer
     comp = ComputerPlay.new(game.opponent_matrix)
     cut_lines = comp.total_cut_lines
-    if cut_lines <= game.level + 2
+    if cut_lines <= game.level + 5
     @matrix = game.starter_matrix
     
     #else 

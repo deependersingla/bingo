@@ -61,7 +61,7 @@
 <br>
 <br>
 <form action="/game/start_game" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5" onclick="stopWatch()">Restart</button>
 </form>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
@@ -107,7 +107,10 @@
 
 <script language="javascript">
 
-
+function stopWatch() {
+  var n = d.getTime();
+  window.alert(n);
+}
  
         var tbl = document.getElementById("portfolios");
         if (tbl != null) {
@@ -118,8 +121,8 @@
         }
  
         function getval(cel) {
-        	cel=cel.innerHTML.substring(8,10);
-        	if(cel=='X ')
+        	cel=cel.innerHTML.substring(8,11);
+        	if(cel=='X  ')
         		{
         			window.alert("Oops! Click again.");
 
