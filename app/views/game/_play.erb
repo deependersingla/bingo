@@ -25,7 +25,9 @@
 </head>
 
   <body>
- <h3> <center>BINGO!</center></h3>
+    <div id="grad2" style="width:50%; height:100%; position:fixed; top:0px; left:25%; color:#F0F0F0;">
+ <br><br><br><br>
+    <h3> <center>BINGO!</center></h3>
 <% d = ComputerPlay.new(@matrix) %>
 <%cut_line = d.total_cut_lines %>
 <% # change this to 7 * 7  or 9 * 9%>
@@ -67,7 +69,20 @@
 
 
 </form>
+</div>
+<div id="grad4" style="width:35%; height:100%; position:fixed; top:0px; left:65%;">
+  <br><br><br><br><br><br><br>
+  <br>
+  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
+<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
+<h4>Your Score: <%= d[0..(game.level-1)] %></h4>
 
+<% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
+<% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
+<h4>Computer:&nbsp; <%= d[0..(game.level-1)] %></h4>
+  <br>
+ 
+</div>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
 <% Game.new.game_initialization(current_user, level) %>
@@ -111,19 +126,7 @@
 </form>
 <% end %>
 <% current_user.save %>
-<div id="grad4" style="width:30%; height:100%; position:fixed; top:0px; left:65%;">
-  <br><br><br><br>
-  <br>
-  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
-<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
-<h4><center>You: <%= d[0..(game.level-1)] %></h4></center>
 
-<% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
-<% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
-<h4><center>Computer: <%= d[0..(game.level-1)] %></center></h4>
-  <br>
- 
-</div>
 
 <script language="javascript">
 
