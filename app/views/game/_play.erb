@@ -65,13 +65,7 @@
 <form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5" onclick="stopWatch()">Restart</button>
 
-<% d = ['B','I','N','G','O'] %>
-<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
-<h3><center>Your Score: <%= d[0..4] %></h3></center>
 
-<% d = ['B','I','N','G','O'] %>
-<% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
-<h3>Computer's Score: <%= d[0..4] %></h3>
 </form>
 
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
@@ -117,9 +111,16 @@
 </form>
 <% end %>
 <% current_user.save %>
-<div id="grad4" style="width:25%; height:100%; position:fixed; top:0px; left:70%;">
+<div id="grad4" style="width:30%; height:100%; position:fixed; top:0px; left:65%;">
+  <br><br><br><br>
   <br>
-  <br>
+  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
+<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
+<h4><center>You: <%= d[0..(game.level-1)] %></h4></center>
+
+<% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
+<% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
+<h4><center>Computer: <%= d[0..(game.level-1)] %></center></h4>
   <br>
  
 </div>
@@ -127,7 +128,7 @@
 <script language="javascript">
 
 function stopWatch() {
-window.alert("<%= game.stop=Time.now %>")
+//window.alert("<%= game.stop=Time.now %>")
 }
  
         var tbl = document.getElementById("portfolios");
