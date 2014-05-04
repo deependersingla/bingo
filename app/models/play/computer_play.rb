@@ -50,38 +50,17 @@ class ComputerPlay
 
   def find_best_element
     @elements.delete(0)
-    #score_hash, score = calculate_score(@line_array)
-    #flag = false
-    #last_element_array = []
-    #score_hash.each do |key,score|
-    #	if score == (@count - 1)
-     #    flag = true
-      #   line_array[key].collect do |x|
-       #  	 if x != 0
-        # 	   temp = x
-         #	   break
-         	# end
-         #end
-         #last_element_array << temp
-    	#end
-    #end
-    #if flag == false
     element = find_best_among_array(@elements)
-    #else
-    #	element = find_best_among_array(last_element_array)
-    #end
-    #debugger
-    #puts "I am here"
   end
 
   def find_best_among_array(elements)
   	hash_of_score = {}
     elements.each do |element|
-      array = updated_array(element)
+      array = skip_already_zero_line
+      array = updated_array(element, array)
       max_element_in_row, score = calculate_score(array)
       hash_of_score[element] = [max_element_in_row, score]
     end
-    
     sort_array = hash_of_score.sort_by {|key,value| value[0]}.reverse
     max_score = sort_array[0][1][0]
     element_array = {}
@@ -118,9 +97,20 @@ class ComputerPlay
   	digonal_element & element_array
   end
 
-  def updated_array(element)
-  	array = @line_array.collect &:dup
+  def updated_array(element, array)
   	array.map! {|line| line.map! {|x| x == (element)? 0:x}}
+    array
+  end
+
+  def skip_already_zero_line
+    array = @line_array.collect &:dup
+    array.map! do |line|
+      if line.all? {|x| x == line[0]}
+        line.map! {|x| -3}
+      else
+        line
+      end
+    end
     array
   end
 
