@@ -22,10 +22,11 @@
   -webkit-font-smoothing: antialiased;
 }
 </style>
+
 </head>
 
   <body>
-    <div id="grad2" style="width:50%; height:100%; position:fixed; top:0px; left:25%; color:#F0F0F0;">
+    <div id="grad2" style="width:35%; position:absolute; top:0px; left:32.5%; color:#F0F0F0;">
  <br><br><br><br>
     <h3> <center>BINGO!</center></h3>
 <% d = ComputerPlay.new(@matrix) %>
@@ -42,7 +43,7 @@
 <% if cut_line < game.level && cut_lines < game.level %>
 
 <% @matrix %>
-<table id="portfolios" style="float:center;width:30%;" border="1" class="table table-bordered table-hover table-condensed" >
+<table id="portfolios" style="float:center;" border="1" class="table table-bordered table-hover table-condensed" >
 
 	<% @matrix.each do |z| %>
 	<tr>
@@ -69,8 +70,9 @@
 
 
 </form>
+
 </div>
-<div id="grad4" style="width:35%; height:100%; position:fixed; top:0px; left:65%;">
+<div id="grad4" style="width:30%; height:100%; position:absolute; top:0px; left:67.5%;">
   <br><br><br><br><br><br><br>
   <br>
   <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
@@ -81,7 +83,6 @@
 <% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
 <h4>Computer:&nbsp; <%= d[0..(game.level-1)] %></h4>
   <br>
- 
 </div>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
@@ -131,6 +132,7 @@
 <script language="javascript">
 
 function stopWatch() {
+
 //window.alert("<%= game.stop=Time.now %>")
 }
  
