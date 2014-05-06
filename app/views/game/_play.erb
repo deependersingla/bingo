@@ -40,16 +40,22 @@ background-color:yellow;
 <% # change this to 7 * 7  or 9 * 9%>
 
 
-<% game = Game.where(user_id: current_user.id).last %>
+<% game = Game.where(ip_id: Ip.where(ip: request.remote_ip).last).last %>
 <% comp_matrix = game.opponent_matrix %>
 <% comp = ComputerPlay.new(comp_matrix) %>
 <% cut_lines = comp.total_cut_lines %>
+<% ip = Ip.where(ip: request.remote_ip).last %>
 
 
 <% if cut_line < game.level && cut_lines < game.level %>
 
 <% @matrix %>
+
 <table id="portfolios" style="float:center;width:100%; " border="2" class="table table-bordered" >
+
+<table id="portfolios" style="float:center;width:30%; " border="1" class="table table-bordered table-hover table-condensed" >
+  <%= request.remote_ip %>
+
 
 	<% @matrix.each do |z| %>
 	<tr>
@@ -93,14 +99,14 @@ background-color:yellow;
 </div>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
-<% Game.new.game_initialization(current_user, level) %>
-<% current_user.human_win += 1%>
+<% Game.new.game_initialization(ip, level) %>
+<% ip.human_win += 1%>
 
 <h1><center>YOU WIN</h1></center>
 
-<h1><center>Human wins: <%= current_user.human_win %> </h1></center><br>
-<h1><center>Computer wins: <%= current_user.computer_win %> </h1></center><br>
-<h1><center>Tie: <%= current_user.tie %> </h1></center><br>
+<h1><center>Human wins: <%= ip.human_win %> </h1></center><br>
+<h1><center>Computer wins: <%= ip.computer_win %> </h1></center><br>
+<h1><center>Tie: <%= ip.tie %> </h1></center><br>
 <form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
 </form>
@@ -109,31 +115,31 @@ background-color:yellow;
 </form>
 <% elsif (cut_line >= game.level) && (cut_lines >=game.level) %>
 <h1><center>TIE</h1></center>
-<% current_user.tie +=1 %>
+<% ip.tie +=1 %>
 <% level = game.level %>
-<% Game.new.game_initialization(current_user, level) %>
+<% Game.new.game_initialization(ip, level) %>
 
-<h1><center>Human wins: <%= current_user.human_win %> </h1></center><br>
-<h1><center>Computer wins: <%= current_user.computer_win %> </h1></center><br>
-<h1><center>Tie: <%= current_user.tie %> </h1></center><br>
+<h1><center>Human wins: <%= ip.human_win %> </h1></center><br>
+<h1><center>Computer wins: <%= ip.computer_win %> </h1></center><br>
+<h1><center>Tie: <%= ip.tie %> </h1></center><br>
 <form action="/game/play" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
 </form>
 
 <% else %>
 <h1><center>COMPUTER WINS</h1></center>
-<% current_user.computer_win += 1 %>
+<% ip.computer_win += 1 %>
 
-<h1><center>Human wins: <%= current_user.human_win %> </h1></center><br>
-<h1><center>Computer wins: <%= current_user.computer_win %> </h1></center><br>
-<h1><center>Tie: <%= current_user.tie %> </h1></center><br>
+<h1><center>Human wins: <%= ip.human_win %> </h1></center><br>
+<h1><center>Computer wins: <%= ip.computer_win %> </h1></center><br>
+<h1><center>Tie: <% ip.tie %> </h1></center><br>
 <h1><center>Time taken: <%= game.stop %> </h1></center><br>
 
 <form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
 </form>
 <% end %>
-<% current_user.save %>
+<% ip.save %>
 
 
 <script language="javascript">
