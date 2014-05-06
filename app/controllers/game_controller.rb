@@ -5,19 +5,17 @@ class GameController < ApplicationController
     if !Ip.where(ip: request.remote_ip).exists? 
       Ip.create(ip: request.remote_ip)
     end
-      Game.new.game_initialization(Ip.where(ip: request.remote_ip).last)
-      redirect_to :action => :play
-    end
+    Game.new.game_initialization(Ip.where(ip: request.remote_ip).last)
+    redirect_to :action => :play
   end
 
 
-<<<<<<< HEAD
+
   def computer_win
     game = Game.where(user_id: current_user.id).last
     @matrix = game.opponent_matrix
   end
-=======
->>>>>>> ip_address
+
 
   def play
     if Ip.where(ip: request.remote_ip).exists? 
