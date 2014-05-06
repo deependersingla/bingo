@@ -77,7 +77,7 @@ background-color:yellow;
 	<% @matrix.each do |z| %>
 	<tr>
 		<% z.each do |x| %>
-		<th>
+		<th id="<%= 'cell'+x.to_s %>" >
 			<% if x == 0 %>
 			<% x = "X" %>
 			<% end %>
@@ -161,12 +161,18 @@ background-color:yellow;
 
 $('tr th').click(function(){
     var cval = $(this).text();
+    var cell="cell";
+    var original="white";
+    var duration=1200;
+    var restore = "red";
+  $(this).css('backgroundColor', '#00FF00').hide(4000);
+
     getval(cval);
 });
         function getval(cel) {
 
         	
-        	if(cel=='tyl')
+        	if(cel=='X')
         		{
         			window.alert("Oops! Click again.");
 
