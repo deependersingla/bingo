@@ -11,11 +11,6 @@ class GameController < ApplicationController
     @matrix = game.opponent_matrix
   end
 
-  def computer_win
-    game = Game.where(user_id: current_user.id).last
-    @matrix = game.opponent_matrix
-  end
-
   def play
     game = Game.where(user_id: current_user.id).last
     # computer
