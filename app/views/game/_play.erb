@@ -1,5 +1,7 @@
 <head>
-<style type="text/css">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+      <style type="text/css">
 #portfolios {
     margin-left:auto; 
     margin-right:auto;
@@ -21,15 +23,18 @@
   rgba(0, 0, 0, 0.16);
   -webkit-font-smoothing: antialiased;
 }
+th:hover {
+background-color:yellow;
+}
 </style>
 
 </head>
 
   <body>
     <div class="container">
-    <div id="grad2" style="width:35%; position:absolute; top:0px; left:32.5%; color:#F0F0F0; z-index:3;">
- <br><br><br><br>
-    <h3> <center>BINGO!</center></h3>
+    <div id="grad2" style="width:35%; position:absolute; top:0px; left:32.5%;">
+ <br>
+   
 <% d = ComputerPlay.new(@matrix) %>
 <%cut_line = d.total_cut_lines %>
 <% # change this to 7 * 7  or 9 * 9%>
@@ -43,10 +48,13 @@
 
 
 <% if cut_line < game.level && cut_lines < game.level %>
-
+<h1><center>BINGO!</center></h1>
+<br>
 <% @matrix %>
-<table id="portfolios" style="float:center;width:30%; " border="1" class="table table-bordered table-hover table-condensed" >
-  <%= request.remote_ip %>
+
+<table id="portfolios" style="float:center;width:100%; " border="3" class="table table-bordered" >
+
+
 
 	<% @matrix.each do |z| %>
 	<tr>
@@ -139,12 +147,16 @@ function stopWatch() {
 
 //window.alert("<%= game.stop=Time.now %>")
 }
+
  
         var tbl = document.getElementById("portfolios");
         if (tbl != null) {
             for (var i = 0; i < tbl.rows.length; i++) {
                 for (var j = 0; j < tbl.rows[i].cells.length; j++)
-                    tbl.rows[i].cells[j].onclick = function () { getval(this); };
+                    tbl.rows[i].cells[j].onclick = function () { 
+
+
+                      getval(this); };
             }
         }
  
