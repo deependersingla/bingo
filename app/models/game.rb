@@ -8,13 +8,14 @@ class Game
   field :level,             type: Integer, default: 5
   field :stop,              type: Time
   belongs_to :user
-
+  belongs_to :ip
+  
   def game_initialization(user, level = 5)
   	game = Game.new
   	game.starter_matrix = random_matrix(level)
   	game.opponent_matrix = random_matrix(level)
     game.level = level
-  	game.user = user
+  	game.ip = user
   	game.save
   end
 
@@ -29,7 +30,7 @@ class Game
   end
 
   def update_matrix(number, user)
-    game = Game.where(user_id: user.id).last
+    game = Game.where(ip_id: user.id).last
     game_hash = {}
     game_hash[:user_matrix] = game.starter_matrix
     game_hash[:computer_matrix] = game.opponent_matrix
