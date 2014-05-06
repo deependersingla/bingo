@@ -158,19 +158,14 @@ background-color:yellow;
 {
   $("tr:even").css("background-color", "white");
 });
-        var tbl = document.getElementById("portfolios");
-        if (tbl != null) {
-            for (var i = 0; i < tbl.rows.length; i++) {
-                for (var j = 0; j < tbl.rows[i].cells.length; j++)
-                    tbl.rows[i].cells[j].onclick = function () { 
 
-
-                      getval(this); };
-            }
-        }
- 
+$('tr th').click(function(){
+    var cval = $(this).text();
+    getval(cval);
+});
         function getval(cel) {
-        	cel=cel.innerHTML.substring(8,11);
+
+        	
         	if(cel=='tyl')
         		{
         			window.alert("Oops! Click again.");
