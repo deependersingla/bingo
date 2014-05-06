@@ -1,11 +1,17 @@
+<html>
 <head>
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
       <style type="text/css">
 #portfolios {
     margin-left:auto; 
     margin-right:auto;
   }
+.column-left{ float: left; width: 33%; }
+.column-right{ float: right; width: 33%; }
+.column-center{ display: inline-block; width: 33%; }
+
+
   .btn-custom {
   background-color: hsl(195, 60%, 35%) !important;
   background-repeat: repeat-x;
@@ -30,9 +36,8 @@ background-color:yellow;
 
 </head>
 
-  <body>
-    <div class="container">
-    <div id="grad2" style="width:35%; position:absolute; top:0px; left:32.5%;">
+  <body style="color:white;">
+    
  <br>
    
 <% d = ComputerPlay.new(@matrix) %>
@@ -48,11 +53,24 @@ background-color:yellow;
 
 
 <% if cut_line < game.level && cut_lines < game.level %>
+<div class="column-left">
+  <br><br><br><br><br>
+  <h2><center>Score</center></h2>
+ <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
+<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
+<h4><center>Your Score: <%= d[0..(game.level-1)] %></center></h4>
+
+<% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
+<% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
+<h4><center>Computer:&nbsp; <%= d[0..(game.level-1)] %></center></h4>
+  <br>
+</div>
+<div class="column-center">
 <h1><center>BINGO!</center></h1>
 <br>
 <% @matrix %>
 
-<table id="portfolios" style="float:center;width:100%; " border="3" class="table table-bordered" >
+<table id="portfolios" style="float:center;width:30%; " border="3" class="table" >
 
 
 
@@ -81,20 +99,12 @@ background-color:yellow;
 
 
 </form>
-
 </div>
-</div>
-<div id="grad4" style="width:32.5%; height:100%; position:relative;top:0px;">
-  <br><br><br><br><br><br><br>
-  <br>
-  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
-<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
-<h4><center>Your Score: <%= d[0..(game.level-1)] %></center></h4>
 
-<% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
-<% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
-<h4><center>Computer:&nbsp; <%= d[0..(game.level-1)] %></center></h4>
+<div class="column-right">
   <br>
+ 
+
 </div>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
@@ -140,15 +150,14 @@ background-color:yellow;
 <% end %>
 <% ip.save %>
 
+</body>
 
 <script language="javascript">
 
-function stopWatch() {
-
-//window.alert("<%= game.stop=Time.now %>")
-}
-
- 
+ $(document).ready(function()
+{
+  $("tr:even").css("background-color", "pink");
+});
         var tbl = document.getElementById("portfolios");
         if (tbl != null) {
             for (var i = 0; i < tbl.rows.length; i++) {
@@ -162,7 +171,7 @@ function stopWatch() {
  
         function getval(cel) {
         	cel=cel.innerHTML.substring(8,11);
-        	if(cel=='X   ')
+        	if(cel=='tyl')
         		{
         			window.alert("Oops! Click again.");
 
@@ -201,4 +210,3 @@ function stopWatch() {
 		}
 
     </script>
-<body>
