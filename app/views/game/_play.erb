@@ -32,9 +32,9 @@ background-color:yellow;
 
   <body>
     <div class="container">
-    <div id="grad2" style="width:35%; position:absolute; top:0px; left:32.5%; color:#F0F0F0; z-index:3;">
- <br><br><br><br>
-    <h3> <center>BINGO!</center></h3>
+    <div id="grad2" style="width:35%; position:absolute; top:0px; left:32.5%;">
+ <br>
+   
 <% d = ComputerPlay.new(@matrix) %>
 <%cut_line = d.total_cut_lines %>
 <% # change this to 7 * 7  or 9 * 9%>
@@ -48,11 +48,12 @@ background-color:yellow;
 
 
 <% if cut_line < game.level && cut_lines < game.level %>
-
+<h1><center>BINGO!</center></h1>
+<br>
 <% @matrix %>
 
 <table id="portfolios" style="float:center;width:100%; " border="3" class="table table-bordered" >
-  <%= request.remote_ip %>
+
 
 
 	<% @matrix.each do |z| %>
