@@ -64,6 +64,56 @@ background-color:yellow;
 <% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
 <h4><center>Computer:&nbsp; <%= d[0..(game.level-1)] %></center></h4>
   <br>
+  <br>
+  <br>
+
+<script type="text/javascript">
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: "Let's see if you can Beat Bingo's ass."
+      },
+      legend:{
+        verticalAlign: "center",
+        horizontalAlign: "left",
+        fontSize: 20,
+        fontFamily: "Helvetica"        
+      },
+      theme: "theme2",
+      data: [
+      {        
+       type: "pie",       
+       indexLabelFontFamily: "Garamond",       
+       indexLabelFontSize: 14,
+       indexLabelFontColor: "black", 
+       indexLabelPlacement: "inside",
+       startAngle:-20,      
+       showInLegend: false,
+       toolTipContent:"{label}",
+       dataPoints: [
+       {  y: <%=ip.computer_win * 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Computer"},
+       {  y: <%=ip.human_win* 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Human" },
+       {  y: <%=ip.tie* 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Tie" },
+       
+       ]
+     }
+     ]
+   });
+
+    chart.render();
+  }
+  </script>
+  <script type="text/javascript" src="/assets/script/canvasjs.min.js"></script>
+ 
+    <div id="chartContainer" style="height: 300px; width: 100%;">
+    </div>
+
+<h5>Number of Computer wins: <%=ip.computer_win %>
+ <h5>Number of Human wins: <%=ip.human_win %>
+<h5>Number of Ties: <%=ip.tie %>
+  <br>
+ 
 </div>
 <div class="column-center">
 <h1><center>BINGO!</center></h1>
