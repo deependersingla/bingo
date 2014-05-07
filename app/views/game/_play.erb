@@ -90,7 +90,7 @@ background-color:yellow;
        indexLabelPlacement: "inside",
        startAngle:-20,      
        showInLegend: false,
-       toolTipContent:"{label}",
+       toolTipContent:false,
        dataPoints: [
        {  y: <%=ip.computer_win * 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Computer"},
        {  y: <%=ip.human_win* 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Human" },
@@ -154,7 +154,7 @@ background-color:yellow;
 <div class="column-right">
   <br>
  
-
+<h3>hi</h3>
 </div>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
