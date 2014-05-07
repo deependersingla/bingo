@@ -174,7 +174,7 @@ background-color:yellow;
 </form>
 </div>
 
-<div class="column-right" style="z-index:-3;"> 
+<div class="column-right" style="position: relative; z-index:-3;"> 
    <br><br><br><br>
   <br>
  <div id="chartContainer" style="height: 300px; width: 100%; ">
@@ -233,20 +233,13 @@ background-color:yellow;
 
     </div>
 
-<<<<<<< HEAD
+
   <br>
  
 <script type="text/javascript">window.onload=callPieWin();</script>
-<center> <h5>Number of Computer wins: <%=ip.computer_win %>
- <h5>Number of Human wins: <%=ip.human_win %>
-<h5>Number of Ties: <%=ip.tie %>
-    </center>
-=======
 <h1><center>Human wins: <%= ip.human_win %> </h1></center><br>
 <h1><center>Computer wins: <%= ip.computer_win %> </h1></center><br>
 <h1><center>Tie: <%= ip.tie %> </h1></center><br>
-
->>>>>>> 029e2ba5ac2d0d1b9ddc3b6a4b8542d57ef7c2d2
 
 <form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
