@@ -123,7 +123,7 @@ background-color:yellow;
 
 <% if cut_line < game.level && cut_lines < game.level %>
 <div class="column-left">
-  <br><br><br><br><br>
+  <br><br><br><br>
   <h2><center>Score</center></h2>
  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
 <% (0..cut_line - 1).each {|i| d[i] = "X"} %>
@@ -237,9 +237,9 @@ background-color:yellow;
   <br>
  
 <script type="text/javascript">window.onload=callPieWin();</script>
-<h1><center>Human wins: <%= ip.human_win %> </h1></center><br>
-<h1><center>Computer wins: <%= ip.computer_win %> </h1></center><br>
-<h1><center>Tie: <%= ip.tie %> </h1></center><br>
+<h5><center>Human wins: <%= ip.human_win %> </h1></center>
+<h5><center>Computer wins: <%= ip.computer_win %> </h1></center>
+<h5><center>Tie: <%= ip.tie %> </h1></center>
 
 <form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
