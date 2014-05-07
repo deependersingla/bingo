@@ -39,5 +39,10 @@ class GameController < ApplicationController
     redirect_to :action => :play
   end
 
-  
+  def restart_level
+    ip = Ip.where(ip: request.remote_ip).last
+    last_level = ip.game.last.level
+    Game.new.game_initialization(ip, last_level)
+    redirect_to :action => :play
+  end
 end

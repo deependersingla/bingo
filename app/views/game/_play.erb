@@ -94,7 +94,7 @@ background-color:yellow;
 
 <br>
 
-<form action="/game/start_game" align="center">
+<form action="/game/restart_level" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5" onclick="stopWatch()">Restart</button>
 
 
@@ -171,7 +171,7 @@ $('tr th').click(function(){
 });
         function getval(cel) {
 
-        	
+        	cel = cel.replace(/(^\s+|\s+$)/g, '');
         	if(cel=='X')
         		{
         			window.alert("Oops! Click again.");
