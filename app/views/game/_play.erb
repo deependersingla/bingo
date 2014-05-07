@@ -77,7 +77,7 @@ background-color:yellow;
 	<% @matrix.each do |z| %>
 	<tr>
 		<% z.each do |x| %>
-		<th id="<%= 'cell'+x.to_s %>" >
+		<th id="<%= 'cell'+x.to_s %>" style="color:10px;" >
 			<% if x == 0 %>
 			<% x = "X" %>
 			<% end %>
