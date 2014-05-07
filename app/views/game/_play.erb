@@ -262,15 +262,15 @@ $('tr th').click(function(){
     var original="white";
     var duration=1200;
     var restore = "red";
-  $(this).css('backgroundColor', '#00FF00').hide(4000);
+  $(this).css('backgroundColor', '#00FF00');
 
     getval(cval);
 });
         function getval(cel) {
 
-        	cel = cel.replace(/(^\s+|\s+$)/g, '');
-        	if(cel=='X')
-        		{
+      
+        if (isNaN(cel)==true){
+        
         			window.alert("Oops! Click again.");
 
         		}
