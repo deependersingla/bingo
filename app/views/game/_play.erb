@@ -1,6 +1,72 @@
 <html>
 <head>
+<% ip = Ip.where(ip: request.remote_ip).last %>
 
+<script type="text/javascript">
+function callPieWin() {
+var chart = AmCharts.makeChart("chartdiv", {
+    "type": "pie",
+  "theme": "light",
+  "colors": ["#0D8ECF","#8A0CCF",  "#2A0CD0"],
+    "dataProvider": [
+{
+        "country": "Computer",
+        "litres": <%=ip.computer_win %>
+    },
+{
+        "country": "Human",
+        "litres": <%=ip.human_win %>
+    }, {
+        "country": "Tie",
+        "litres": <%=ip.tie %>
+    }],
+    "valueField": "litres",
+    "titleField": "country"
+});
+}
+
+</script>
+
+
+<script type="text/javascript">
+{
+ function callpie() {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: "Let's see if you can Beat Bingo's ass."
+      },
+      legend:{
+        verticalAlign: "center",
+        horizontalAlign: "left",
+        fontSize: 20,
+        fontFamily: "Helvetica"        
+      },
+      theme: "theme2",
+      data: [
+      {        
+       type: "pie",       
+       indexLabelFontFamily: "Garamond",       
+       indexLabelFontSize: 14,
+       indexLabelFontColor: "black", 
+       indexLabelPlacement: "inside",
+       startAngle:-20,      
+       showInLegend: false,
+       toolTipContent:false,
+       dataPoints: [
+       {  y: <%=ip.computer_win * 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Computer"},
+       {  y: <%=ip.human_win* 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Human" },
+       {  y: <%=ip.tie* 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Tie" },
+       
+       ]
+     }
+     ]
+   });
+
+    chart.render();
+  }
+}
+  </script>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
       <style type="text/css">
 #portfolios {
@@ -10,7 +76,10 @@
 .column-left{ float: left; width: 33%; }
 .column-right{ float: right; width: 33%; }
 .column-center{ display: inline-block; width: 33%; }
-
+#chartdiv {
+  width   : 100%;
+  font-size : 11px;
+}  
 
   .btn-custom {
   background-color: hsl(195, 60%, 35%) !important;
@@ -64,56 +133,10 @@ background-color:yellow;
 <% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
 <h4><center>Computer:&nbsp; <%= d[0..(game.level-1)] %></center></h4>
   <br>
-  <br>
-  <br>
-
-<script type="text/javascript">
-  window.onload = function () {
-    var chart = new CanvasJS.Chart("chartContainer",
-    {
-      title:{
-        text: "Let's see if you can Beat Bingo's ass."
-      },
-      legend:{
-        verticalAlign: "center",
-        horizontalAlign: "left",
-        fontSize: 20,
-        fontFamily: "Helvetica"        
-      },
-      theme: "theme2",
-      data: [
-      {        
-       type: "pie",       
-       indexLabelFontFamily: "Garamond",       
-       indexLabelFontSize: 14,
-       indexLabelFontColor: "black", 
-       indexLabelPlacement: "inside",
-       startAngle:-20,      
-       showInLegend: false,
-       toolTipContent:false,
-       dataPoints: [
-       {  y: <%=ip.computer_win * 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Computer"},
-       {  y: <%=ip.human_win* 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Human" },
-       {  y: <%=ip.tie* 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Tie" },
-       
-       ]
-     }
-     ]
-   });
-
-    chart.render();
-  }
-  </script>
-  <script type="text/javascript" src="/assets/script/canvasjs.min.js"></script>
  
-    <div id="chartContainer" style="height: 300px; width: 100%;">
-    </div>
+   
 
-<h5>Number of Computer wins: <%=ip.computer_win %>
- <h5>Number of Human wins: <%=ip.human_win %>
-<h5>Number of Ties: <%=ip.tie %>
-  <br>
- 
+
 </div>
 <div class="column-center">
 <h1><center>BINGO!</center></h1>
@@ -151,10 +174,23 @@ background-color:yellow;
 </form>
 </div>
 
-<div class="column-right">
+<div class="column-right" style="z-index:-3;"> 
+   <br><br><br><br>
   <br>
+ <div id="chartContainer" style="height: 300px; width: 100%; ">
+    </div>
+<script type="text/javascript">
+{
+  window.onload= callpie();
+}
+  </script>
+  <script type="text/javascript" src="/assets/script/canvasjs.min.js"></script>
+  <br><center>
+ <h5>Number of Computer wins: <%=ip.computer_win %>
  
-<h3>hi</h3>
+<h5>Number of Human wins: <%=ip.human_win %>
+<h5>Number of Ties: <%=ip.tie %>
+  </center>
 </div>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
@@ -162,22 +198,30 @@ background-color:yellow;
 <% ip.human_win += 1%>
 
 <h1><center>YOU WIN</h1></center>
-
-<h1><center>Human wins: <%= ip.human_win %> </h1></center><br>
-<h1><center>Computer wins: <%= ip.computer_win %> </h1></center><br>
-<h1><center>Tie: <%= ip.tie %> </h1></center><br>
+<div id="chartdiv" style="height: 400px; width: 100%;"></div>
+    <center> <h5>Number of Computer wins: <%=ip.computer_win %>
+ <h5>Number of Human wins: <%=ip.human_win %>
+<h5>Number of Ties: <%=ip.tie %>
+    </center>
+<script type="text/javascript">window.onload=callPieWin();</script>
 <form action="/game/play" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
 </form>
 <% elsif (cut_line >= game.level) && (cut_lines >=game.level) %>
 <h1><center>TIE</h1></center>
 <% ip.tie +=1 %>
+<div id="chartdiv" style="height: 400px; width: 100%;">
+
+    </div>
+    <center> <h5>Number of Computer wins: <%=ip.computer_win %>
+ <h5>Number of Human wins: <%=ip.human_win %>
+<h5>Number of Ties: <%=ip.tie %>
+    </center>
+<script type="text/javascript">window.onload=callPieWin();</script>
 <% level = game.level %>
 <% Game.new.game_initialization(ip, level) %>
 
-<h1><center>Human wins: <%= ip.human_win %> </h1></center><br>
-<h1><center>Computer wins: <%= ip.computer_win %> </h1></center><br>
-<h1><center>Tie: <%= ip.tie %> </h1></center><br>
+
 <form action="/game/play" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
 </form>
@@ -185,11 +229,17 @@ background-color:yellow;
 <% else %>
 <h1><center>COMPUTER WINS</h1></center>
 <% ip.computer_win += 1 %>
+<div id="chartdiv" style="height: 400px; width: 100%;">
 
-<h1><center>Human wins: <%= ip.human_win %> </h1></center><br>
-<h1><center>Computer wins: <%= ip.computer_win %> </h1></center><br>
-<h1><center>Tie: <% ip.tie %> </h1></center><br>
-<h1><center>Time taken: <%= game.stop %> </h1></center><br>
+    </div>
+
+  <br>
+ 
+<script type="text/javascript">window.onload=callPieWin();</script>
+<center> <h5>Number of Computer wins: <%=ip.computer_win %>
+ <h5>Number of Human wins: <%=ip.human_win %>
+<h5>Number of Ties: <%=ip.tie %>
+    </center>
 
 <form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
