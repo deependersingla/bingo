@@ -7,6 +7,7 @@ class Game
   field :oponent_id,        type: String
   field :level,             type: Integer, default: 5
   field :stop,              type: Time
+  field :last_element,      type: Integer, default: 0
   belongs_to :user
   belongs_to :ip
   
@@ -36,9 +37,10 @@ class Game
     game_hash[:computer_matrix] = game.opponent_matrix
     game_hash[:number] = number
     game_hash[:level] = game.level
-    user_matrix, computer_matrix = UpdateMatrix.update(game_hash)
+    user_matrix, computer_matrix, element = UpdateMatrix.update(game_hash)
     game.starter_matrix = user_matrix
     game.opponent_matrix = computer_matrix
+    game.last_element = element
     game.save
   end
 end
