@@ -34,7 +34,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     var chart = new CanvasJS.Chart("chartContainer",
     {
       title:{
-        text: "Let's see if you can Beat Bingo's ass."
+        text: "Let's see if you can Beat the Robot's ass."
       },
       legend:{
         verticalAlign: "center",
@@ -130,7 +130,7 @@ background-color:yellow;
 
 <% if cut_line < game.level && cut_lines < game.level %>
 <table style="width:100%;">
-  <tr><td style="padding-top: 25px; ">
+  <tr><td style="padding-top: 25px; width:45%;">
  
  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
 <% (0..cut_line - 1).each {|i| d[i] = "X"} %>
@@ -147,9 +147,10 @@ background-color:yellow;
 
 <br>
 <% @matrix %>
+<% x=((game.level-5)/ 4) + 4 %>
 
+<% h='h'+x.to_s %>
 <center><table id="portfolios" class="table" border="3" >
-
 
 
 	<% @matrix.each do |z| %>
@@ -160,9 +161,9 @@ background-color:yellow;
 			<% x = "X" %>
 			<% end %>
 		<% if x == "X" %>
-		<h4 style="color:red;">	<%= x%> </h4>
+		<<%=h %>> style="color:red;">	<%= x%> </<%=h%>>
 		<% else %>
-		<h4 >	<%= x%> </h4>
+		<<%=h %>>	<%= x%> </<%=h%>>
 		<% end %>
 		</th>
 		<% end %>
@@ -179,11 +180,11 @@ background-color:yellow;
 </form>
 </td>
 
-<td style=""> 
+<td style="width:45%;"> 
   <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
 <% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
 <br><br><br><br><br>
-<center><h4 style="font-family: Courier New"><b>Computer's Score:</b><br></h4><h3 style="font-family: Courier New"> <%= d[0..(game.level-1)].join(" ") %></h3></center>
+<center><h4 style="font-family: Courier New"><b>Robot's Score:</b></h4><h3 style="font-family: Courier New"> <%= d[0..(game.level-1)].join(" ") %></h3></center>
   
  
 </td>
@@ -224,7 +225,7 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
 <h3 style="font-family: impact"><center>But let's see what happens in level <%=(((game.level-3)/2)+1) %>.</h3></center>
 <div id="chartdiv" style="height: 400px; width: 100%;"></div>
-    <center> <h5>Number of Computer wins: <%=ip.computer_win %>
+    <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
     </center>
@@ -241,7 +242,7 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
     </div>
-    <center> <h5>Number of Computer wins: <%=ip.computer_win %>
+    <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
     </center>
@@ -259,7 +260,7 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <% else %>
 <table style="width:100%;">
   <tr><td>
-<h1 style="font-family: impact;"><center>COMPUTER WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
+<h1 style="font-family: impact;"><center>ROBOT WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
 <h3 style="font-family: impact;"><center>Hahahahaha. Try beating the machine. </h3></center>
 <% ip.computer_win += 1 %>
 <div id="chartdiv" style="height: 400px; width: 100%;">
@@ -271,7 +272,7 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
  
 <script type="text/javascript">window.onload=callPieWin();</script>
 <h5><center>Human wins: <%= ip.human_win %> </h1></center>
-<h5><center>Computer wins: <%= ip.computer_win %> </h1></center>
+<h5><center>Robot wins: <%= ip.computer_win %> </h1></center>
 <h5><center>Tie: <%= ip.tie %> </h1></center>
 
 <form action="/game/start_game" align="center">
