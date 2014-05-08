@@ -138,7 +138,8 @@ background-color:yellow;
 <center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4><h3 style="font-family: Courier New"> <%= d[0..(game.level-1)].join(" ") %></h3></center>
 
 
-   
+  <%@global_stat %>
+ 
 
 </td>
 <td style="">
@@ -146,25 +147,24 @@ background-color:yellow;
 <h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
 
 <br>
-<%= @global_stat %>
 <% @matrix %>
-<% x=((game.level-5)/ 4) + 4 %>
+<% y=20-((game.level-5)/ 4) %>
 
-<% h='h'+x.to_s %>
 <center><table id="portfolios" class="table" border="3" >
 
 
 	<% @matrix.each do |z| %>
 	<tr>
 		<% z.each do |x| %>
-		<th id="<%= 'cell'+x.to_s %>" style="color:10px;" >
+		<th id="<%= 'cell'+x.to_s %>" style="color:10px;">
 			<% if x == 0 %>
 			<% x = "X" %>
 			<% end %>
 		<% if x == "X" %>
-		<<%=h %>> style="color:red;">	<%= x%> </<%=h%>>
+		<h4 style="color:red;font-size:<%=y%>px;">	<%= x%> </h4>
 		<% else %>
-		<<%=h %>>	<%= x%> </<%=h%>>
+		    <h4 style="font-size:<%=y%>px;"><%= x%> </h4>
+
 		<% end %>
 		</th>
 		<% end %>
