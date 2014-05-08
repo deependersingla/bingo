@@ -138,7 +138,7 @@ background-color:yellow;
 <center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4><h3 style="font-family: Courier New"> <%= d[0..(game.level-1)].join(" ") %></h3></center>
 
 
-  <% @global_stat %>
+  <%@global_stat %>
  
 
 </td>
@@ -147,6 +147,8 @@ background-color:yellow;
 <h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
 
 <br>
+
+<% @global_stat %>
 
 <% @matrix %>
 <% y=20-((game.level-5)/ 4) %>
@@ -209,8 +211,9 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like" data-href="http://skskids.herokuapp.com" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div><br>
-<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://skskids.herokuapp.com" data-via="thethingygirl" data-hashtags="beatbingo">Tweet</a>
+<div class="fb-like" data-href="https://skskids.herokuapp.com" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<br>
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://skskids.herokuapp.com" data-via="thethingygirl" data-hashtags="BeatBingo">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </div>
 
