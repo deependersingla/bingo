@@ -39,7 +39,7 @@ class ComputerPlay
   def total_cut_lines
     count = 0
     @line_array.each do |line|
-      if line.all? {|x| x == line[0]}
+      if line.all? {|x| x == line[0] || x == "Y"}
       	count += 1
       end
     end

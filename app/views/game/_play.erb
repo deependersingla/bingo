@@ -138,7 +138,7 @@ background-color:yellow;
 <center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4><h3 style="font-family: Courier New"> <%= d[0..(game.level-1)].join(" ") %></h3></center>
 
 
-  <%@global_stat %>
+  <% @global_stat %>
  
 
 </td>
@@ -148,8 +148,6 @@ background-color:yellow;
 
 <br>
 
-<% @global_stat %>
-<% game.last_element %>
 <% @matrix %>
 <% y=20-((game.level-5)/ 4) %>
 
