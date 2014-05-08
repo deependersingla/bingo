@@ -159,15 +159,16 @@ background-color:yellow;
 	<% @matrix.each do |z| %>
 	<tr>
 		<% z.each do |x| %>
-		<th id="<%= 'cell'+x.to_s %>" style="color:10px;">
+		
 			<% if x == 0 %>
 			<% x = "X" %>
 			<% end %>
 		<% if x == "X" %>
-		<h4 style="color:red;font-size:<%=y%>px;">	<%= x%> </h4>
-		<% else %>
-		    <h4 style="font-size:<%=y%>px;"><%= x%> </h4>
-
+	<th>	<h4 style="color:red;font-size:<%=y%>px;">	<%= x%> </h4></th>
+		<% elsif x == "Y"%>
+		   <th id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></th>
+    <% else %>
+     <th><h4 style="font-size:<%=y%>px;"><%= x%> </h4></th>
 		<% end %>
 		</th>
 		<% end %>
@@ -308,7 +309,11 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
  $(document).ready(function()
 {
   $("tr:even").css("background-color", "white");
+  //$("#y").animate({'backgroundColor' : '#ffff99'});
+ $("#y").css('backgroundColor', '#00FF00').fadeOut("slow").fadeIn("slow").css('backgroundColor', 'white');
 });
+
+
 
 $('tr th').click(function(){
     var cval = $(this).text();
