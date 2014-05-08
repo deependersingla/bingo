@@ -52,7 +52,7 @@ var chart = AmCharts.makeChart("chartdiv", {
        indexLabelPlacement: "inside",
        startAngle:-20,      
        showInLegend: false,
-       toolTipContent:false,
+       toolTipContent:true,
        dataPoints: [
        {  y: <%=ip.computer_win * 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Computer"},
        {  y: <%=ip.human_win* 100/ (ip.computer_win + ip.human_win + ip.tie) %>, indexLabel: "Human" },
@@ -69,6 +69,9 @@ var chart = AmCharts.makeChart("chartdiv", {
   </script>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
       <style type="text/css">
+      table.center{
+    margin:0 auto;   
+}
 #portfolios {
     margin-left:auto; 
     margin-right:auto;
@@ -115,6 +118,7 @@ background-color:yellow;
 
 
 <% game = Game.where(ip_id: Ip.where(ip: request.remote_ip).last).last %>
+
 <% comp_matrix = game.opponent_matrix %>
 <% comp = ComputerPlay.new(comp_matrix) %>
 <% cut_lines = comp.total_cut_lines %>
@@ -122,28 +126,24 @@ background-color:yellow;
 
 
 <% if cut_line < game.level && cut_lines < game.level %>
-<div class="column-left">
-  <br><br><br><br>
-  <h2><center>Score</center></h2>
+<table style="width:100%;">
+  <tr><td style="padding-top: 25px; ">
+ 
  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
 <% (0..cut_line - 1).each {|i| d[i] = "X"} %>
-<h4><center>Your Score: <%= d[0..(game.level-1)] %></center></h4>
+<br><br><br><br><br>
+<center><h4>Your Score:<br> <%= d[0..(game.level-1)] %></h4></center>
 
-<% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
-<% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
-<h4><center>Computer:&nbsp; <%= d[0..(game.level-1)] %></center></h4>
-  <br>
- 
+
    
 
-
-</div>
-<div class="column-center">
+</td>
+<td style="">
 <h1><center>BINGO!</center></h1>
 <br>
 <% @matrix %>
 
-<table id="portfolios" style="float:center;width:30%; " border="3" class="table" >
+<center><table id="portfolios" class="table" border="3" >
 
 
 
@@ -155,16 +155,16 @@ background-color:yellow;
 			<% x = "X" %>
 			<% end %>
 		<% if x == "X" %>
-		<h3 style="color:red;">	<%= x%> </h3>
+		<h4 style="color:red;">	<%= x%> </h4>
 		<% else %>
-		<h3 >	<%= x%> </h3>
+		<h4 >	<%= x%> </h4>
 		<% end %>
 		</th>
 		<% end %>
 	</tr>
 	<% end %>
 </table>
-
+</center>
 <br>
 
 <form action="/game/restart_level" align="center">
@@ -172,12 +172,18 @@ background-color:yellow;
 
 
 </form>
-</div>
+</td>
 
-<div class="column-right" style="position: relative; z-index:-3;"> 
-   <br><br><br><br>
-  <br>
- <div id="chartContainer" style="height: 300px; width: 100%; ">
+<td style=""> 
+  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
+<% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
+<br><br><br><br><br>
+<center><h4>Computer's Score:<br> <%= d[0..(game.level-1)] %></h4></center>
+  
+ 
+</td>
+</tr>
+<tr><td></td><td><div id="chartContainer" style="height: 300px; width: 100%; ">
     </div>
 <script type="text/javascript">
 {
@@ -191,7 +197,10 @@ background-color:yellow;
 <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
   </center>
-</div>
+</td>
+<td></td>
+</tr>
+</table>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
 <% Game.new.game_initialization(ip, level) %>
