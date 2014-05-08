@@ -79,7 +79,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     margin-left:auto; 
     margin-right:auto;
   }
-.column-left{ float: left; width: 33%; }
+.column-left{ float: left; width: 66%; }
 .column-right{ float: right; width: 33%; }
 .column-center{ display: inline-block; width: 33%; }
 #chartdiv {
@@ -143,6 +143,8 @@ background-color:yellow;
 </td>
 <td style="">
 <h1 style="font-family: impact"><center> BINGO!</center></h1>
+<h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
+
 <br>
 <% @matrix %>
 
@@ -188,8 +190,15 @@ background-color:yellow;
 </tr>
 </table>
 <br>
-<table style="width:100%; border:0px;">
-  <tr><td>
+<div class="column-left" style="position:relative; z-index=3;">
+
+<h1> Rules</h1>
+<p style="color:black;"> Promotion an ourselves up otherwise my. High what each snug rich far yet easy. In companions inhabiting mr principles at insensible do. Heard their sex hoped enjoy vexed child for. Prosperous so occasional assistance it discovered especially no. Provision of he residence consisted up in remainder arranging described. Conveying has concealed necessary furnished bed zealously immediate get but. Terminated as middletons or by instrument. Bred do four so your felt with. No shameless principle dependent household do. 
+
+Your it to gave life whom as. Favourable dissimilar resolution led for and had. At play much to time four many. Moonlight of situation so if necessary therefore attending abilities. Calling looking enquire up me to in removal. Park fat she nor does play deal our. Procured sex material his offering humanity laughing moderate can. Unreserved had she nay dissimilar admiration interested. Departure performed exquisite rapturous so ye me resources. 
+</p>
+</div>
+  <div class="column-right">
 <div id="chartContainer" style="height: 300px; width: 100%; ">
     </div>
 <script type="text/javascript">
@@ -203,10 +212,8 @@ background-color:yellow;
 <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
   </center>
-</td>
-</tr>
-</table>
 
+</div>
 
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
