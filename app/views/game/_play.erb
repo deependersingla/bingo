@@ -186,14 +186,17 @@ background-color:yellow;
  
 </td>
 </tr>
-<tr class="separating_line"><td></td><td></td><td><div id="chartContainer" style="height: 300px; width: 100%; ">
+</table>
+<br>
+<table style="width:100%; border:0px;">
+  <tr><td>
+<div id="chartContainer" style="height: 300px; width: 100%; ">
     </div>
 <script type="text/javascript">
 {
   window.onload= callpie();
 }
   </script>
-  <script type="text/javascript" src="/assets/script/canvasjs.min.js"></script>
   <br><center>
  <h5>Number of Computer wins: <%=ip.computer_win %>
  
@@ -203,6 +206,8 @@ background-color:yellow;
 </td>
 </tr>
 </table>
+
+
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
 <% Game.new.game_initialization(ip, level) %>
