@@ -8,4 +8,16 @@ class Ip
   field :tie,               type: Integer, default: 0
 
   has_many :game
+
+  def global_stat
+    human_win = 0
+    comp_win = 0
+    tie = 0
+    Ip.each do |ip|
+      human_win += ip.human_win
+      comp_win += ip.computer_win
+      tie += ip.tie
+    end
+    global_stat = {:human_win => human_win, :comp_win => comp_win, :tie => tie}
+  end
 end
