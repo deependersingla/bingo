@@ -41,4 +41,18 @@ class Game
     game.opponent_matrix = computer_matrix
     game.save
   end
+
+  def level_winner_info
+    games = Game.all
+    # {level: game_played}
+    game_win_hash = {}
+    games.each do |game|
+      if game_win_hash.has_key? game.level - 2
+        game_win_hash[game.level - 2] += 1
+      else
+        game_win_hash[game.level - 2] = 1
+      end
+    end
+    game_win_hash
+  end
 end
