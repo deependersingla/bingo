@@ -72,9 +72,6 @@ var chart = AmCharts.makeChart("chartdiv", {
       table.center{
     margin:0 auto;   
 }
-.separating_line {
-    border-top: 1px #000 solid; /* top border only */
-}
 #portfolios {
     margin-left:auto; 
     margin-right:auto;
@@ -129,24 +126,28 @@ background-color:yellow;
 
 
 <% if cut_line < game.level && cut_lines < game.level %>
-<table style="width:100%;">
-  <tr><td style="padding-top: 25px; ">
- 
+<div class="column-left">
+  <br><br><br><br>
+  <h2><center>Score</center></h2>
  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
 <% (0..cut_line - 1).each {|i| d[i] = "X"} %>
-<br><br><br><br><br>
-<center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4><h3 style="font-family: Courier New"> <%= d[0..(game.level-1)].join(" ") %></h3></center>
+<h4><center>Your Score: <%= d[0..(game.level-1)] %></center></h4>
 
-
+<% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
+<% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
+<h4><center>Computer:&nbsp; <%= d[0..(game.level-1)] %></center></h4>
+  <br>
+ 
    
 
-</td>
-<td style="">
-<h1 style="font-family: impact"><center> BINGO!</center></h1>
+
+</div>
+<div class="column-center">
+<h1><center>BINGO!</center></h1>
 <br>
 <% @matrix %>
 
-<center><table id="portfolios" class="table" border="3" >
+<center><table id="portfolios" class="table" style="width:30%;float:left;" border="3" >
 
 
 
@@ -175,18 +176,12 @@ background-color:yellow;
 
 
 </form>
-</td>
+</div>
 
-<td style=""> 
-  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
-<% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
-<br><br><br><br><br>
-<center><h4 style="font-family: Courier New"><b>Computer's Score:</b><br></h4><h3 style="font-family: Courier New"> <%= d[0..(game.level-1)].join(" ") %></h3></center>
-  
- 
-</td>
-</tr>
-<tr class="separating_line"><td></td><td></td><td><div id="chartContainer" style="height: 300px; width: 100%; ">
+<div class="column-right" style="position: relative; z-index:-3;"> 
+   <br><br><br><br>
+  <br>
+ <div id="chartContainer" style="height: 300px; width: 100%; ">
     </div>
 <script type="text/javascript">
 {
@@ -200,16 +195,13 @@ background-color:yellow;
 <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
   </center>
-</td>
-</tr>
-</table>
+</div>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
 <% Game.new.game_initialization(ip, level) %>
 <% ip.human_win += 1%>
 
-<h1 style="font-family: impact"><center>YOU WIN.</h1></center>
-<h3 style="font-family: impact"><center>But let's see what happens next time.</h3></center>
+<h1><center>YOU WIN</h1></center>
 <div id="chartdiv" style="height: 400px; width: 100%;"></div>
     <center> <h5>Number of Computer wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
@@ -220,8 +212,7 @@ background-color:yellow;
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
 </form>
 <% elsif (cut_line >= game.level) && (cut_lines >=game.level) %>
-<h1 style="font-family: impact;"><center>It's a tie. </h1></center>
-<h3 style="font-family: impact;"><center>I'll give you another chance. Try again. </h3></center>
+<h1><center>TIE</h1></center>
 <% ip.tie +=1 %>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
@@ -240,8 +231,7 @@ background-color:yellow;
 </form>
 
 <% else %>
-<h1 style="font-family: impact;"><center>COMPUTER WINS!</h1></center>
-<h3 style="font-family: impact;"><center>Hahahahaha. Try beating the machine. </h3></center>
+<h1><center>COMPUTER WINS</h1></center>
 <% ip.computer_win += 1 %>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
