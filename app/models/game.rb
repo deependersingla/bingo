@@ -7,7 +7,6 @@ class Game
   field :oponent_id,        type: String
   field :level,             type: Integer, default: 5
   field :stop,              type: Time
-  field :last_element,      type: Integer, default: 0
   belongs_to :user
   belongs_to :ip
   
@@ -40,7 +39,20 @@ class Game
     user_matrix, computer_matrix, element = UpdateMatrix.update(game_hash)
     game.starter_matrix = user_matrix
     game.opponent_matrix = computer_matrix
-    game.last_element = element
     game.save
+  end
+
+  def level_winner_info
+    games = Game.all
+    # {level: game_played}
+    game_win_hash = {}
+    games.each do |game|
+      if game_win_hash.has_key? game.level - 2
+        game_win_hash[game.level - 2] += 1
+      else
+        game_win_hash[game.level - 2] = 1
+      end
+    end
+    game_win_hash
   end
 end

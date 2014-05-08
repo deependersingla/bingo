@@ -5,7 +5,11 @@ class GameController < ApplicationController
     if !Ip.where(ip: request.remote_ip).exists? 
       Ip.create(ip: request.remote_ip)
     end
+<<<<<<< HEAD
     Game.new.game_initialization(Ip.where(ip: request.remote_ip).last, 5)
+=======
+    Game.new.game_initialization(Ip.where(ip: request.remote_ip).last)
+>>>>>>> 8873304f001b260e57cdfe5b9a304f3533069183
     redirect_to :action => :play
   end
 

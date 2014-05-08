@@ -13,7 +13,7 @@ class Ip
     human_win = 0
     comp_win = 0
     tie = 0
-    Ip.each do |ip|
+    Ip.all.each do |ip|
       human_win += ip.human_win
       comp_win += ip.computer_win
       tie += ip.tie
