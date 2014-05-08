@@ -219,9 +219,10 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <% level = game.level + 2 %>
 <% Game.new.game_initialization(ip, level) %>
 <% ip.human_win += 1%>
-
-<h1 style="font-family: impact"><center>YOU WIN.</h1></center>
-<h3 style="font-family: impact"><center>But let's see what happens next time.</h3></center>
+<table style="width:100%">
+  <tr><td>
+<h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
+<h3 style="font-family: impact"><center>But let's see what happens in level <%=(((game.level-3)/2)+1) %>.</h3></center>
 <div id="chartdiv" style="height: 400px; width: 100%;"></div>
     <center> <h5>Number of Computer wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
@@ -231,7 +232,9 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <form action="/game/play" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
 </form>
+</td></tr></table>
 <% elsif (cut_line >= game.level) && (cut_lines >=game.level) %>
+<table style="width:100%;"<tr><td>
 <h1 style="font-family: impact;"><center>It's a tie. </h1></center>
 <h3 style="font-family: impact;"><center>I'll give you another chance. Try again. </h3></center>
 <% ip.tie +=1 %>
@@ -250,9 +253,13 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <form action="/game/play" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
 </form>
-
+</td>
+</tr>
+</table>
 <% else %>
-<h1 style="font-family: impact;"><center>COMPUTER WINS!</h1></center>
+<table style="width:100%;">
+  <tr><td>
+<h1 style="font-family: impact;"><center>COMPUTER WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
 <h3 style="font-family: impact;"><center>Hahahahaha. Try beating the machine. </h3></center>
 <% ip.computer_win += 1 %>
 <div id="chartdiv" style="height: 400px; width: 100%;">
@@ -270,6 +277,7 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
 </form>
+</td></tr></table>
 <% end %>
 <% ip.save %>
 
