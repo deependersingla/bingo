@@ -27,6 +27,7 @@ class GameController < ApplicationController
       if cut_lines <= game.level + 5
         @matrix = game.starter_matrix
         @global_stat = Ip.new.global_stat
+        @level_winner = Game.new.level_winner_info
       end
     else 
      redirect_to :action => :start_game

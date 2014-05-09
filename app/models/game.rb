@@ -4,7 +4,6 @@ class Game
 
   field :starter_matrix,    type: Array
   field :opponent_matrix,   type: Array
-  field :oponent_id,        type: String
   field :level,             type: Integer, default: 5
   field :stop,              type: Time
   belongs_to :user
