@@ -1,0 +1,69 @@
+<html>
+<title>Bingo - Global Stats
+</title>
+<head>
+<script type="text/javascript">
+function callPieWin(chartdiv, computer_win, human_win,tie) {
+var chart = AmCharts.makeChart(chartdiv, {
+    "type": "pie",
+  "theme": "light",
+  "colors": ["#0D8ECF","#8A0CCF",  "#2A0CD0"],
+    "dataProvider": [
+{
+        "country": "Computer",
+        "litres": computer_win
+    },
+{
+        "country": "Human",
+        "litres": human_win
+    }, {
+        "country": "Tie",
+        "litres": tie
+    }],
+    "valueField": "litres",
+    "titleField": "country"
+});
+}
+
+</script>
+</head>	
+<body>
+<% ip = Ip.where(ip: request.remote_ip).last %>
+<% @global_stat%>
+<% @global_stat[:human_win]%>
+<h1 style="font-family: impact"><center>Global Statistics</h1></center>
+<h3 style="font-family: impact"><center>Have you performed better than your counter part humans?</h3></center>
+
+<table style="width:100%">
+  <tr>
+<td style="width:50%">
+	<center>
+<h3 style="font-family: courier-new"> Your Statistics </h3>
+	</center>
+<div id="chartdiv_ip" style="height: 400px; width: 100%;"></div>
+    <center> <h5>Number of Robot wins: <%=ip.computer_win %>
+ <h5>Number of Human wins: <%=ip.human_win %>
+<h5>Number of Ties: <%=ip.tie %>
+    </center>
+<script type="text/javascript">window.onload=callPieWin("chartdiv_ip", <%=ip.computer_win %>, <%=ip.human_win %>,<%=ip.tie %>);
+</script>
+
+</td>
+<td style="width:50%">
+	<center>
+<h3 style="font-family: courier-new"> Global Statistics </h3>
+	</center>
+	<div id="chartdiv_global" style="height: 400px; width: 100%;"></div>
+    <center> <h5>Number of Robot wins: <%=@global_stat[:comp_win] %></h5>
+ <h5>Number of Human wins: <%= @global_stat[:human_win] %> </h5>
+<h5>Number of Ties: <%=@global_stat[:tie] %> </h5>
+    </center>
+<script type="text/javascript">window.onload=callPieWin("chartdiv_global", <%=@global_stat[:comp_win] %>, <%=@global_stat[:human_win] %>,<%=@global_stat[:tie]%>);</script>
+
+</td>
+</tr></table><br><br>
+<center><form action="/game/play" align="center">
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Start Game</button>
+</form></center>
+</body>
+</html>
