@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="background-color: white;">
+<html>
 <head>
 <% ip = Ip.where(ip: request.remote_ip).last %>
 
@@ -95,6 +95,9 @@ var chart = AmCharts.makeChart("chartdiv", {
 }  
 body {
 -webkit-transform: translate3d(0, 0, 0);
+}
+.hover {
+  background: yellow;
 }
 
   .btn-custom {
@@ -260,7 +263,7 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
   </center>
-
+<center><a href = "/game/global_stats"> View Global Stats </a></center>
 </div>
 
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
@@ -341,9 +344,21 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 {
   $("tr:even").css("background-color", "white");
   //$("#y").animate({'backgroundColor' : '#ffff99'});
- $("#y").css('backgroundColor', '#00FF00').fadeOut("slow").fadeIn("slow").css('backgroundColor', 'white');
+ $("#y").css('backgroundColor', '#00FF00').fadeOut("slow").fadeIn("slow").fadeOut("slow").fadeIn("slow").css('backgroundColor', 'white');
 });
 
+
+<% if (game.level>8) %>
+$("th").on("mouseover", function() {
+    var el = $(this),
+        pos = el.index();
+    el.parent().find("th").addClass("hover");
+    $("th").filter(":nth-child(" + (pos+1) + ")").addClass("hover");
+  })
+  .on("mouseout", function() {
+    $("th").removeClass("hover");
+  });
+<% end %>
 
 
 $('tr th').click(function(){
@@ -356,6 +371,8 @@ $('tr th').click(function(){
 
     getval(cval);
 });
+
+
         function getval(cel) {
 
       
