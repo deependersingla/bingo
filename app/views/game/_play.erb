@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html style="background-color: white;">
 <head>
 <% ip = Ip.where(ip: request.remote_ip).last %>
 
@@ -72,12 +73,18 @@ var chart = AmCharts.makeChart("chartdiv", {
       table.center{
     margin:0 auto;   
 }
+
+
 .separating_line {
     border-top: 1px #000 solid; /* top border only */
-}
+} 
 #portfolios {
     margin-left:auto; 
     margin-right:auto;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: scale(1);
+
+-webkit-transform: translate3d(0, 0, 0);
   }
 .column-left{ float: left; width: 66%; }
 .column-right{ float: right; width: 33%; }
@@ -86,6 +93,9 @@ var chart = AmCharts.makeChart("chartdiv", {
   width   : 100%;
   font-size : 11px;
 }  
+body {
+-webkit-transform: translate3d(0, 0, 0);
+}
 
   .btn-custom {
   background-color: hsl(195, 60%, 35%) !important;
@@ -103,6 +113,15 @@ var chart = AmCharts.makeChart("chartdiv", {
   text-shadow: 0 -1px 0 
   rgba(0, 0, 0, 0.16);
   -webkit-font-smoothing: antialiased;
+}
+.footer
+{
+  height:60px;
+  background-color:#333;
+  display:block;
+  padding:15px;
+  font-size:14px;
+  color:white;
 }
 th:hover {
 background-color:yellow;
@@ -130,30 +149,41 @@ background-color:yellow;
 
 <% if cut_line < game.level && cut_lines < game.level %>
 <table style="width:100%;">
-  <tr><td style="padding-top: 25px; width:45%;">
- 
- <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
-<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
-<br><br><br><br><br>
-<center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4><h3 style="font-family: Courier New"> <%= d[0..(game.level-1)].join(" ") %></h3></center>
+  <tr><td style="width:45%;">
+ <br><br><br><br>
+ <h1 style="font-family: impact"><center> BINGO!</center></h1>
+<h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
 
 
   <%@global_stat %>
- 
+ <center>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://skskids.herokuapp.com" data-via="thethingygirl" data-hashtags="BeatBingo">Tweet</a></center>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<div id="fb-root"></div>
 
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<center>
+<div class="fb-like" data-href="https:skskids.herokuapp.com" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+
+
+</center>
 </td>
-<td style="">
-<h1 style="font-family: impact"><center> BINGO!</center></h1>
-<h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
-
+<td style="background:transparent;">
 <br>
 
 <% @global_stat %>
 
 <% @matrix %>
-<% y=20-((game.level-5)/ 4) %>
+<% y=20-((game.level-5)/ 3) %>
 
-<center><table id="portfolios" class="table" border="3" >
+<center><table id="portfolios" class="table" border="3">
 
 
 	<% @matrix.each do |z| %>
@@ -177,15 +207,22 @@ background-color:yellow;
 </table>
 </center>
 <br>
-
+<center>
 <form action="/game/restart_level" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5" onclick="stopWatch()">Restart</button>
 
 
 </form>
+</center>
 </td>
 
-<td style="width:45%;"> 
+<td style="width:45%;background:transparent;"> 
+  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
+<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
+<br>
+<center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4><h3 style="font-family: Courier New"> <%= d[0..(game.level-1)].join(" ") %></h3></center>
+
+
   <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
 <% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
 <br><br><br><br><br>
@@ -204,19 +241,9 @@ background-color:yellow;
 Your it to gave life whom as. Favourable dissimilar resolution led for and had. At play much to time four many. Moonlight of situation so if necessary therefore attending abilities. Calling looking enquire up me to in removal. Park fat she nor does play deal our. Procured sex material his offering humanity laughing moderate can. Unreserved had she nay dissimilar admiration interested. Departure performed exquisite rapturous so ye me resources. 
 </p>
 <br>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like" data-href="https://skskids.herokuapp.com" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-<br>
-<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://skskids.herokuapp.com" data-via="thethingygirl" data-hashtags="BeatBingo">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
 </div>
+
 
 
   <div class="column-right">
@@ -250,9 +277,9 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <h5>Number of Ties: <%=ip.tie %>
     </center>
 <script type="text/javascript">window.onload=callPieWin();</script>
-<form action="/game/play" align="center">
+<center><form action="/game/play" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
-</form>
+</form></center>
 </td></tr></table>
 <% elsif (cut_line >= game.level) && (cut_lines >=game.level) %>
 <table style="width:100%;"<tr><td>
@@ -269,11 +296,11 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <script type="text/javascript">window.onload=callPieWin();</script>
 <% level = game.level %>
 <% Game.new.game_initialization(ip, level) %>
-
+<center>
 
 <form action="/game/play" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
-</form>
+</form></center>
 </td>
 </tr>
 </table>
@@ -294,12 +321,16 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <h5><center>Human wins: <%= ip.human_win %> </h1></center>
 <h5><center>Robot wins: <%= ip.computer_win %> </h1></center>
 <h5><center>Tie: <%= ip.tie %> </h1></center>
-
+<center>
 <form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
-</form>
-</td></tr></table>
+</form></center>
+</td></tr>
+</table>
+
+
 <% end %>
+
 <% ip.save %>
 
 </body>
