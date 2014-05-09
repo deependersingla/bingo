@@ -17,6 +17,9 @@ class GameController < ApplicationController
     @matrix = game.opponent_matrix
   end
 
+def global_stats
+    @global_stat = Ip.new.global_stat
+end
 
   def play
     if Ip.where(ip: request.remote_ip).exists? 
