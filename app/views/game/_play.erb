@@ -156,12 +156,7 @@ background-color:yellow;
  <br><br><br><br>
  <h1 style="font-family: impact"><center> BINGO!</center></h1>
 <h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
-
-
-
-
- 
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://skskids.herokuapp.com" data-via="thethingygirl" data-hashtags="BeatBingo">Tweet</a></center>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 <div id="fb-root"></div>
@@ -224,13 +219,38 @@ background-color:yellow;
   <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
 <% (0..cut_line - 1).each {|i| d[i] = "X"} %>
 <br>
-<center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4><h3 style="font-family: Courier New"> <%= d[0..(game.level-1)].join(" ") %></h3></center>
+<center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4>
+<% for i in 0..(game.level-1) do %>
+<% if d[i]=='X' %>
+<font style="font-family: Courier New; color:red; font-size: 26px;">
+<%= d[i] %>
+</font>
 
+<% else %>
+<font style="font-family: Courier New;font-size: 26px;">
+<%= d[i] %>
+</font>
+<% end %>
+<% end %>
+</center>
 
   <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
 <% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
 <br><br><br><br><br>
-<center><h4 style="font-family: Courier New"><b>Robot's Score:</b></h4><h3 style="font-family: Courier New"> <%= d[0..(game.level-1)].join(" ") %></h3></center>
+<center><h4 style="font-family: Courier New"><b>Robot's Score:</b></h4> 
+<% for i in 0..(game.level-1) do %>
+<% if d[i]=='X' %>
+<font style="font-family: Courier New; color:red; font-size: 26px;">
+<%= d[i] %>
+</font>
+
+<% else %>
+<font style="font-family: Courier New;font-size: 26px;">
+<%= d[i] %>
+</font>
+<% end %>
+<% end %>
+</center>
   
  
 </td>
