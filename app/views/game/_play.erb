@@ -179,7 +179,6 @@ background-color:yellow;
 
 
 
-<% @matrix %>
 <% y=20-((game.level-5)/ 3) %>
 
 <center><table id="portfolios" class="table" border="3">
@@ -411,33 +410,15 @@ $('tr th').click(function(){
               
               
 
-              post_to_url("/game/search", {q: cel});
+              jQuery.ajax({
+                data: 'q=' + cel,
+                //dataType: 'script',
+                type: 'post',
+                url: "/game/search"        
+              });
+              
         			
         		}
         }
-
-		var post_to_url =  function (path, params, method) {
- 		method = method || "post"; // Set method to post by default if not specified.
-
- // The rest of this code assumes you are not using a library.
- // It can be made less wordy if you use one.
- 		var form = document.createElement("form");
- 		form.setAttribute("method", method);
- 		form.setAttribute("action", path);
-
- 		for(var key in params) {
-   		if(params.hasOwnProperty(key)) {
-     		var hiddenField = document.createElement("input");
-     		hiddenField.setAttribute("type", "hidden");
-     		hiddenField.setAttribute("name", key);
-     		hiddenField.setAttribute("value", params[key]);
- 
-     		form.appendChild(hiddenField);
-        	}
-  		}
-
-   		document.body.appendChild(form);
-   		form.submit();
-		}
 
     </script>
