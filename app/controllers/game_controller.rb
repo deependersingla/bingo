@@ -19,6 +19,7 @@ class GameController < ApplicationController
 
 def global_stats
     @global_stat = Ip.new.global_stat
+    @level_winner = Game.new.level_winner_info
 end
 
   def play

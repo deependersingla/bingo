@@ -2,6 +2,12 @@
 <title>Bingo - Global Stats
 </title>
 <head>
+<style type="text/css">
+table td { border-left: 1px solid #000; }
+table td:first-child { border-left: none; }
+.column-left{ float: left; width: 50%; }
+.column-right{ float: right; width: 50%; }
+</style>
 <script type="text/javascript">
 function callPieWin(chartdiv, computer_win, human_win,tie) {
 var chart = AmCharts.makeChart(chartdiv, {
@@ -61,9 +67,28 @@ var chart = AmCharts.makeChart(chartdiv, {
 <script type="text/javascript">window.onload=callPieWin("chartdiv_global", <%=@global_stat[:comp_win] %>, <%=@global_stat[:human_win] %>,<%=@global_stat[:tie]%>);</script>
 
 </td>
-</tr></table><br><br>
-<center><form action="/game/play" align="center">
+</tr>
+</table><br><br>
+</center>
+<div>
+<div class="column-left">
+	<br><br><br><br><br><br><br><center>
+<form action="/game/play" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Start Game</button>
 </form></center>
+	</div>
+<div class="column-right">
+<center>
+<h3 style="font-family: impact"> Is victory yours? </h3>
+<% for i in 5..19 do %>
+<% if ((i%2)==1) %>
+<h5 style="font-family: impact">Level <font style="font-family: impact; color:red;"> <%=i%> </font> has been crossed by <font style="font-family: impact; color:red;"> <%= @level_winner[i] %></font> people.</h5>
+<% end %>
+<% end %>
+</center>
+<br><br><br>
+</div>
+</div>
+
 </body>
 </html>
