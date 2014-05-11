@@ -330,16 +330,18 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
   <tr><td>
 <h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
 <h3 style="font-family: impact"><center><%#= @level_winner[game.level]%> people have have won Level <%=(game.level-3)/2 %>. But let's see what happens in Level <%=((game.level-3)/2) + 1 %>. </h3></center>
-<% level = game.level + 2 %>
-<% Game.new.game_initialization(ip, level) %>
-<% ip.human_win += 1%>
+<%# level = game.level + 2 %>
+<% #Game.new.game_initialization(ip, level) %>
+<% #ip.human_win += 1%>
 <div id="chartdiv" style="height: 400px; width: 100%;"></div>
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
     </center>
 <script type="text/javascript">window.onload=callPieWin();</script>
-<center><form action="/game/play" align="center">
+<center>
+
+<form action="/game/next_level" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
 </form></center>
 </td></tr></table>
@@ -356,11 +358,11 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
 <h5>Number of Ties: <%=ip.tie %>
     </center>
 <script type="text/javascript">window.onload=callPieWin();</script>
-<% level = game.level %>
-<% Game.new.game_initialization(ip, level) %>
+<%# level = game.level %>
+<% #Game.new.game_initialization(ip, level) %>
 <center>
 
-<form action="/game/play" align="center">
+<form action="/game/restart_level" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
 </form></center>
 </td>
