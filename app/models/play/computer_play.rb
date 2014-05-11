@@ -56,29 +56,32 @@ class ComputerPlay
     elements.each do |element|
       array = skip_already_zero_line
       array = updated_array(element, array)
-      max_element_in_row, score = calculate_score(array)
-      hash_of_score[element] = [max_element_in_row, score]
+      max_element_in_row, score, row_hash = calculate_score(array)
+      hash_of_score[element] = row_hash
     end
-    sort_array = hash_of_score.sort_by {|key,value| value[0]}.reverse
-    max_score = sort_array[0][1][0]
-    element_array = {}
-    sort_array.each do |x|
-    	if x[1][0] == max_score
-    		element_array[x[0]] = x[1][1]
-    	end
-    end
-
-    top_element = element_array.sort_by{|k,v| v}.reverse
-    top_score = top_element[0][1]
-    temp_array_element = []
-    top_element.each do |element|
-      if top_score == element[1]
-        temp_array_element << element[0]
-      end
-    end
-    
+    #sort_array = hash_of_score.sort_by {|key,value| value[0]}.reverse
+    #max_score = sort_array[0][1][0]
+    #element_array = {}
+    #sort_array.each do |x|
+    #	if x[1][0] == max_score
+    #		element_array[x[0]] = [x[1][1], x[1][2]]
+   # 	end
+    #end
+    #debugger
+    #top_element = element_array.sort_by{|k,v| v[0]}.reverse
+    #top_score = top_element[0][1][0]
+    #top_array_element = []
+    #top_element.each do |element|
+     # if top_score == element[1][0]
+      #  top_array_element[element[0]] = element[1][1]
+      #end
+    #end
+    #temp_array = []
+    row_array = hash_of_score.map {|k,v| v}
+    top_row_score = row_array.sort_by {|row_hash| row_hash.collect {|i| i}}.reverse[0]
+    temp_array_element = hash_of_score.select{|key, hash| hash == top_row_score }.map{|k,v| k}
     common_element = []
-    if sort_array.count > 1
+    if temp_array_element.count > 1
     	common_element = check_diagonal_element(temp_array_element)
     end
     if common_element.count >= 1
@@ -89,6 +92,10 @@ class ComputerPlay
     element
   end
 
+  def check_next_row(element, matrix)
+
+  end
+
   def check_diagonal_element(element_array)
   	digonal_element = @line_array[@count-1] + @line_array[@count -2]
   	digonal_element.flatten
@@ -96,7 +103,7 @@ class ComputerPlay
   end
 
   def updated_array(element, array)
-  	array.map! {|line| line.map! {|x| x == (element)? 0:x}}
+  	array.map! {|line| line.map! {|x| x == (element)? -1:x}}
     array
   end
 
@@ -116,10 +123,15 @@ class ComputerPlay
   	score_hash = {}
     total_score = 0
   	array.each do |line|
-      score_hash[array.index(line)] = line.count(0)
-      total_score += line.count(0)
+      if line.include? -1
+        score_hash[array.index(line)] = line.count(0) + 1
+      else
+        score_hash[array.index(line)] = 0
+      end
+      total_score += line.count(0) + 1
   	end
     max_element_in_row = score_hash.sort_by {|k,v| v}.reverse[0][1]
-  	return max_element_in_row, total_score
+    row_hash = score_hash.sort_by{|k,v| v}.reverse.map!{|v| v[1]}
+  	return max_element_in_row, total_score, row_hash
   end
 end

@@ -44,6 +44,10 @@ class GameController < ApplicationController
     redirect_to :action => :play
   end
 
+  def comp_matrix
+    @matrix = Game.last.opponent_matrix
+  end
+
   def restart_level
     ip = Ip.where(ip: request.remote_ip).last
     last_level = ip.game.last.level
