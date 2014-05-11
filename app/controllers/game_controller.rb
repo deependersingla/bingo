@@ -27,9 +27,12 @@ class GameController < ApplicationController
       game = Game.where(ip_id: Ip.where(ip: request.remote_ip).last.id).last
       # computer
       comp = ComputerPlay.new(game.opponent_matrix)
-      cut_lines = comp.total_cut_lines
-      if cut_lines <= game.level + 5
+      @comp_cut_lines = comp.total_cut_lines
+      if @comp_cut_lines <= game.level + 5
         @matrix = game.starter_matrix
+        @comp_matrix = game.opponent_matrix
+        hum = ComputerPlay.new(@matrix)
+        @human_cut_lines = hum.total_cut_lines
       end
     else 
      redirect_to :action => :start_game

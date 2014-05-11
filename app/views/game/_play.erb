@@ -137,17 +137,17 @@ background-color:yellow;
     
  <br>
    
-<% d = ComputerPlay.new(@matrix) %>
-<%cut_line = d.total_cut_lines %>
+<% #d = ComputerPlay.new(@matrix) %>
+<%cut_line = @human_cut_lines %>
 <% # change this to 7 * 7  or 9 * 9%>
 
 
-<% game = Game.where(ip_id: Ip.where(ip: request.remote_ip).last).last %>
+<% game = Game.where(ip_id: ip).last %>
 
-<% comp_matrix = game.opponent_matrix %>
-<% comp = ComputerPlay.new(comp_matrix) %>
-<% cut_lines = comp.total_cut_lines %>
-<% ip = Ip.where(ip: request.remote_ip).last %>
+<%# comp_matrix = game.opponent_matrix %>
+<%# comp = ComputerPlay.new(comp_matrix) %>
+<% cut_lines = @comp_cut_lines %>
+<%# ip = Ip.where(ip: request.remote_ip).last %>
 
 
 <% if cut_line < game.level && cut_lines < game.level %>
