@@ -370,7 +370,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
 <table style="width:100%;">
   <tr><td>
 <h1 style="font-family: impact;"><center>ROBOT WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
-<h3 style="font-family: impact;"><center><%= @level_winner[game.level]%> people have have won Level <%=(game.level-3)/2 %>. Why haven't you? </h3></center>
+<h3 style="font-family: impact;"><center><%#= @level_winner[game.level]%> people have have won Level <%#=(game.level-3)/2 %>. Why haven't you? </h3></center>
 <% ip.computer_win += 1 %>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
