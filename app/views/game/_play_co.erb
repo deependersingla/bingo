@@ -120,39 +120,11 @@ body {
 .footer
 {
   height:60px;
-  background-color:black;
+  background-color:#333;
   display:block;
   padding:15px;
   font-size:14px;
   color:white;
-}
-
-#footer {
-    background:black; 
-    height: 25px;
-    text-align: center;
-    font-family: courier;
-    font-size: 8px;
-    color: grey;
-    width: 740px;
-    clear:both;
-    margin:auto;
-    overflow:hidden;
-}
-.inner {
-    width:720px;
-    margin:auto;
-    height: 25px;
-    line-height:25px;
-    background:black;
-}
-#footer a {
-    text-decoration: underline;
-    margin: 0 auto;
-    color:black;
-}
-#footer a:hover {
-  
 }
 th:hover {
 background-color:yellow;
@@ -165,17 +137,17 @@ background-color:yellow;
     
  <br>
    
-<% #d = ComputerPlay.new(@matrix) %>
-<%cut_line = @human_cut_lines %>
+<% d = ComputerPlay.new(@matrix) %>
+<%cut_line = d.total_cut_lines %>
 <% # change this to 7 * 7  or 9 * 9%>
 
 
-<% game = Game.where(ip_id: ip).last %>
+<% game = Game.where(ip_id: Ip.where(ip: request.remote_ip).last).last %>
 
-<%# comp_matrix = game.opponent_matrix %>
-<%# comp = ComputerPlay.new(comp_matrix) %>
-<% cut_lines = @comp_cut_lines %>
-<%# ip = Ip.where(ip: request.remote_ip).last %>
+<% comp_matrix = game.opponent_matrix %>
+<% comp = ComputerPlay.new(comp_matrix) %>
+<% cut_lines = comp.total_cut_lines %>
+<% ip = Ip.where(ip: request.remote_ip).last %>
 
 
 <% if cut_line < game.level && cut_lines < game.level %>
@@ -207,7 +179,6 @@ background-color:yellow;
 
 
 
-<% @matrix %>
 <% y=20-((game.level-5)/ 3) %>
 
 <center><table id="portfolios" class="table" border="3">
@@ -250,8 +221,8 @@ background-color:yellow;
 <center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4>
 <% for i in 0..(game.level-1) do %>
 <% if d[i]=='X' %>
-<font style="font-family: Courier New; color:orange; font-size: 26px;">
-<b><%= d[i] %></b>
+<font style="font-family: Courier New; color:red; font-size: 26px;">
+<%= d[i] %>
 </font>
 
 <% else %>
@@ -268,8 +239,8 @@ background-color:yellow;
 <center><h4 style="font-family: Courier New"><b>Robot's Score:</b></h4> 
 <% for i in 0..(game.level-1) do %>
 <% if d[i]=='X' %>
-<font style="font-family: Courier New; color:orange; font-size: 26px;">
-<b><%= d[i] %></b>
+<font style="font-family: Courier New; color:red; font-size: 26px;">
+<%= d[i] %>
 </font>
 
 <% else %>
@@ -289,6 +260,7 @@ background-color:yellow;
 
 <h1> Rules</h1>
 <p style="color:black;"> 
+<%=@level_winner[5] %>
   Promotion an ourselves up otherwise my. High what each snug rich far yet easy. In companions inhabiting mr principles at insensible do. Heard their sex hoped enjoy vexed child for. Prosperous so occasional assistance it discovered especially no. Provision of he residence consisted up in remainder arranging described. Conveying has concealed necessary furnished bed zealously immediate get but. Terminated as middletons or by instrument. Bred do four so your felt with. No shameless principle dependent household do. 
 
 Your it to gave life whom as. Favourable dissimilar resolution led for and had. At play much to time four many. Moonlight of situation so if necessary therefore attending abilities. Calling looking enquire up me to in removal. Park fat she nor does play deal our. Procured sex material his offering humanity laughing moderate can. Unreserved had she nay dissimilar admiration interested. Departure performed exquisite rapturous so ye me resources. 
@@ -314,25 +286,16 @@ Your it to gave life whom as. Favourable dissimilar resolution led for and had. 
 <h5>Number of Ties: <%=ip.tie %>
   </center>
 <center><a href = "/game/global_stats"> View Global Stats </a></center>
-<br>
 </div>
-<div id="footer" style="width:100%;">
-  <div class="inner">
-        <p>
-Mail us here: <a href="mailto:deepender281190@gmail.com?Subject=Hello%20Team%20Bingo" target="_top"><font style="color:white;">Deepender</font></a>
-and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" target="_top"><font style="color:white;">Rachana</font></a>
-        </p>
-    </div>
-</div>
-<% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 
-<table style="width:100%">
-  <tr><td>
-<h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
-<h3 style="font-family: impact"><center><%= @level_winner[game.level]%> people have have won Level <%=(game.level-3)/2 %>. But let's see what happens in Level <%=((game.level-3)/2) + 1 %>. </h3></center>
+<% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% level = game.level + 2 %>
 <% Game.new.game_initialization(ip, level) %>
 <% ip.human_win += 1%>
+<table style="width:100%">
+  <tr><td>
+<h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
+<h3 style="font-family: impact"><center>But let's see what happens in level <%=(((game.level-3)/2)+1) %>.</h3></center>
 <div id="chartdiv" style="height: 400px; width: 100%;"></div>
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
@@ -370,7 +333,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
 <table style="width:100%;">
   <tr><td>
 <h1 style="font-family: impact;"><center>ROBOT WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
-<h3 style="font-family: impact;"><center><%= @level_winner[game.level]%> people have have won Level <%=(game.level-3)/2 %>. Why haven't you? </h3></center>
+<h3 style="font-family: impact;"><center>Hahahahaha. Try beating the machine. </h3></center>
 <% ip.computer_win += 1 %>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
@@ -446,39 +409,16 @@ $('tr th').click(function(){
               c="<% cut_line %>";
               
               
- jQuery.ajax({
+
+              jQuery.ajax({
                 data: 'q=' + cel,
                 //dataType: 'script',
                 type: 'post',
                 url: "/game/search"        
               });
-              //post_to_url("/game/search", {q: cel});
+              
         			
         		}
         }
-
-		var post_to_url =  function (path, params, method) {
- 		method = method || "post"; // Set method to post by default if not specified.
-
- // The rest of this code assumes you are not using a library.
- // It can be made less wordy if you use one.
- 		var form = document.createElement("form");
- 		form.setAttribute("method", method);
- 		form.setAttribute("action", path);
-
- 		for(var key in params) {
-   		if(params.hasOwnProperty(key)) {
-     		var hiddenField = document.createElement("input");
-     		hiddenField.setAttribute("type", "hidden");
-     		hiddenField.setAttribute("name", key);
-     		hiddenField.setAttribute("value", params[key]);
- 
-     		form.appendChild(hiddenField);
-        	}
-  		}
-
-   		document.body.appendChild(form);
-   		form.submit();
-		}
 
     </script>
