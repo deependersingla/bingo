@@ -326,13 +326,14 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
     </div>
 </div>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
-<% level = game.level + 2 %>
-<% Game.new.game_initialization(ip, level) %>
-<% ip.human_win += 1%>
+
 <table style="width:100%">
   <tr><td>
 <h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
 <h3 style="font-family: impact"><center><%= @level_winner[game.level]%> people have have won Level <%=(game.level-3)/2 %>. But let's see what happens in Level <%=((game.level-3)/2) + 1 %>. </h3></center>
+<% level = game.level + 2 %>
+<% Game.new.game_initialization(ip, level) %>
+<% ip.human_win += 1%>
 <div id="chartdiv" style="height: 400px; width: 100%;"></div>
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
