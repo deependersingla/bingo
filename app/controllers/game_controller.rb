@@ -6,7 +6,7 @@ class GameController < ApplicationController
       Ip.create(ip: request.remote_ip)
     end
 
-    Game.new.game_initialization(Ip.where(ip: request.remote_ip).last, 5)
+    Game.new.game_initialization(Ip.where(ip: request.remote_ip).last)
     redirect_to :action => :play
   end
 
@@ -17,10 +17,10 @@ class GameController < ApplicationController
     @matrix = game.opponent_matrix
   end
 
-def global_stats
+  def global_stats
     @global_stat = Ip.new.global_stat
     @level_winner = Game.new.level_winner_info
-end
+  end
 
   def play
     if Ip.where(ip: request.remote_ip).exists? 
@@ -30,8 +30,6 @@ end
       cut_lines = comp.total_cut_lines
       if cut_lines <= game.level + 5
         @matrix = game.starter_matrix
-        @global_stat = Ip.new.global_stat
-        @level_winner = Game.new.level_winner_info
       end
     else 
      redirect_to :action => :start_game
