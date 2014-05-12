@@ -117,6 +117,7 @@ var chart = AmCharts.makeChart(chartdiv, {
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
+    <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
     </center>
     <% if (ip.computer_win != 0 && ip.human_win !=0 && ip.tie !=0) %>
 <script type="text/javascript">window.onload=callPieWin("chartdiv_ip", <%=ip.computer_win %>, <%=ip.human_win %>,<%=ip.tie %>);
@@ -132,6 +133,7 @@ var chart = AmCharts.makeChart(chartdiv, {
     <center> <h5>Number of Robot wins: <%=@global_stat[:comp_win] %></h5>
  <h5>Number of Human wins: <%= @global_stat[:human_win] %> </h5>
 <h5>Number of Ties: <%=@global_stat[:tie] %> </h5>
+<h5>Total games played: <%=@global_stat[:comp_win]+@global_stat[:human_win]+@global_stat[:tie] %>
     </center>
 <script type="text/javascript">window.onload=callPieWin("chartdiv_global", <%=@global_stat[:comp_win] %>, <%=@global_stat[:human_win] %>,<%=@global_stat[:tie]%>);</script>
 
