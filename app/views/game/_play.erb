@@ -385,7 +385,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
   </tr>
   <% end %>
 </table>
-<% if (game.level >= 5) %>
+<% if (game.level >= 9) %>
 <br>
 <% else %>
 </td>
@@ -410,14 +410,14 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
     <% else %>
      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
-    </td>
     <% end %>
   </tr>
   <% end %>
 </table>
-<% if game.level >= 5 %>
+<% if game.level >= 9 %>
   </td>
   <% end %>
+
 </tr>
 </table>
 </center>
