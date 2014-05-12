@@ -16,49 +16,49 @@ var chart = AmCharts.makeChart(chartdiv2, {
     "dataProvider": [
 {
         "country": "Level 1",
-        "litres": <%=@level_winner[5] %>
+        "litres": <%if(((@level_winner.length*2) + 1)>=5) %>  <%= @level_winner[5] %> <% else %> 0 <% end %>
     },
 {
         "country": "Level 2",
-        "litres":<%=@level_winner[7] %>
+        "litres":<%if(((@level_winner.length*2) + 1)>=7) %>  <%= @level_winner[7] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 3",
-        "litres": <%=@level_winner[9] %>
+        "litres": <%if(((@level_winner.length*2) + 1)>=9) %>  <%= @level_winner[9] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 4",
-        "litres":<%=@level_winner[11] %>
+        "litres": <%if(((@level_winner.length*2) + 1)>=11) %>  <%= @level_winner[11] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 5",
-        "litres": <%=@level_winner[13] %>
+        "litres": <%if(((@level_winner.length*2) + 1)>=13) %>  <%= @level_winner[13] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 6",
-        "litres": <%=@level_winner[15] %>
+        "litres":<%if(((@level_winner.length*2) + 1)>=15) %>  <%= @level_winner[15] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 7",
-        "litres": <%=@level_winner[17] %>
+        "litres": <%if(((@level_winner.length*2) + 1)>=17) %>  <%= @level_winner[17] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 8",
-        "litres": 0
+        "litres": <%if(((@level_winner.length*2) + 1)>=19) %>  <%= @level_winner[19] %> <% else %> 0 <% end %>
     },
 {
         "country": "Level 9",
-        "litres":  0
+        "litres":  <%if(((@level_winner.length*2) + 1)>=21) %>  <%= @level_winner[21] %> <% else %> 0 <% end %>
     },
     {
         "country": "Level 10",
-        "litres":  0    
+        "litres":  <%if(((@level_winner.length*2) + 1)>=23) %>  <%= @level_winner[23] %> <% else %> 0 <% end %>   
     },
         
 
