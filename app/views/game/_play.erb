@@ -207,9 +207,9 @@ background-color:yellow;
 
 
 <% @matrix %>
-<% y=20-((game.level-5)/ 3) %>
+<% y=20-((game.level-5)/ 1.80) %>
 
-<center><table id="portfolios" class="table" border="3">
+<center><table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
 
 	<% @matrix.each do |z| %>
@@ -220,11 +220,11 @@ background-color:yellow;
 			<% x = "X" %>
 			<% end %>
 		<% if x == "X" %>
-	<th>	<h4 style="color:red;font-size:<%=y%>px;">	<%= x%> </h4></th>
+	<th style="width:<%=45+((game.level-5)/ 3) %>px">	<center><h4 style="color:red;font-size:<%=y%>px;"><%= x%> </h4></center></th>
 		<% elsif x == "Y"%>
-		   <th id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></th>
+		   <th style="width:<%=45+((game.level-5)/ 3) %>px" id="y"><center> <h4  style="color:red;font-size:<%=y%>px;">X</h4></center></th>
     <% else %>
-     <th><h4 style="font-size:<%=y%>px;"><%= x%> </h4></th>
+     <th style="width:<%=45+((game.level-5)/ 3) %>px"><center><h4 style="font-size:<%=y%>px;"><%= x%> </h4></center></th>
 		<% end %>
 		</th>
 		<% end %>
@@ -510,7 +510,7 @@ window.onload=callPieWin();
 <h3 style="font-family: impact;"><center><%#= @level_winner[game.level]%><%#=(game.level-3)/2 %> Why haven't you? </h3></center>
 <center>
 <form action="/game/start_game" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Game</button>
 </form>
 
 </center>
