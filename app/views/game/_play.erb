@@ -35,7 +35,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     var chart = new CanvasJS.Chart("chartContainer",
     {
       title:{
-        text: "Let's see if you can Beat the Robot's ass."
+        text: "Let's see if you can Beat the Robot."
       },
       legend:{
         verticalAlign: "center",
@@ -206,7 +206,6 @@ background-color:yellow;
 <br>
 
 
-
 <% @matrix %>
 <% y=20-((game.level-5)/ 3) %>
 
@@ -285,14 +284,27 @@ background-color:yellow;
 </tr>
 </table>
 <br>
-<div class="column-left" style="position:relative; z-index=3;">
+<div class="column-left" style="position:relative;">
 
 <h1> Rules</h1>
 <p style="color:black;"> 
-  Promotion an ourselves up otherwise my. High what each snug rich far yet easy. In companions inhabiting mr principles at insensible do. Heard their sex hoped enjoy vexed child for. Prosperous so occasional assistance it discovered especially no. Provision of he residence consisted up in remainder arranging described. Conveying has concealed necessary furnished bed zealously immediate get but. Terminated as middletons or by instrument. Bred do four so your felt with. No shameless principle dependent household do. 
+  <b><center><h5>For a 5x5 matrix, your aim is to make <U>5 lines</U> of length 5 - horizontal, vertical or diagonal. </h5></center></b><font style="color: black;">
+<br>1. You and the computer have randomly generated matrices. You can't see the computer's matrix - and the computer can't see yours. (We can assure you that).
+<br>2. You scratch off a number on your matrix and the computer scratches of the same number. 
+<br>3. The computer then calls out a number and the same number gets scratched off on yours.<br>
+<a id="displayText" href="javascript:toggle();">
+See Examples.
+</a>
+<div id="toggleText" style="display: none">
+<img src="/assets/robot_win1.png" width="150" height="140"><img src="/assets/robot_win2.png" width="150" height="140">
+</div>
+<br>4. Whoever makes the first 5 lines wins the round.
+<br>5. As you keep winning levels, the size of the matrix increases, and hence, the number of lines you have to make increases. Hence, in a 7x7 matrix, you need to make make 7 lines.</font>
+<br><center><h5><b> Happy playing! </b></h5></center>
 
-Your it to gave life whom as. Favourable dissimilar resolution led for and had. At play much to time four many. Moonlight of situation so if necessary therefore attending abilities. Calling looking enquire up me to in removal. Park fat she nor does play deal our. Procured sex material his offering humanity laughing moderate can. Unreserved had she nay dissimilar admiration interested. Departure performed exquisite rapturous so ye me resources. 
-</p>
+  <br>
+
+  </p>
 <br>
 
 </div>
@@ -332,7 +344,13 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
 <table style="width:100%">
   <tr><td>
 <h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
-<h3 style="font-family: impact"><center><%#= @level_winner[game.level]%> people have have won Level <%=(game.level-3)/2 %>. But let's see what happens in Level <%=((game.level-3)/2) + 1 %>. </h3></center>
+<h3 style="font-family: impact"><center><%#= @level_winner[game.level]%> <%#=(game.level-3)/2 %>But let's see what happens in Level <%=((game.level-3)/2) + 1 %>. </h3></center>
+<center>
+
+<form action="/game/next_level" align="center">
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
+</form></center>
+ <center><h5><a href = "#matrices"> View Computer's Matrix </a></h5></center>
 <%# level = game.level + 2 %>
 <% #Game.new.game_initialization(ip, level) %>
 <% #ip.human_win += 1%>
@@ -341,37 +359,147 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
  <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
     </center>
+    <center><h5><a href = "/game/global_stats"> View Global Stats </a></h5></center>
+
+<center><table id="matrices" style="border:0; width:60%"><tr><td>
+
+<center><h5>Human's Matrix</h5></center>
+<table id="portfolios" class="table" border="3">
+
+  <% @matrix.each do |z| %>
+  <tr>
+    <% z.each do |x| %>
+    
+      <% if x == 0 %>
+      <% x = "X" %>
+      <% end %>
+    <% if x == "X" %>
+  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+    <% elsif x == "Y"%>
+       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+    <% else %>
+     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+    <% end %>
+    </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+</td>
+<td>
+
+<center><h5>Robot's Matrix</h5></center>
+  <table id="portfolios" class="table" border="3">
+
+
+  <% @comp_matrix.each do |z| %>
+  <tr>
+    <% z.each do |x| %>
+    
+      <% if x == 0 %>
+      <% x = "X" %>
+      <% end %>
+    <% if x == "X" %>
+  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+    <% elsif x == "Y"%>
+       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+    <% else %>
+     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+    <% end %>
+    </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+  </td>
+</tr>
+</table>
+</center>
 <script type="text/javascript">
 
 
 window.onload=callPieWin();
 </script>
-<center>
 
-<form action="/game/next_level" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
-</form></center>
 </td></tr></table>
 <% elsif (cut_line >= game.level) && (cut_lines >=game.level) %>
 <table style="width:100%;"<tr><td>
 <h1 style="font-family: impact;"><center>It's a tie. </h1></center>
 <h3 style="font-family: impact;"><center>I'll give you another chance. Try again. </h3></center>
-<% ip.tie +=1 %>
-<div id="chartdiv" style="height: 400px; width: 100%;">
 
-    </div>
-    <center> <h5>Number of Robot wins: <%=ip.computer_win %>
- <h5>Number of Human wins: <%=ip.human_win %>
-<h5>Number of Ties: <%=ip.tie %>
-    </center>
-<script type="text/javascript">window.onload=callPieWin();</script>
-<%# level = game.level %>
-<% #Game.new.game_initialization(ip, level) %>
+
+<% ip.tie +=1 %>
 <center>
 
 <form action="/game/restart_level" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
 </form></center>
+ <center><h5><a href = "#matrices"> View Computer's Matrix </a></h5></center>
+<div id="chartdiv" style="height: 400px; width: 100%;">
+
+    </div>
+    <center> <h5>Number of Robot wins: <%=ip.computer_win %>
+ <h5>Number of Human wins: <%=ip.human_win %>
+<h5>Number of Ties: <%=ip.tie %></center>
+  <center><h5><a href = "/game/global_stats"> View Global Stats </a></h5></center>
+
+<center><table id="matrices" style="border:0; width:60%"><tr><td>
+
+<center><h5>Human's Matrix</h5></center>
+<table id="portfolios" class="table" border="3">
+
+  <% @matrix.each do |z| %>
+  <tr>
+    <% z.each do |x| %>
+    
+      <% if x == 0 %>
+      <% x = "X" %>
+      <% end %>
+    <% if x == "X" %>
+  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+    <% elsif x == "Y"%>
+       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+    <% else %>
+     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+    <% end %>
+    </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+</td>
+<td>
+
+<center><h5>Robot's Matrix</h5></center>
+  <table id="portfolios" class="table" border="3">
+
+
+  <% @comp_matrix.each do |z| %>
+  <tr>
+    <% z.each do |x| %>
+    
+      <% if x == 0 %>
+      <% x = "X" %>
+      <% end %>
+    <% if x == "X" %>
+  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+    <% elsif x == "Y"%>
+       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+    <% else %>
+     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+    <% end %>
+    </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+  </td>
+</tr>
+</table>
+</center>
+<script type="text/javascript">window.onload=callPieWin();</script>
+
+
 </td>
 </tr>
 </table>
@@ -379,7 +507,14 @@ window.onload=callPieWin();
 <table style="width:100%;">
   <tr><td>
 <h1 style="font-family: impact;"><center>ROBOT WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
-<h3 style="font-family: impact;"><center><%#= @level_winner[game.level]%> people have have won Level <%#=(game.level-3)/2 %>. Why haven't you? </h3></center>
+<h3 style="font-family: impact;"><center><%#= @level_winner[game.level]%><%#=(game.level-3)/2 %> Why haven't you? </h3></center>
+<center>
+<form action="/game/start_game" align="center">
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
+</form>
+
+</center>
+<center><h5><a href = "#matrices"> View Computer's matrix </a></h5></center>
 <% ip.computer_win += 1 %>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
@@ -392,19 +527,88 @@ window.onload=callPieWin();
 <h5><center>Human wins: <%= ip.human_win %> </h1></center>
 <h5><center>Robot wins: <%= ip.computer_win %> </h1></center>
 <h5><center>Tie: <%= ip.tie %> </h1></center>
-<center>
-<form action="/game/start_game" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart</button>
-</form></center>
+
+<center><h5><a href = "/game/global_stats"> View Global Stats </a></h5></center>
+
+<center><table id="matrices" style="border:0; width:60%"><tr><td>
+
+<center><h5>Human's Matrix</h5></center>
+<table id="portfolios" class="table" border="3">
+
+  <% @matrix.each do |z| %>
+  <tr>
+    <% z.each do |x| %>
+    
+      <% if x == 0 %>
+      <% x = "X" %>
+      <% end %>
+    <% if x == "X" %>
+  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+    <% elsif x == "Y"%>
+       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+    <% else %>
+     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+    <% end %>
+    </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+</td>
+<td>
+
+<center><h5>Robot's Matrix</h5></center>
+  <table id="portfolios" class="table" border="3">
+
+
+  <% @comp_matrix.each do |z| %>
+  <tr>
+    <% z.each do |x| %>
+    
+      <% if x == 0 %>
+      <% x = "X" %>
+      <% end %>
+    <% if x == "X" %>
+  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+    <% elsif x == "Y"%>
+       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+    <% else %>
+     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+    <% end %>
+    </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+  </td>
+</tr>
+</table>
+</center>
+
+
 </td></tr>
 </table>
-
 
 <% end %>
 
 <% ip.save %>
 
 </body>
+
+<script language="javascript"> 
+function toggle() {
+  var ele = document.getElementById("toggleText");
+  var text = document.getElementById("displayText");
+  if(ele.style.display == "block") {
+        ele.style.display = "none";
+    text.innerHTML = "See examples";
+    }
+  else {
+    ele.style.display = "block";
+    text.innerHTML = "Hide examples";
+  }
+} 
+</script>
 
 <script language="javascript">
 
@@ -466,28 +670,7 @@ $('tr th').click(function(){
         		}
         }
 
-		var post_to_url =  function (path, params, method) {
- 		method = method || "post"; // Set method to post by default if not specified.
-
- // The rest of this code assumes you are not using a library.
- // It can be made less wordy if you use one.
- 		var form = document.createElement("form");
- 		form.setAttribute("method", method);
- 		form.setAttribute("action", path);
-
- 		for(var key in params) {
-   		if(params.hasOwnProperty(key)) {
-     		var hiddenField = document.createElement("input");
-     		hiddenField.setAttribute("type", "hidden");
-     		hiddenField.setAttribute("name", key);
-     		hiddenField.setAttribute("value", params[key]);
- 
-     		form.appendChild(hiddenField);
-        	}
-  		}
-
-   		document.body.appendChild(form);
-   		form.submit();
-		}
+		
+		
 
     </script>
