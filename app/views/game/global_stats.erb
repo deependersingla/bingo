@@ -5,15 +5,77 @@
 <style type="text/css">
 table td { border-left: 1px solid #000; }
 table td:first-child { border-left: none; }
-.column-left{ float: left; width: 50%; }
-.column-right{ float: right; width: 50%; }
+.column-left{ float: left; width: 66%; }
+.column-right{ float: right; width: 33%; }
 </style>
+<script type="text/javascript">
+function callPieWin2(chartdiv2) {
+var chart = AmCharts.makeChart(chartdiv2, {
+    "type": "pie",
+  "theme": "light",
+    "dataProvider": [
+{
+        "country": "Level 1",
+        "litres": <%=@level_winner[5] %>
+    },
+{
+        "country": "Level 2",
+        "litres":<%=@level_winner[7] %>
+    },
+    
+{
+        "country": "Level 3",
+        "litres": <%=@level_winner[9] %>
+    },
+    
+{
+        "country": "Level 4",
+        "litres":<%=@level_winner[11] %>
+    },
+    
+{
+        "country": "Level 5",
+        "litres": <%=@level_winner[13] %>
+    },
+    
+{
+        "country": "Level 6",
+        "litres": <%=@level_winner[15] %>
+    },
+    
+{
+        "country": "Level 7",
+        "litres": <%=@level_winner[17] %>
+    },
+    
+{
+        "country": "Level 8",
+        "litres": 0
+    },
+{
+        "country": "Level 9",
+        "litres":  0
+    },
+    {
+        "country": "Level 10",
+        "litres":  0    
+    },
+        
+
+
+],
+    "valueField": "litres",
+    "titleField": "country"
+});
+}
+
+</script>
 <script type="text/javascript">
 function callPieWin(chartdiv, computer_win, human_win,tie) {
 var chart = AmCharts.makeChart(chartdiv, {
     "type": "pie",
   "theme": "light",
-  "colors": ["#0D8ECF","#8A0CCF",  "#2A0CD0"],
+  "colors": ["#0D8ECF","#8A0CCF","#2A0CD0"],
     "dataProvider": [
 {
         "country": "Computer",
@@ -46,13 +108,20 @@ var chart = AmCharts.makeChart(chartdiv, {
 	<center>
 <h3 style="font-family: courier-new"> Your Statistics </h3>
 	</center>
+<% if (ip.computer_win != 0 && ip.human_win !=0 && ip.tie !=0) %>
+
 <div id="chartdiv_ip" style="height: 400px; width: 100%;"></div>
+ <% else %>
+ <center><h4>No games have been played!</h4></center>
+ <% end %>
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
     </center>
+    <% if (ip.computer_win != 0 && ip.human_win !=0 && ip.tie !=0) %>
 <script type="text/javascript">window.onload=callPieWin("chartdiv_ip", <%=ip.computer_win %>, <%=ip.human_win %>,<%=ip.tie %>);
 </script>
+<% end %>
 
 </td>
 <td style="width:50%">
@@ -71,23 +140,32 @@ var chart = AmCharts.makeChart(chartdiv, {
 </table><br><br>
 </center>
 <div>
+<center><h3 style="font-family: impact"> Is victory yours? </h3></center>
 <div class="column-left">
-	<br><br><br><br><br><br><br><center>
-<form action="/game/play" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Start Game</button>
-</form></center>
+	<center>
+
+<div id="chartdiv2" style="height: 400px; width: 100%;"></div>
+<script type="text/javascript">window.onload=callPieWin2("chartdiv2");</script>
+
+</center>
 	</div>
 <div class="column-right">
 <center>
-<h3 style="font-family: impact"> Is victory yours? </h3>
-<% for i in 5..19 do %>
+<% for i in 5..((@level_winner.length*2) + 1)%>
 <% if ((i%2)==1) %>
+
+
 <h5 style="font-family: impact">Level <font style="font-family: impact; color:red;"> <%=i%> </font> has been crossed by <font style="font-family: impact; color:red;"> <%= @level_winner[i] %></font> people.</h5>
 <% end %>
 <% end %>
+
 </center>
-<br><br><br>
-</div>
+
+</div><br>
+<center>
+<form action="/game/play" align="center">
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Start Game</button>
+</form></center>
 </div>
 
 </body>
