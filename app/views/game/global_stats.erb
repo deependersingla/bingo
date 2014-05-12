@@ -158,10 +158,10 @@ var chart = AmCharts.makeChart(chartdiv, {
 <% if ((i%2)==1) %>
 
 
-<h5 style="font-family: impact">Level <font style="font-family: impact; color:red;"> <%=i%> </font> has been crossed by <font style="font-family: impact; color:red;"> <%= @level_winner[i] %></font> people.</h5>
+<h5 style="font-family: impact">Level <font style="font-family: impact; color:red;"> <%=(i-3)/2%> </font> has been crossed by <font style="font-family: impact; color:red;"> <%= @level_winner[i] %></font> people.</h5>
 <% end %>
 <% end %>
-
+<h4><font style="font-family: impact;"> Will you be the first to win Level <font style="font-family: impact; color:red;"> <%= (@level_winner.length + 1) %>?</h4></font>
 </center>
 
 </div><br>
