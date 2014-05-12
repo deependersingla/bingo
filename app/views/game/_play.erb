@@ -350,7 +350,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
 <form action="/game/next_level" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
 </form></center>
- <center><h5><a href = "#matrices"> View Computer's Matrix </a></h5></center>
+ <center><h5><a href = "#matrices"> View View Human's and Robot's matrices </a></h5></center>
 <%# level = game.level + 2 %>
 <% #Game.new.game_initialization(ip, level) %>
 <% #ip.human_win += 1%>
@@ -385,9 +385,13 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
   </tr>
   <% end %>
 </table>
+<% if (game.level >= 9) %>
+<br>
+<% else %>
 </td>
-<td>
 
+<td>
+<% end %>
 <center><h5>Robot's Matrix</h5></center>
   <table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
@@ -406,12 +410,14 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
     <% else %>
      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
-    </td>
     <% end %>
   </tr>
   <% end %>
 </table>
+<% if game.level >= 9 %>
   </td>
+  <% end %>
+
 </tr>
 </table>
 </center>
@@ -435,7 +441,7 @@ window.onload=callPieWin();
 <form action="/game/restart_level" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
 </form></center>
- <center><h5><a href = "#matrices"> View Computer's Matrix </a></h5></center>
+ <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
     </div>
@@ -468,8 +474,13 @@ window.onload=callPieWin();
   </tr>
   <% end %>
 </table>
+<% if (game.level >= 9) %>
+<br>
+<% else %>
 </td>
+
 <td>
+<% end %>
 
 <center><h5>Robot's Matrix</h5></center>
   <table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
@@ -494,7 +505,9 @@ window.onload=callPieWin();
   </tr>
   <% end %>
 </table>
+<% if (game.level >= 9) %>
   </td>
+  <% end %>
 </tr>
 </table>
 </center>
@@ -516,7 +529,7 @@ window.onload=callPieWin();
 </form>
 
 </center>
-<center><h5><a href = "#matrices"> View Computer's matrix </a></h5></center>
+<center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
 <% ip.computer_win += 1 %>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
@@ -556,9 +569,14 @@ window.onload=callPieWin();
   </tr>
   <% end %>
 </table>
-</td>
-<td>
 
+<% if (game.level >= 9) %>
+<br>
+<% else %>
+</td>
+
+<td>
+<% end %>
 <center><h5>Robot's Matrix</h5></center>
   <table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
@@ -577,11 +595,13 @@ window.onload=callPieWin();
     <% else %>
      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
-    </td>
+    
     <% end %>
   </tr>
   <% end %>
 </table>
+
+
   </td>
 </tr>
 </table>
