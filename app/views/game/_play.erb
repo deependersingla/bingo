@@ -207,9 +207,9 @@ background-color:yellow;
 
 
 <% @matrix %>
-<% y=20-((game.level-5)/ 3) %>
+<% y=20-((game.level-5)/ 1.80) %>
 
-<center><table id="portfolios" class="table" border="3">
+<center><table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
 
 	<% @matrix.each do |z| %>
@@ -220,11 +220,11 @@ background-color:yellow;
 			<% x = "X" %>
 			<% end %>
 		<% if x == "X" %>
-	<th>	<h4 style="color:red;font-size:<%=y%>px;">	<%= x%> </h4></th>
+	<th align="center" style="width:<%=45+((game.level-5)/ 3) %>px">	<center><h4 style="color:red;font-size:<%=y%>px;"><%= x%> </h4></center></th>
 		<% elsif x == "Y"%>
-		   <th id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></th>
+		   <th align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"><center> <h4  style="color:red;font-size:<%=y%>px;">X</h4></center></th>
     <% else %>
-     <th><h4 style="font-size:<%=y%>px;"><%= x%> </h4></th>
+     <th align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><center><h4 style="font-size:<%=y%>px;"><%= x%> </h4></center></th>
 		<% end %>
 		</th>
 		<% end %>
@@ -340,7 +340,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
     </div>
 </div>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
-
+<% y=20-((game.level-5)/ 1.80) %>
 <table style="width:100%">
   <tr><td>
 <h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
@@ -364,7 +364,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
 <center><table id="matrices" style="border:0; width:60%"><tr><td>
 
 <center><h5>Human's Matrix</h5></center>
-<table id="portfolios" class="table" border="3">
+<table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
   <% @matrix.each do |z| %>
   <tr>
@@ -374,11 +374,11 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
       <% x = "X" %>
       <% end %>
     <% if x == "X" %>
-  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
     <% elsif x == "Y"%>
-       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
     <% else %>
-     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
     </td>
     <% end %>
@@ -389,7 +389,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
 <td>
 
 <center><h5>Robot's Matrix</h5></center>
-  <table id="portfolios" class="table" border="3">
+  <table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
 
   <% @comp_matrix.each do |z| %>
@@ -400,11 +400,11 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
       <% x = "X" %>
       <% end %>
     <% if x == "X" %>
-  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
     <% elsif x == "Y"%>
-       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
     <% else %>
-     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
     </td>
     <% end %>
@@ -423,6 +423,7 @@ window.onload=callPieWin();
 
 </td></tr></table>
 <% elsif (cut_line >= game.level) && (cut_lines >=game.level) %>
+<% y=20-((game.level-5)/ 1.80) %>
 <table style="width:100%;"<tr><td>
 <h1 style="font-family: impact;"><center>It's a tie. </h1></center>
 <h3 style="font-family: impact;"><center>I'll give you another chance. Try again. </h3></center>
@@ -446,7 +447,7 @@ window.onload=callPieWin();
 <center><table id="matrices" style="border:0; width:60%"><tr><td>
 
 <center><h5>Human's Matrix</h5></center>
-<table id="portfolios" class="table" border="3">
+<table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
   <% @matrix.each do |z| %>
   <tr>
@@ -456,11 +457,11 @@ window.onload=callPieWin();
       <% x = "X" %>
       <% end %>
     <% if x == "X" %>
-  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
     <% elsif x == "Y"%>
-       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
     <% else %>
-     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
     </td>
     <% end %>
@@ -471,7 +472,7 @@ window.onload=callPieWin();
 <td>
 
 <center><h5>Robot's Matrix</h5></center>
-  <table id="portfolios" class="table" border="3">
+  <table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
 
   <% @comp_matrix.each do |z| %>
@@ -482,11 +483,11 @@ window.onload=callPieWin();
       <% x = "X" %>
       <% end %>
     <% if x == "X" %>
-  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
     <% elsif x == "Y"%>
-       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
     <% else %>
-     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
     </td>
     <% end %>
@@ -504,13 +505,14 @@ window.onload=callPieWin();
 </tr>
 </table>
 <% else %>
+<% y=20-((game.level-5)/ 1.80) %>
 <table style="width:100%;">
   <tr><td>
 <h1 style="font-family: impact;"><center>ROBOT WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
 <h3 style="font-family: impact;"><center><%#= @level_winner[game.level]%><%#=(game.level-3)/2 %> Why haven't you? </h3></center>
 <center>
 <form action="/game/start_game" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Game</button>
 </form>
 
 </center>
@@ -533,7 +535,7 @@ window.onload=callPieWin();
 <center><table id="matrices" style="border:0; width:60%"><tr><td>
 
 <center><h5>Human's Matrix</h5></center>
-<table id="portfolios" class="table" border="3">
+<table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
   <% @matrix.each do |z| %>
   <tr>
@@ -543,11 +545,11 @@ window.onload=callPieWin();
       <% x = "X" %>
       <% end %>
     <% if x == "X" %>
-  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
     <% elsif x == "Y"%>
-       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
     <% else %>
-     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
     </td>
     <% end %>
@@ -558,7 +560,7 @@ window.onload=callPieWin();
 <td>
 
 <center><h5>Robot's Matrix</h5></center>
-  <table id="portfolios" class="table" border="3">
+  <table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
 
   <% @comp_matrix.each do |z| %>
@@ -569,11 +571,11 @@ window.onload=callPieWin();
       <% x = "X" %>
       <% end %>
     <% if x == "X" %>
-  <td>  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
     <% elsif x == "Y"%>
-       <td id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
     <% else %>
-     <td><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
     </td>
     <% end %>
