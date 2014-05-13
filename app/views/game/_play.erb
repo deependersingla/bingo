@@ -111,7 +111,7 @@ body {
 -webkit-transform: translate3d(0, 0, 0);
 }
 .hover {
-  background: yellow;
+  background: #F8F8F8;
 }
 
   .btn-custom {
@@ -668,18 +668,18 @@ fadeDivIn();
 
 });
 function fadeDivIn(){
-    $("#y").animate({backgroundColor: "#00FF00" }, 100, function(){fadeDivOut();});
+    $("#y").animate({backgroundColor: "yellow"  }, 100, function(){fadeDivOut();});
 }
 
 function fadeDivOut(){
-    $("#y").animate({backgroundColor: "yellow" }, 500, function(){fadeDivIn2();});
+    $("#y").animate({backgroundColor: "#00FF00"}, 300, function(){fadeDivIn3();});
 }
-function fadeDivIn2(){
-    $("#y").animate({backgroundColor: "#00FF00" }, 500, function(){fadeDivIn3();});
-}
+/*function fadeDivIn2(){
+    $("#y").animate({backgroundColor: "#00FF00" }, 300, function(){fadeDivIn3();});
+}*/
 
 function fadeDivIn3(){
-    $("#y").animate({backgroundColor: "#white" }, 500);
+    $("#y").animate({backgroundColor: "#white" }, 300);
 }
 <% if (game.level>8) %>
 
