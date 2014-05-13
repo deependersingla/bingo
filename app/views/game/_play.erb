@@ -68,7 +68,7 @@ var chart = AmCharts.makeChart("chartdiv", {
   }
 }
   </script>
-  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  
       <style type="text/css">
       table.center{
     margin:0 auto;   
@@ -663,11 +663,26 @@ function toggle() {
  $(document).ready(function()
 {
   $("tr:even").css("background-color", "white");
-  //$("#y").animate({'backgroundColor' : '#ffff99'});
- $("#y").css('backgroundColor', '#00FF00').fadeOut("slow").fadeIn("slow").fadeOut("slow").fadeIn("slow").css('backgroundColor', 'white');
+ //$("#y").css('backgroundColor', '#00FF00').fadeOut("slow").fadeIn("slow").fadeOut("slow").fadeIn("slow").css('backgroundColor', '#00FF00');
+fadeDivIn();
+
 });
+function fadeDivIn(){
+    $("#y").animate({backgroundColor: "#00FF00" }, 100, function(){fadeDivOut();});
+}
 
-
+function fadeDivOut(){
+    $("#y").animate({backgroundColor: "yellow" }, 500, function(){fadeDivIn2();});
+}
+function fadeDivIn2(){
+    $("#y").animate({backgroundColor: "#00FF00" }, 500, function(){fadeDivOut2();});
+}
+function fadeDivOut2(){
+    $("#y").animate({backgroundColor: "yellow" }, 500, function(){fadeDivIn3();});
+}
+function fadeDivIn3(){
+    $("#y").animate({backgroundColor: "#white" }, 500);
+}
 <% if (game.level>8) %>
 
 $("th").on("mouseover", function() {
