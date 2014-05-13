@@ -196,10 +196,10 @@ background-color:yellow;
 <table style="width:100%;">
   <tr><td style="width:45%;">
  <br><br><br><br>
- <h1 style="font-family: impact"><center> BINGO!</center></h1>
+ <h1 style="font-family: impact"><center> BOXES!</center></h1>
 <h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
 <center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://skskids.herokuapp.com" data-via="thethingygirl" data-hashtags="BeatBingo">Tweet</a></center>
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://skskids.herokuapp.com" data-via="thethingygirl" data-hashtags="TheBoxes">Tweet</a></center>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 <div id="fb-root"></div>
 
@@ -266,39 +266,38 @@ background-color:yellow;
 </td>
 
 <td style="width:45%;background:transparent;"> 
-  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
+  <% d = ['B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S'] %>
 <% (0..cut_line - 1).each {|i| d[i] = "X"} %>
 <br>
 <center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4>
-<% for i in 0..(game.level-1) do %>
-<% if d[i]=='X' %>
-<font style="font-family: Courier New; color:orange; font-size: 26px;">
-<b><%= d[i] %></b>
-</font>
 
-<% else %>
+<% for j in 0..(cut_line-1) do %>
+<font style="font-family: Courier New; color:orange; font-size: 26px;">
+<b>X</b>
+</font>
+<% end %>
+<% for i in cut_line..(game.level-1) do %>
+
 <font style="font-family: Courier New;font-size: 26px;">
 <%= d[i] %>
 </font>
-<% end %>
 <% end %>
 </center>
-
-  <% d = ['B','I','N','G','O', 'B','I','N','G','O', 'B','I','N','G','O'] %>
+  <% d = ['B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S'] %>
 <% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
-<br><br><br><br><br>
-<center><h4 style="font-family: Courier New"><b>Robot's Score:</b></h4> 
-<% for i in 0..(game.level-1) do %>
-<% if d[i]=='X' %>
-<font style="font-family: Courier New; color:orange; font-size: 26px;">
-<b><%= d[i] %></b>
-</font>
+<br>
+<center><h4 style="font-family: Courier New"><b>Robot's Score:</b></h4>
 
-<% else %>
+<% for j in 0..(cut_lines-1) do %>
+<font style="font-family: Courier New; color:orange; font-size: 26px;">
+<b>X</b>
+</font>
+<% end %>
+<% for i in cut_lines..(game.level-1) do %>
+
 <font style="font-family: Courier New;font-size: 26px;">
 <%= d[i] %>
 </font>
-<% end %>
 <% end %>
 </center>
   
@@ -350,6 +349,7 @@ console.log("hi");
  
 <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
+<h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
   </center>
 <center><a href = "/game/global_stats"> View Global Stats </a></center>
 <br>
@@ -357,8 +357,8 @@ console.log("hi");
 <div id="footer" style="width:100%;">
   <div class="inner">
         <p>
-Mail us here: <a href="mailto:deepender281190@gmail.com?Subject=Hello%20Team%20Bingo" target="_top"><font style="color:white;">Deepender</font></a>
-and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" target="_top"><font style="color:white;">Rachana</font></a>
+Mail us here: <a href="mailto:deepender281190@gmail.com?Subject=Hello%20Team%20Boxes" target="_top"><font style="color:white;">Deepender</font></a>
+and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" target="_top"><font style="color:white;">Rachana</font></a>
         </p>
     </div>
 </div>
@@ -373,7 +373,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
 <form action="/game/next_level" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
 </form></center>
- <center><h5><a href = "#matrices"> View View Human's and Robot's matrices </a></h5></center>
+ <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
 <%# level = game.level + 2 %>
 <% #Game.new.game_initialization(ip, level) %>
 <% #ip.human_win += 1%>
@@ -381,6 +381,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Bingo" tar
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
+  <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
     </center>
     <center><h5><a href = "/game/global_stats"> View Global Stats </a></h5></center>
 
@@ -471,6 +472,7 @@ window.onload=callPieWin();
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %></center>
+  <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
   <center><h5><a href = "/game/global_stats"> View Global Stats </a></h5></center>
 
 <center><table id="matrices" style="border:0; width:60%"><tr><td>
@@ -565,6 +567,7 @@ window.onload=callPieWin();
 <h5><center>Human wins: <%= ip.human_win %> </h1></center>
 <h5><center>Robot wins: <%= ip.computer_win %> </h1></center>
 <h5><center>Tie: <%= ip.tie %> </h1></center>
+  <h5><center>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %></center>
 
 <center><h5><a href = "/game/global_stats"> View Global Stats </a></h5></center>
 

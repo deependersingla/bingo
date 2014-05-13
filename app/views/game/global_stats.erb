@@ -16,49 +16,49 @@ var chart = AmCharts.makeChart(chartdiv2, {
     "dataProvider": [
 {
         "country": "Level 1",
-        "litres": <%=@level_winner[5] %>
+        "litres": <%if(((@level_winner.length*2) + 1)>=5) %>  <%= @level_winner[5] %> <% else %> 0 <% end %>
     },
 {
         "country": "Level 2",
-        "litres":<%=@level_winner[7] %>
+        "litres":<%if(((@level_winner.length*2) + 1)>=7) %>  <%= @level_winner[7] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 3",
-        "litres": <%=@level_winner[9] %>
+        "litres": <%if(((@level_winner.length*2) + 1)>=9) %>  <%= @level_winner[9] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 4",
-        "litres":<%=@level_winner[11] %>
+        "litres": <%if(((@level_winner.length*2) + 1)>=11) %>  <%= @level_winner[11] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 5",
-        "litres": <%=@level_winner[13] %>
+        "litres": <%if(((@level_winner.length*2) + 1)>=13) %>  <%= @level_winner[13] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 6",
-        "litres": <%=@level_winner[15] %>
+        "litres":<%if(((@level_winner.length*2) + 1)>=15) %>  <%= @level_winner[15] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 7",
-        "litres": <%=@level_winner[17] %>
+        "litres": <%if(((@level_winner.length*2) + 1)>=17) %>  <%= @level_winner[17] %> <% else %> 0 <% end %>
     },
     
 {
         "country": "Level 8",
-        "litres": 0
+        "litres": <%if(((@level_winner.length*2) + 1)>=19) %>  <%= @level_winner[19] %> <% else %> 0 <% end %>
     },
 {
         "country": "Level 9",
-        "litres":  0
+        "litres":  <%if(((@level_winner.length*2) + 1)>=21) %>  <%= @level_winner[21] %> <% else %> 0 <% end %>
     },
     {
         "country": "Level 10",
-        "litres":  0    
+        "litres":  <%if(((@level_winner.length*2) + 1)>=23) %>  <%= @level_winner[23] %> <% else %> 0 <% end %>   
     },
         
 
@@ -117,6 +117,7 @@ var chart = AmCharts.makeChart(chartdiv, {
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
+    <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
     </center>
     <% if (ip.computer_win != 0 && ip.human_win !=0 && ip.tie !=0) %>
 <script type="text/javascript">window.onload=callPieWin("chartdiv_ip", <%=ip.computer_win %>, <%=ip.human_win %>,<%=ip.tie %>);
@@ -132,6 +133,7 @@ var chart = AmCharts.makeChart(chartdiv, {
     <center> <h5>Number of Robot wins: <%=@global_stat[:comp_win] %></h5>
  <h5>Number of Human wins: <%= @global_stat[:human_win] %> </h5>
 <h5>Number of Ties: <%=@global_stat[:tie] %> </h5>
+<h5>Total games played: <%=@global_stat[:comp_win]+@global_stat[:human_win]+@global_stat[:tie] %>
     </center>
 <script type="text/javascript">window.onload=callPieWin("chartdiv_global", <%=@global_stat[:comp_win] %>, <%=@global_stat[:human_win] %>,<%=@global_stat[:tie]%>);</script>
 
@@ -150,15 +152,16 @@ var chart = AmCharts.makeChart(chartdiv, {
 </center>
 	</div>
 <div class="column-right">
+    <br><br><br>
 <center>
 <% for i in 5..((@level_winner.length*2) + 1)%>
 <% if ((i%2)==1) %>
 
 
-<h5 style="font-family: impact">Level <font style="font-family: impact; color:red;"> <%=i%> </font> has been crossed by <font style="font-family: impact; color:red;"> <%= @level_winner[i] %></font> people.</h5>
+<h5 style="font-family: impact">Level <font style="font-family: impact; color:red;"> <%=(i-3)/2%> </font> has been crossed by <font style="font-family: impact; color:red;"> <%= @level_winner[i] %></font> people.</h5>
 <% end %>
 <% end %>
-
+<h4><font style="font-family: impact;"> Will you be the first to win Level <font style="font-family: impact; color:red;"> <%= (@level_winner.length + 1) %>?</h4></font>
 </center>
 
 </div><br>
