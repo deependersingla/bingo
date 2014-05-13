@@ -675,11 +675,9 @@ function fadeDivOut(){
     $("#y").animate({backgroundColor: "yellow" }, 500, function(){fadeDivIn2();});
 }
 function fadeDivIn2(){
-    $("#y").animate({backgroundColor: "#00FF00" }, 500, function(){fadeDivOut2();});
+    $("#y").animate({backgroundColor: "#00FF00" }, 500, function(){fadeDivIn3();});
 }
-function fadeDivOut2(){
-    $("#y").animate({backgroundColor: "yellow" }, 500, function(){fadeDivIn3();});
-}
+
 function fadeDivIn3(){
     $("#y").animate({backgroundColor: "#white" }, 500);
 }
