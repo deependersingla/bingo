@@ -30,3 +30,5 @@ group :test do
   gem 'email_spec'
   gem 'mongoid-rspec', '>= 1.10.0'
 end
+
+gem 'rails_12factor', group: :production
