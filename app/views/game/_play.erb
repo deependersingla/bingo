@@ -282,6 +282,11 @@ background-color:yellow;
 
 
 	<% @matrix.each do |z| %>
+  <colgroup>
+<% for i in 1..game.level %>
+  <col />
+<% end %>
+</colgroup>
 	<tr>
 		<% z.each do |x| %>
 		
@@ -722,11 +727,29 @@ function toggle() {
 
  $(document).ready(function()
 {
+
+
+<% if (game.level>8) %>
+$(function(){
+ $("th").hover(function(){
+   $("#portfolios col").eq($(this).index()).addClass("hover");
+   $(this).closest("tr").addClass("hover");
+ },function(){
+   $("#portfolios col").eq($(this).index()).removeClass("hover");
+   $(this).closest("tr").removeClass("hover");
+ });
+});
+
+<% end %>
+
   $("tr:even").css("background-color", "white");
  //$("#y").css('backgroundColor', '#00FF00').fadeOut("slow").fadeIn("slow").fadeOut("slow").fadeIn("slow").css('backgroundColor', '#00FF00');
 fadeDivIn();
 
+
+
 });
+
 function fadeDivIn(){
     $("#y").animate({backgroundColor: "yellow"  }, 100, function(){fadeDivOut();});
 }
@@ -741,28 +764,9 @@ function fadeDivOut(){
 function fadeDivIn3(){
     $("#y").animate({backgroundColor: "#white" }, 300);
 }
-<% if (game.level>8) %>
-
-$("th").on("mouseover", function() {
-    var el = $(this),
-        pos = el.index();
-    el.parent().find("th").addClass("hover");
-    $("th").filter(":nth-child(" + (pos+1) + ")").addClass("hover");
-  })
-  .on("mouseout", function() {
-    $("th").removeClass("hover");
-  });
-<% end %>
 
 
-$('tr th').mousedown(function(event) {
-    switch (event.which) {
-        case 3:
-           $(this).toggleClass('highlight');
-            break;
-        
-    }
-});
+
 
 
 $('tr th').click(function(){
