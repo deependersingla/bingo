@@ -425,7 +425,6 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
   <tr><td>
 <h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
 
-
 <h3 style="font-family: impact"><center>But let's see what happens in Level <%=((game.level-3)/2) + 1 %>.</center>
 
 <center> 
@@ -433,6 +432,8 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><br>
 </center>
 <br>
+<h3 style="font-family: impact"><center><%#= @level_winner[game.level]%> <%#=(game.level-3)/2 %>But let's see what happens in Level <%=((game.level-3)/2) + 1 %>. </h3></center>
+<% ip.human_win +=1 %>
 <center>
 
 <form action="/game/next_level" align="center">
@@ -524,7 +525,7 @@ window.onload=callPieWin();
 <h3 style="font-family: impact;"><center>I'll give you another chance. Try again. </h3></center>
 
 
-<% ip.tie +=1 %>
+<% #ip.tie +=1 %>
 <center>
 
 <form action="/game/restart_level" align="center">
@@ -614,13 +615,13 @@ window.onload=callPieWin();
 <h1 style="font-family: impact;"><center>ROBOT WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
 <h3 style="font-family: impact;"><center><%#= @level_winner[game.level]%><%#=(game.level-3)/2 %> Why didn't you? </h3></center>
 <center>
-<form action="/game/start_game" align="center">
+<form action="/game/comp_win" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Game</button>
 </form>
 
 </center>
 <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
-<% ip.computer_win += 1 %>
+<%# ip.computer_win += 1 %>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
     </div>
@@ -704,7 +705,7 @@ window.onload=callPieWin();
 
 <% end %>
 
-<% ip.save %>
+<%# ip.save %>
 
 </body>
 
