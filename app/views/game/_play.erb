@@ -73,6 +73,9 @@ var chart = AmCharts.makeChart("chartdiv", {
       table.center{
     margin:0 auto;   
 }
+.highlight {
+    background-color: #FFCCCC;
+}
 
 label {
     display: block;
@@ -243,9 +246,9 @@ background-color:yellow;
 			<% x = "X" %>
 			<% end %>
 		<% if x == "X" %>
-	<th align="center" style="width:<%=45+((game.level-5)/ 3) %>px">	<center><h4 style="color:red;font-size:<%=y%>px;"><b><%= x%></b> </h4></center></th>
+	<th align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;">	<center><h4 style="color:red;font-size:<%=y%>px;"><b><%= x%></b> </h4></center></th>
 		<% elsif x == "Y"%>
-		   <th align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"><center> <h4  style="color:red;font-size:<%=y%>px;"><b>X</b></h4></center></th>
+		   <th align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;" id="y"><center> <h4  style="color:red;font-size:<%=y%>px;"><b>X</b></h4></center></th>
     <% else %>
      <th align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><center><h4 style="font-size:<%=y%>px;"><%= x%> </h4></center></th>
 		<% end %>
@@ -693,6 +696,16 @@ $("th").on("mouseover", function() {
     $("th").removeClass("hover");
   });
 <% end %>
+
+
+$('tr th').mousedown(function(event) {
+    switch (event.which) {
+        case 3:
+           $(this).toggleClass('highlight');
+            break;
+        
+    }
+});
 
 
 $('tr th').click(function(){
