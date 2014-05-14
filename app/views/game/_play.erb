@@ -608,16 +608,29 @@ window.onload=callPieWin();
 </table>
 <% else %>
 <% y=20-((game.level-5)/ 1.80) %>
-<table style="width:100%;">
+<table style="width:100%;border:0;">
   <tr><td>
 <h1 style="font-family: impact;"><center>ROBOT WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
 <h3 style="font-family: impact;"><center><%#= @level_winner[game.level]%><%#=(game.level-3)/2 %> Why didn't you? </h3></center>
-<center>
-<form action="/game/comp_win" align="center">
+
+<center><table style="border:0;">
+<tr>
+  <td>
+<center><form action="/game/comp_win" align="center">
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
+</form></center>
+</td>
+<% if (game.level>5) %> <td>
+<center><form action="/game/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Game</button>
 </form>
-
 </center>
+</td>
+<% end %>
+</tr>
+</table>
+</center>
+
 <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
 <%# ip.computer_win += 1 %>
 <div id="chartdiv" style="height: 400px; width: 100%;">
@@ -741,7 +754,7 @@ $(function(){
 
 <% end %>
 
-  $("tr:even").css("background-color", "white");
+//  $("tr:even").css("background-color", "white");
  //$("#y").css('backgroundColor', '#00FF00').fadeOut("slow").fadeIn("slow").fadeOut("slow").fadeIn("slow").css('backgroundColor', '#00FF00');
 fadeDivIn();
 
