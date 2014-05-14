@@ -171,9 +171,14 @@ body {
 #footer a:hover {
   
 }
+
+
+<% game = Game.where(ip_id: ip).last %>
+<% if (game.level < 9) %>
 th:hover {
 background-color:yellow;
 }
+<% end %>
 </style>
 
 </head>
@@ -186,8 +191,6 @@ background-color:yellow;
 <%cut_line = @human_cut_lines %>
 <% # change this to 7 * 7  or 9 * 9%>
 
-
-<% game = Game.where(ip_id: ip).last %>
 
 <%# comp_matrix = game.opponent_matrix %>
 <%# comp = ComputerPlay.new(comp_matrix) %>
@@ -394,18 +397,18 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
 <table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
   <% @matrix.each do |z| %>
-  <tr>
+  <tr style="background-color:white;">
     <% z.each do |x| %>
     
       <% if x == 0 %>
       <% x = "X" %>
       <% end %>
     <% if x == "X" %>
-  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white; ">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
     <% elsif x == "Y"%>
-       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
     <% else %>
-     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
     </td>
     <% end %>
@@ -491,11 +494,11 @@ window.onload=callPieWin();
       <% x = "X" %>
       <% end %>
     <% if x == "X" %>
-  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
     <% elsif x == "Y"%>
-       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
     <% else %>
-     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
     </td>
     <% end %>
@@ -587,11 +590,11 @@ window.onload=callPieWin();
       <% x = "X" %>
       <% end %>
     <% if x == "X" %>
-  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
     <% elsif x == "Y"%>
-       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
     <% else %>
-     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
     </td>
     <% end %>
