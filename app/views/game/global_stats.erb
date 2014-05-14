@@ -108,7 +108,8 @@ var chart = AmCharts.makeChart(chartdiv, {
 	<center>
 <h3 style="font-family: courier-new"> Your Statistics </h3>
 	</center>
-<% if (ip.computer_win != 0 || ip.human_win !=0 || ip.tie !=0) %>
+    <% d = ip.computer_win  + ip.human_win  + ip.tie %>
+<% if d != 0 %>
 
 <div id="chartdiv_ip" style="height: 400px; width: 100%;"></div>
  <% else %>
