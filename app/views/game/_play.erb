@@ -2,7 +2,42 @@
 <html>
 <head>
 <% ip = Ip.where(ip: request.remote_ip).last %>
+  <script>
+  function callpiechart() {
+var labelSize = '14';
+                    var labelColor = 'black';
+    var pieData = [
+        {
+          value: <%=ip.computer_win %>,
+          color:"#F38630",
+          label:"Computer",
+          labelColor: labelColor,
+          labelFontSize: labelSize
+        },
+        {
+          value : <%=ip.human_win %>,
+          color : "#E0E4CC",
+          label:"Human",
+          labelColor: labelColor,
+          labelFontSize: labelSize
+        },
+        {
+          value : <%= ip.tie %> ,
+          color : "#69D2E7",
+          label:"Tie",
+          labelColor: labelColor,
+          labelFontSize: labelSize
+        }
+      
+      ];
+      var pieOptions = {
+    animation : false,  // Edit: correction typo: from 'animated' to 'animation'
+}
 
+
+  var myPie = new Chart(document.getElementById("canvas").getContext("2d")).Pie(pieData);
+  }
+  </script>
 <script type="text/javascript">
 function callPieWin() {
 var chart = AmCharts.makeChart("chartdiv", {
@@ -19,7 +54,7 @@ var chart = AmCharts.makeChart("chartdiv", {
         "litres": <%=ip.human_win %>
     }, {
         "country": "Tie",
-        "litres": <%=ip.tie %>
+        "litres": <%if(ip.tie==0) %> 0 <% else %> <%= ip.tie %> <% end %>
     }],
     "valueField": "litres",
     "titleField": "country"
@@ -203,8 +238,6 @@ background-color:yellow;
 <%# comp = ComputerPlay.new(comp_matrix) %>
 <% cut_lines = @comp_cut_lines %>
 <%# ip = Ip.where(ip: request.remote_ip).last %>
-
-
 <% if cut_line < game.level && cut_lines < game.level %>
 <table style="width:100%;">
   <tr><td style="width:45%;">
@@ -347,17 +380,23 @@ See Examples.
 
 
   <div class="column-right">
-<div id="chartContainer" style="height: 300px; width: 100%; ">
-    </div>
+  
+<center><h4 style="font-family:impact;">Let's see if you can Beat the Robot.</h4>
+<h6>Your statistics </h6>
+</center>
+    
+<center><canvas id="canvas" height="300" width="300"></canvas></center>
 <script type="text/javascript">
 
 <% if (ip.computer_win==0 && ip.human_win ==0  && ip.tie ==0) %>
 console.log("hi");
 <% else %>
-  window.onload= callpie();
+  window.onload= callpiechart();
 <% end %>
   </script>
-  <br><center>
+  <br>
+
+  <center>
  <h5>Number of Computer wins: <%=ip.computer_win %>
  
 <h5>Number of Human wins: <%=ip.human_win %>
@@ -380,7 +419,15 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
 <table style="width:100%">
   <tr><td>
 <h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
-<h3 style="font-family: impact"><center><%#= @level_winner[game.level]%> <%#=(game.level-3)/2 %>But let's see what happens in Level <%=((game.level-3)/2) + 1 %>. </h3></center>
+
+
+<h3 style="font-family: impact"><center>But let's see what happens in Level <%=((game.level-3)/2) + 1 %>.</center>
+
+<center> 
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://theboxes.co" data-via="theboxesgame" data-text="I just won Level <%=(game.level-3)/2 %> on The Boxes Game." data-lang="en">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><br>
+</center>
+<br>
 <center>
 
 <form action="/game/next_level" align="center">
