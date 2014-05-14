@@ -55,9 +55,9 @@ var chart = AmCharts.makeChart("chartdiv", {
        showInLegend: false,
        toolTipContent:true,
        dataPoints: [
-       {  y: <%=ip.computer_win * 100/ ((ip.computer_win + ip.human_win + ip.tie) || 1) %>, indexLabel: "Computer"},
-       {  y: <%=ip.human_win* 100/ ((ip.computer_win + ip.human_win + ip.tie) || 1) %>, indexLabel: "Human" },
-       {  y: <%=ip.tie* 100/ ((ip.computer_win + ip.human_win + ip.tie) || 1) %>, indexLabel: "Tie" },
+       {  y: <%=ip.computer_win * 100/ ((ip.computer_win + ip.human_win + ip.tie) + 1) %>, indexLabel: "Computer"},
+       {  y: <%=ip.human_win* 100/ ((ip.computer_win + ip.human_win + ip.tie) + 1) %>, indexLabel: "Human" },
+       {  y: <%=ip.tie* 100/ ((ip.computer_win + ip.human_win + ip.tie) + 1) %>, indexLabel: "Tie" },
        
        ]
      }
