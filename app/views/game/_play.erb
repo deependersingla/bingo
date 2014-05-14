@@ -372,8 +372,8 @@ See Examples.
 <img src="/assets/robot_win1.png" width="150" height="140"><img src="/assets/robot_win2.png" width="150" height="140">
 </div>
 <br>4. Whoever makes the first 5 lines wins the round.
-<br>5. As you keep winning levels, the size of the matrix increases, and hence, the number of lines you have to make increases. Hence, in a 7x7 matrix, you need to make make 7 lines.</font>
-<br><center><h5><b> Happy playing! </b></h5></center>
+<br>5. As you keep winning levels, the size of the matrix increases, and hence, the number of lines you have to make increases. So, in a 7x7 matrix, you need to make 7 lines (of length 7).</font>
+<br><br><center><h5><b> Happy playing! </b></h5></center>
 
   <br>
 
@@ -431,8 +431,6 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://theboxes.co" data-via="theboxesgame" data-text="I just won Level <%=(game.level-3)/2 %> on The Boxes Game." data-lang="en">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><br>
 </center>
-<br>
-<h3 style="font-family: impact"><center><%#= @level_winner[game.level]%> <%#=(game.level-3)/2 %>But let's see what happens in Level <%=((game.level-3)/2) + 1 %>. </h3></center>
 <% ip.human_win +=1 %>
 <center>
 
