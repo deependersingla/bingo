@@ -308,14 +308,32 @@ background-color:yellow;
 </center>
 <br>
 <center>
+<table style="border:0;">
+  <tr>
+    <td>
+<center>
 <form action="/game/restart_level" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5" onclick="stopWatch()">Restart</button>
+<button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Level</button>
 
 
 </form>
 </center>
 </td>
+<% if (game.level >5) %>
+<td>
+<center>
+<form action="/game/start_game" align="center">
+<button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Game</button>
 
+
+</form>
+</center>
+
+</td>
+<% end %>
+</tr>
+</table>
+</center>
 <td style="width:45%;background:transparent;"> 
   <% d = ['B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S'] %>
 <% (0..cut_line - 1).each {|i| d[i] = "X"} %>
@@ -425,7 +443,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
   <tr><td>
 <h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
 
-<h3 style="font-family: impact"><center>But let's see what happens in Level <%=((game.level-3)/2) + 1 %>.</center>
+<h3 style="font-family: impact"><center>But let's see what happens in Level <%=((game.level-3)/2) + 1 %>.</center></h3>
 
 <center> 
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://theboxes.co" data-via="theboxesgame" data-text="I just won Level <%=(game.level-3)/2 %> on The Boxes Game." data-lang="en">Tweet</a>
@@ -524,11 +542,23 @@ window.onload=callPieWin();
 
 
 <% #ip.tie +=1 %>
-<center>
-
-<form action="/game/restart_level" align="center">
+<center><table style="border:0;">
+<tr>
+  <td>
+<center><form action="/game/restart_level" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
 </form></center>
+</td>
+<% if (game.level>5) %> <td>
+<center><form action="/game/start_game" align="center">
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Game</button>
+</form>
+</center>
+</td>
+<% end %>
+</tr>
+</table>
+</center>
  <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
