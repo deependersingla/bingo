@@ -110,8 +110,9 @@ var chart = AmCharts.makeChart(chartdiv, {
 	</center>
     <% d = ip.computer_win  + ip.human_win  + ip.tie %>
 <% if d != 0 %>
-
 <div id="chartdiv_ip" style="height: 400px; width: 100%;"></div>
+<script type="text/javascript">window.onload=callPieWin("chartdiv_ip", <%=ip.computer_win %>, <%=ip.human_win %>,<%=ip.tie %>);
+</script>
  <% else %>
  <center><h4>No games have been played!</h4></center>
  <% end %>
@@ -120,10 +121,6 @@ var chart = AmCharts.makeChart(chartdiv, {
 <h5>Number of Ties: <%=ip.tie %>
     <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
     </center>
-    <% if (ip.computer_win != 0 && ip.human_win !=0 && ip.tie !=0) %>
-<script type="text/javascript">window.onload=callPieWin("chartdiv_ip", <%=ip.computer_win %>, <%=ip.human_win %>,<%=ip.tie %>);
-</script>
-<% end %>
 
 </td>
 <td style="width:50%">
