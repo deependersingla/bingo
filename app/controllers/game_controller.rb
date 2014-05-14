@@ -54,6 +54,8 @@ class GameController < ApplicationController
 
   def restart_level
     ip = Ip.where(ip: request.remote_ip).last
+    ip.tie += 1
+    ip.save
     last_level = ip.game.last.level
     Game.new.game_initialization(ip, last_level)
     redirect_to :action => :play
@@ -61,8 +63,19 @@ class GameController < ApplicationController
 
   def next_level
     ip = Ip.where(ip: request.remote_ip).last
+    ip.human_win += 1
+    ip.save
     last_level = ip.game.last.level
     Game.new.game_initialization(ip, last_level+2)
+    redirect_to :action => :play
+  end
+
+  def comp_win
+    ip = Ip.where(ip: request.remote_ip).last
+    ip.computer_win += 1
+    ip.save
+    last_level = ip.game.last.level
+    Game.new.game_initialization(ip, last_level)
     redirect_to :action => :play
   end
 end

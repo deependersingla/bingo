@@ -121,6 +121,9 @@ var chart = AmCharts.makeChart(chartdiv, {
 <h5>Number of Ties: <%=ip.tie %>
     <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
     </center>
+    <%# if (ip.computer_win != 0 && ip.human_win !=0 && ip.tie !=0) %>
+
+<% #end %>
 
 </td>
 <td style="width:50%">
