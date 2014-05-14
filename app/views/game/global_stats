@@ -1,7 +1,0 @@
-<html>
-<title>Bingo - Global Stats
-</title>
-<body>
-<% @global_stat %>
-</body>
-</html>
