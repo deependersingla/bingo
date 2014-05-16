@@ -244,23 +244,6 @@ background-color:yellow;
  <br><br><br><br>
  <h1 style="font-family: impact"><center> BOXES!</center></h1>
 <h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
-<center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.theboxes.co" data-via="thethingygirl" data-hashtags="TheBoxes">Tweet</a></center>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-<div id="fb-root"></div>
-
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<center>
-<div class="fb-like" data-href="https://www.theboxes.co" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
-
-
-</center>
 <br><br><br><br><center>
 
 </td>
@@ -269,34 +252,34 @@ background-color:yellow;
 
 
 <% @matrix %>
-<% y=20-((game.level-5)/ 1.80) %>
+<% y=40-((game.level-5)/ 1.80) %>
 
 <center><table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
 
 
-  <% @matrix.each do |z| %>
+	<% @matrix.each do |z| %>
   <colgroup>
 <% for i in 1..game.level %>
   <col />
 <% end %>
 </colgroup>
-  <tr>
-    <% z.each do |x| %>
-
-      <% if x == 0 %>
-      <% x = "X" %>
-      <% end %>
-    <% if x == "X" %>
-  <th align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;"> <center><h4 style="color:red;font-size:<%=y%>px;"><b><%= x%></b> </h4></center></th>
-    <% elsif x == "Y"%>
-       <th align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;" id="y"><center> <h4  style="color:red;font-size:<%=y%>px;"><b>X</b></h4></center></th>
+	<tr>
+		<% z.each do |x| %>
+		
+			<% if x == 0 %>
+			<% x = "X" %>
+			<% end %>
+		<% if x == "X" %>
+	<th align="center" style="width:<%=80+((game.level-5)/ 3) %>px; background-color:white;">	<center><h4 style="color:red;font-size:<%=y%>px;"><b><%= x%></b> </h4></center></th>
+		<% elsif x == "Y"%>
+		   <th align="center" style="width:<%=80+((game.level-5)/ 3) %>px; background-color:white;" id="y"><center> <h4  style="color:red;font-size:<%=y%>px;"><b>X</b></h4></center></th>
     <% else %>
-     <th align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><center><h4 style="font-size:<%=y%>px;"><%= x%> </h4></center></th>
-    <% end %>
-    </th>
-    <% end %>
-  </tr>
-  <% end %>
+     <th align="center" style="width:<%=80+((game.level-5)/ 3) %>px"><center><h4 style="font-size:<%=y%>px;"><%= x%> </h4></center></th>
+		<% end %>
+		</th>
+		<% end %>
+	</tr>
+	<% end %>
 </table>
 </center>
 <br>
@@ -305,7 +288,7 @@ background-color:yellow;
   <tr>
     <td>
 <center>
-<form action="/game/restart_level" align="center">
+<form action="/mobile/restart_level" align="center">
 <button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Level</button>
 
 
@@ -315,7 +298,7 @@ background-color:yellow;
 <% if (game.level >5) %>
 <td>
 <center>
-<form action="/game/start_game" align="center">
+<form action="/mobile/start_game" align="center">
 <button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Game</button>
 
 
@@ -368,60 +351,9 @@ background-color:yellow;
 </tr>
 </table>
 <br>
-<div class="column-left" style="position:relative;">
-
-<h1> Rules</h1>
-<p style="color:black;"> 
-  <b><center><h5>For a 5x5 matrix, your aim is to make <U>5 lines</U> of length 5 - horizontal, vertical or diagonal. </h5></center></b><font style="color: black;">
-<br>1. You and the computer have randomly generated matrices. You can't see the computer's matrix - and the computer can't see yours. (We can assure you that).
-<br>2. You scratch off a number on your matrix and the computer scratches of the same number. 
-<br>3. The computer then calls out a number and the same number gets scratched off on yours.<br>
-<a id="displayText" href="javascript:toggle();">
-See Examples.
-</a>
-<div id="toggleText" style="display: none">
-<img src="/assets/robot_win1.png" width="150" height="140"><img src="/assets/robot_win2.png" width="150" height="140">
-</div>
-<br>4. Whoever makes the first 5 lines wins the round.
-<br>5. As you keep winning levels, the size of the matrix increases, and hence, the number of lines you have to make increases. So, in a 7x7 matrix, you need to make 7 lines (of length 7).</font>
-<br><br><center><h5><b> Happy playing! </b></h5></center>
-
-  <br>
-
-  </p>
-<br>
-
-</div>
 
 
-
-  <div class="column-right">
-  
-<center><h4 style="font-family:impact;">Let's see if you can Beat the Robot.</h4>
-<h6>Your statistics </h6>
-</center>
-    
-<center><canvas id="canvas" height="300" width="300"></canvas></center>
-<script type="text/javascript">
-
-<% if (ip.computer_win==0 && ip.human_win ==0  && ip.tie ==0) %>
-console.log("hi");
-<% else %>
-  window.onload= callpiechart();
-<% end %>
-  </script>
-  <br>
-
-  <center>
- <h5>Number of Computer wins: <%=ip.computer_win %>
  
-<h5>Number of Human wins: <%=ip.human_win %>
-<h5>Number of Ties: <%=ip.tie %>
-<h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
-  </center>
-<center><a href = "/game/global_stats"> View Global Stats </a></center>
-<br>
-</div>
 <div id="footer" style="width:100%;">
   <div class="inner">
         <p>
@@ -445,7 +377,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
 
 <center>
 
-<form action="/game/next_level" align="center">
+<form action="/mobile/next_level" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
 </form></center>
  <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
@@ -457,7 +389,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
 <h5>Number of Ties: <%=ip.tie %>
   <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
     </center>
-    <center><h5><a href = "/game/global_stats"> View Global Stats </a></h5></center>
+    <center><h5><a href = "/mobile/global_stats"> View Global Stats </a></h5></center>
 
 <center><table id="matrices" style="border:0; width:60%"><tr><td>
 
@@ -537,12 +469,12 @@ window.onload=callPieWin();
 <center><table style="border:0;">
 <tr>
   <td>
-<center><form action="/game/restart_level" align="center">
+<center><form action="/mobile/restart_level" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
 </form></center>
 </td>
 <% if (game.level>5) %> <td>
-<center><form action="/game/start_game" align="center">
+<center><form action="/mobile/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Game</button>
 </form>
 </center>
@@ -559,7 +491,7 @@ window.onload=callPieWin();
  <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
   <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %></center>
-  <h5><center><a href = "/game/global_stats"> View Global Stats </a></center></h5>
+  <h5><center><a href = "/mobile/global_stats"> View Global Stats </a></center></h5>
 
 <center><table id="matrices" style="border:0; width:60%"><tr><td>
 
@@ -638,12 +570,12 @@ window.onload=callPieWin();
 <center><table style="border:0;">
 <tr>
   <td>
-<center><form action="/game/comp_win" align="center">
+<center><form action="/mobile/comp_win" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
 </form></center>
 </td>
 <% if (game.level>5) %> <td>
-<center><form action="/game/start_game" align="center">
+<center><form action="/mobile/start_game" align="center">
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Game</button>
 </form>
 </center>
@@ -668,7 +600,7 @@ window.onload=callPieWin();
 <h5><center>Tie: <%= ip.tie %> </h1></center>
   <h5><center>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %></center>
 
-<center><h5><a href = "/game/global_stats"> View Global Stats </a></h5></center>
+<center><h5><a href = "/mobile/global_stats"> View Global Stats </a></h5></center>
 
 <center><table id="matrices" style="border:0; width:60%"><tr><td>
 
@@ -743,9 +675,9 @@ window.onload=callPieWin();
 </body>
 
 <script language="javascript"> 
-function toggle() {
-  var ele = document.getElementById("toggleText");
-  var text = document.getElementById("displayText");
+function toggle(toggletxt, displaytxt) {
+  var ele = document.getElementById(toggletxt);
+  var text = document.getElementById(displaytxt);
   if(ele.style.display == "block") {
         ele.style.display = "none";
     text.innerHTML = "See examples";
@@ -822,10 +754,10 @@ $('tr th').click(function(){
       
         if (isNaN(cel)==true){
         
-              window.alert("Oops! Click again.");
+        			window.alert("Oops! Click again.");
 
-            }
-            else {
+        		}
+        		else {
               c="<% cut_line %>";
               
               
@@ -833,14 +765,14 @@ $('tr th').click(function(){
                 data: 'q=' + cel,
                 //dataType: 'script',
                 type: 'post',
-                url: "/game/search"        
+                url: "/mobile/search"        
               });
               //post_to_url("/game/search", {q: cel});
-              
-            }
+        			
+        		}
         }
 
-
-
+		
+		
 
     </script>
