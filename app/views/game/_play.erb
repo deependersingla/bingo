@@ -216,7 +216,7 @@ body {
 
 
 <% game = Game.where(ip_id: ip).last %>
-<% if (game.level < 9) %>
+<% if (game.level < 25) %>
 th:hover {
 background-color:yellow;
 }
@@ -263,13 +263,6 @@ background-color:yellow;
 </center>
 <br><br><br><br><center>
 
-<% if (game.level >=30) %>
-<form>
-    <div>
-        <label><input id="hint" type="checkbox" /> Highlight lines</label>
-    </div>
-</form>
-<% end %>
 </td>
 <td style="background:transparent;">
 <br>
@@ -440,7 +433,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% y=20-((game.level-5)/ 1.80) %>
 <table style="width:100%">
-  <tr><td>
+  <tr><td><% ip.human_win +=1 %>
 <h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
 
 <h3 style="font-family: impact"><center>But let's see what happens in Level <%=((game.level-3)/2) + 1 %>.</center></h3>
@@ -449,7 +442,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://theboxes.co" data-via="theboxesgame" data-text="I just won Level <%=(game.level-3)/2 %> on The Boxes Game." data-lang="en">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><br>
 </center>
-<% ip.human_win +=1 %>
+
 <center>
 
 <form action="/game/next_level" align="center">
@@ -458,7 +451,6 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
  <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
 <%# level = game.level + 2 %>
 <% #Game.new.game_initialization(ip, level) %>
-<% ip.human_win += 1%>
 <div id="chartdiv" style="height: 400px; width: 100%;"></div>
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>
@@ -541,7 +533,7 @@ window.onload=callPieWin();
 <h3 style="font-family: impact;"><center>I'll give you another chance. Try again. </h3></center>
 
 
-<% #ip.tie +=1 %>
+<% ip.tie +=1 %>
 <center><table style="border:0;">
 <tr>
   <td>
@@ -662,7 +654,7 @@ window.onload=callPieWin();
 </center>
 
 <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
-<%# ip.computer_win += 1 %>
+<% ip.computer_win += 1 %>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
     </div>
