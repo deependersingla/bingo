@@ -1,0 +1,176 @@
+<html>
+<title>Bingo - Global Stats
+</title>
+<head>
+<style type="text/css">
+table td { border-left: 1px solid #000; }
+table td:first-child { border-left: none; }
+.column-left{ float: left; width: 66%; }
+.column-right{ float: right; width: 33%; }
+</style>
+<script type="text/javascript">
+function callPieWin2(chartdiv2) {
+var chart = AmCharts.makeChart(chartdiv2, {
+    "type": "pie",
+  "theme": "light",
+    "dataProvider": [
+{
+        "country": "Level 1",
+        "litres": <%if(((@level_winner.length*2) + 1)>=5) %>  <%= @level_winner[5] %> <% else %> 0 <% end %>
+    },
+{
+        "country": "Level 2",
+        "litres":<%if(((@level_winner.length*2) + 1)>=7) %>  <%= @level_winner[7] %> <% else %> 0 <% end %>
+    },
+    
+{
+        "country": "Level 3",
+        "litres": <%if(((@level_winner.length*2) + 1)>=9) %>  <%= @level_winner[9] %> <% else %> 0 <% end %>
+    },
+    
+{
+        "country": "Level 4",
+        "litres": <%if(((@level_winner.length*2) + 1)>=11) %>  <%= @level_winner[11] %> <% else %> 0 <% end %>
+    },
+    
+{
+        "country": "Level 5",
+        "litres": <%if(((@level_winner.length*2) + 1)>=13) %>  <%= @level_winner[13] %> <% else %> 0 <% end %>
+    },
+    
+{
+        "country": "Level 6",
+        "litres":<%if(((@level_winner.length*2) + 1)>=15) %>  <%= @level_winner[15] %> <% else %> 0 <% end %>
+    },
+    
+{
+        "country": "Level 7",
+        "litres": <%if(((@level_winner.length*2) + 1)>=17) %>  <%= @level_winner[17] %> <% else %> 0 <% end %>
+    },
+    
+{
+        "country": "Level 8",
+        "litres": <%if(((@level_winner.length*2) + 1)>=19) %>  <%= @level_winner[19] %> <% else %> 0 <% end %>
+    },
+{
+        "country": "Level 9",
+        "litres":  <%if(((@level_winner.length*2) + 1)>=21) %>  <%= @level_winner[21] %> <% else %> 0 <% end %>
+    },
+    {
+        "country": "Level 10",
+        "litres":  <%if(((@level_winner.length*2) + 1)>=23) %>  <%= @level_winner[23] %> <% else %> 0 <% end %>   
+    },
+        
+
+
+],
+    "valueField": "litres",
+    "titleField": "country"
+});
+}
+
+</script>
+<script type="text/javascript">
+function callPieWin(chartdiv, computer_win, human_win,tie) {
+var chart = AmCharts.makeChart(chartdiv, {
+    "type": "pie",
+  "theme": "light",
+  "colors": ["#0D8ECF","#8A0CCF","#2A0CD0"],
+    "dataProvider": [
+{
+        "country": "Computer",
+        "litres": computer_win
+    },
+{
+        "country": "Human",
+        "litres": human_win
+    }, {
+        "country": "Tie",
+        "litres": tie
+    }],
+    "valueField": "litres",
+    "titleField": "country"
+});
+}
+
+</script>
+</head>	
+<body>
+<% ip = Ip.where(ip: request.remote_ip).last %>
+<% @global_stat%>
+<% @global_stat[:human_win]%>
+<h1 style="font-family: impact"><center>Global Statistics</h1></center>
+<h3 style="font-family: impact"><center>Have you performed better than your counter part humans?</h3></center>
+
+<table style="width:100%">
+  <tr>
+<td style="width:50%">
+	<center>
+<h3 style="font-family: courier-new"> Your Statistics </h3>
+	</center>
+    <% d = ip.computer_win  + ip.human_win  + ip.tie %>
+<% if d != 0 %>
+<div id="chartdiv_ip" style="height: 400px; width: 100%;"></div>
+<script type="text/javascript">window.onload=callPieWin("chartdiv_ip", <%=ip.computer_win %>, <%=ip.human_win %>,<%=ip.tie %>);
+</script>
+ <% else %>
+ <center><h4>No games have been played!</h4></center>
+ <% end %>
+    <center> <h5>Number of Robot wins: <%=ip.computer_win %>
+ <h5>Number of Human wins: <%=ip.human_win %>
+<h5>Number of Ties: <%=ip.tie %>
+    <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
+    </center>
+    <%# if (ip.computer_win != 0 && ip.human_win !=0 && ip.tie !=0) %>
+
+<% #end %>
+
+</td>
+<td style="width:50%">
+	<center>
+<h3 style="font-family: courier-new"> Global Statistics </h3>
+	</center>
+	<div id="chartdiv_global" style="height: 400px; width: 100%;"></div>
+    <center> <h5>Number of Robot wins: <%=@global_stat[:comp_win] %></h5>
+ <h5>Number of Human wins: <%= @global_stat[:human_win] %> </h5>
+<h5>Number of Ties: <%=@global_stat[:tie] %> </h5>
+<h5>Total games played: <%=@global_stat[:comp_win]+@global_stat[:human_win]+@global_stat[:tie] %>
+    </center>
+<script type="text/javascript">window.onload=callPieWin("chartdiv_global", <%=@global_stat[:comp_win] %>, <%=@global_stat[:human_win] %>,<%=@global_stat[:tie]%>);</script>
+
+</td>
+</tr>
+</table><br><br>
+</center>
+<div>
+<center><h3 style="font-family: impact"> Is victory yours? </h3></center>
+<div class="column-left">
+	<center>
+
+<div id="chartdiv2" style="height: 400px; width: 100%;"></div>
+<script type="text/javascript">window.onload=callPieWin2("chartdiv2");</script>
+
+</center>
+	</div>
+<div class="column-right">
+    <br><br><br>
+<center>
+<% for i in 5..((@level_winner.length*2) + 1)%>
+<% if ((i%2)==1) %>
+
+
+<h5 style="font-family: impact">Level <font style="font-family: impact; color:red;"> <%=(i-3)/2%> </font> has been crossed by <font style="font-family: impact; color:red;"> <%= @level_winner[i] %></font> people.</h5>
+<% end %>
+<% end %>
+<h4><font style="font-family: impact;"> Will you be the first to win Level <font style="font-family: impact; color:red;"> <%= (@level_winner.length) %>?</h4></font>
+</center>
+
+</div><br>
+<center>
+<form action="/game/play" align="center">
+<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Start Game</button>
+</form></center>
+</div>
+
+</body>
+</html>
