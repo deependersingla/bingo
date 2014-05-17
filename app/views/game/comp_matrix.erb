@@ -1,0 +1,25 @@
+<center><table id="portfolios" class="table" border="3">
+
+
+	<% @matrix.each do |z| %>
+	<tr>
+		<% z.each do |x| %>
+		
+			<% if x == 0 %>
+			<% x = "X" %>
+			<% end %>
+		<% if x == "X" %>
+	<th>	<h4 style="color:red;font-size:<%#=y%>px;">	<%= x%> </h4></th>
+		<% elsif x == "Y"%>
+		   <th id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></th>
+    <% else %>
+     <th><h4 style="font-size:<%#=y%>px;"><%= x%> </h4></th>
+		<% end %>
+		</th>
+		<% end %>
+	</tr>
+	<% end %>
+</table>
+</center>
+<br>
+<center>

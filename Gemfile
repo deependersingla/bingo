@@ -16,6 +16,8 @@ gem 'therubyracer', :platform=>:ruby
 #gem 'thin'
 gem 'newrelic_rpm'
 gem 'unicorn'
+gem 'capistrano'
+gem 'capistrano-ext'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
