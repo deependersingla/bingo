@@ -1,6 +1,6 @@
 class GameController < ApplicationController
-  
-
+  require 'actionpack/action_caching'
+   caches_action :play
   def start_game
     if !Ip.where(ip: request.remote_ip).exists? 
       Ip.create(ip: request.remote_ip)

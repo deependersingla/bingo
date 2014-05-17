@@ -36,3 +36,4 @@ group :test do
 end
 
 gem 'rails_12factor', group: :production
+gem "actionpack-action_caching", github: "rails/actionpack-action_caching"
