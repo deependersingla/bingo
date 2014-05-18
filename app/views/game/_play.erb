@@ -2,6 +2,33 @@
 <html>
 <head>
 <% ip = Ip.where(ip: request.remote_ip).last %>
+<script type="text/javascript">
+function callPieWin(human, tie, comp) {
+var chart = AmCharts.makeChart("chartdiv", {
+    "type": "pie",
+  "theme": "light",
+  "colors": ["#0D8ECF","#8A0CCF",  "#2A0CD0"],
+    "dataProvider": [
+{
+        "country": "Computer",
+        "litres": comp
+    },
+{
+        "country": "Human",
+        "litres": human
+    }, {
+        "country": "Tie",
+        "litres": tie 
+    }],
+    "valueField": "litres",
+    "titleField": "country"
+});
+}
+
+
+
+</script>
+
   <script>
   function callpiechart() {
 var labelSize = '14';
@@ -38,32 +65,7 @@ var labelSize = '14';
   var myPie = new Chart(document.getElementById("canvas").getContext("2d")).Pie(pieData);
   }
   </script>
-<script type="text/javascript">
-function callPieWin() {
-var chart = AmCharts.makeChart("chartdiv", {
-    "type": "pie",
-  "theme": "light",
-  "colors": ["#0D8ECF","#8A0CCF",  "#2A0CD0"],
-    "dataProvider": [
-{
-        "country": "Computer",
-        "litres": <%=ip.computer_win %>
-    },
-{
-        "country": "Human",
-        "litres": <%=ip.human_win %>
-    }, {
-        "country": "Tie",
-        "litres": <%if(ip.tie==0) %> 0 <% else %> <%= ip.tie %> <% end %>
-    }],
-    "valueField": "litres",
-    "titleField": "country"
-});
-}
 
-
-
-</script>
 
 
 <% d = (ip.computer_win + ip.human_win + ip.tie)  %>
@@ -449,6 +451,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
 <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
 </form></center>
  <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
+ <center><h6>Your stats</h6></center>
 <%# level = game.level + 2 %>
 <% #Game.new.game_initialization(ip, level) %>
 <div id="chartdiv" style="height: 400px; width: 100%;"></div>
@@ -522,7 +525,7 @@ and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" tar
 <script type="text/javascript">
 
 
-window.onload=callPieWin();
+window.onload=callPieWin(<%=ip.human_win %>,<%=ip.tie%>,<%=ip.computer_win%>);
 </script>
 
 </td></tr></table>
@@ -552,6 +555,7 @@ window.onload=callPieWin();
 </table>
 </center>
  <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
+ <center><h6>Your stats</h6></center>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
     </div>
@@ -622,7 +626,7 @@ window.onload=callPieWin();
 </tr>
 </table>
 </center>
-<script type="text/javascript">window.onload=callPieWin();</script>
+<script type="text/javascript">window.onload=callPieWin(<%=ip.human_win%>,<%=ip.tie %>,<%=ip.computer_win%>);</script>
 
 
 </td>
@@ -631,8 +635,9 @@ window.onload=callPieWin();
 <% else %>
 <% y=20-((game.level-5)/ 1.80) %>
 <table style="width:100%;border:0;">
-  <tr><td>
+  <tr><td><% ip.computer_win += 1 %>
 <h1 style="font-family: impact;"><center>ROBOT WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
+
 <h3 style="font-family: impact;"><center><%#= @level_winner[game.level]%><%#=(game.level-3)/2 %> Why didn't you? </h3></center>
 
 <center><table style="border:0;">
@@ -654,7 +659,7 @@ window.onload=callPieWin();
 </center>
 
 <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
-<% ip.computer_win += 1 %>
+<center><h6>Your stats</h6></center>
 <div id="chartdiv" style="height: 400px; width: 100%;">
 
     </div>
@@ -662,7 +667,7 @@ window.onload=callPieWin();
 
   <br>
  
-<script type="text/javascript">window.onload=callPieWin();</script>
+<script type="text/javascript">window.onload=callPieWin(<%=ip.human_win%>,<%=ip.tie%>,<%=ip.computer_win %>);</script>
 <h5><center>Human wins: <%= ip.human_win %> </h1></center>
 <h5><center>Robot wins: <%= ip.computer_win %> </h1></center>
 <h5><center>Tie: <%= ip.tie %> </h1></center>

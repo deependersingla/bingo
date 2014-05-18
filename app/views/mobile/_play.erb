@@ -118,6 +118,10 @@ var chart = AmCharts.makeChart("chartdiv", {
 .highlight {
     background-color: #FFCCCC;
 }
+html, body
+{
+  height: 100%;
+}
 
 label {
     display: block;
@@ -241,78 +245,53 @@ background-color:yellow;
 <% if cut_line < game.level && cut_lines < game.level %>
 <table style="width:100%;">
   <tr><td style="width:45%;">
- <br><br><br><br>
- <h1 style="font-family: impact"><center> BOXES!</center></h1>
-<h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
-<br><br><br><br><center>
-
-</td>
-<td style="background:transparent;">
-<br>
-
-
-<% @matrix %>
-<% y=40-((game.level-5)/ 1.80) %>
-
-<center><table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
-
-
-	<% @matrix.each do |z| %>
-  <colgroup>
-<% for i in 1..game.level %>
-  <col />
-<% end %>
-</colgroup>
-	<tr>
-		<% z.each do |x| %>
-		
-			<% if x == 0 %>
-			<% x = "X" %>
-			<% end %>
+            <br><br><br><br>
+            <h1 style="font-family: impact"><center> BOXES!</center></h1>
+            <h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
+            <br><br><br><br><center>
+      </td>
+      <td style="background:transparent;">
+      <br>
+      <% @matrix %>
+      <% y=40-((game.level-5)/0.36) %>
+      <center>
+        <table id="portfolios" class="table" border="3" style="table-layout:fixed; height:100%;">
+          <% @matrix.each do |z| %>
+          <colgroup>
+          <% for i in 1..game.level %>
+            <col />
+          <% end %>
+          </colgroup>
+          <tr>
+<% z.each do |x| %>
+		<% if x == 0 %>
+		  <% x = "X" %>
+		<% end %>
 		<% if x == "X" %>
-	<th align="center" style="width:<%=80+((game.level-5)/ 3) %>px; background-color:white;">	<center><h4 style="color:red;font-size:<%=y%>px;"><b><%= x%></b> </h4></center></th>
+	   <th align="center" style="width:<%=70+((game.level-5)) %>px; background-color:white;">	
+      <center><h4 style="color:red;font-size:<%=y%>px;"><b><%= x%></b></h4></center>
+    </th>
 		<% elsif x == "Y"%>
-		   <th align="center" style="width:<%=80+((game.level-5)/ 3) %>px; background-color:white;" id="y"><center> <h4  style="color:red;font-size:<%=y%>px;"><b>X</b></h4></center></th>
+		  <th align="center" style="width:<%=70+((game.level-5)) %>px; background-color:white;" id="y"><center> <h4  style="color:red;font-size:<%=y%>px;"><b>X</b></h4></center>
+    </th>
     <% else %>
-     <th align="center" style="width:<%=80+((game.level-5)/ 3) %>px"><center><h4 style="font-size:<%=y%>px;"><%= x%> </h4></center></th>
+      <th align="center" style="width:<%=70+((game.level-5)) %>px"><center><h4 style="font-size:<%=y%>px;"><%= x%> </h4></center></th>
 		<% end %>
-		</th>
-		<% end %>
-	</tr>
-	<% end %>
+		  </th>
+<% end %>
+</tr>
+<% end %>
 </table>
 </center>
+
 <br>
 <center>
 <table style="border:0;">
   <tr>
     <td>
 <center>
-<form action="/mobile/restart_level" align="center">
-<button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Level</button>
-
-
-</form>
-</center>
-</td>
-<% if (game.level >5) %>
-<td>
-<center>
-<form action="/mobile/start_game" align="center">
-<button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Game</button>
-
-
-</form>
-</center>
-
-</td>
-<% end %>
-</tr>
-</table>
-</center>
-<td style="width:45%;background:transparent;"> 
-  <% d = ['B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S'] %>
-<% (0..cut_line - 1).each {|i| d[i] = "X"} %>
+   <% d = ['B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S'] %>
+<% (0..cut_line - 1).each {|i| d[i] = "X"} %></center>
 <br>
 <center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4>
 
@@ -328,6 +307,7 @@ background-color:yellow;
 </font>
 <% end %>
 </center>
+</td><td>
   <% d = ['B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S'] %>
 <% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
 <br>
@@ -338,12 +318,41 @@ background-color:yellow;
 <b>X</b>
 </font>
 <% end %>
+
 <% for i in cut_lines..(game.level-1) do %>
 
 <font style="font-family: Courier New;font-size: 26px;">
 <%= d[i] %>
 </font>
 <% end %>
+
+</center>
+</td></tr>
+  <tr><td>
+<center>
+<form action="/mobile/restart_level" align="center">
+<button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Level</button>
+
+
+</form>
+</center>
+</td>
+
+<td>
+<center>
+<form action="/mobile/start_game" align="center">
+<button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Game</button>
+
+
+</form>
+</center>
+
+</td>
+</tr>
+</table>
+</center>
+<td style="width:45%;background:transparent;"> 
+ 
 </center>
   
  

@@ -6,7 +6,7 @@ class MobileController < ApplicationController
       Ip.create(ip: request.remote_ip)
     end
 
-    Game.new.game_initialization(Ip.where(ip: request.remote_ip).last, 5)
+    Game.new.game_initialization(Ip.where(ip: request.remote_ip).last, 9)
     redirect_to :action => :play
   end
 
