@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+#ruby '2.0.0'
 gem 'rails', '4.0.0'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
@@ -15,9 +15,14 @@ gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 #gem 'thin'
 gem 'newrelic_rpm'
-gem 'unicorn'
-gem 'capistrano'
-gem 'capistrano-ext'
+#gem 'unicorn'
+#gem 'capistrano'
+#gem 'capistrano-ext'
+gem 'capistrano', '~> 3.1.0'
+gem 'capistrano-bundler', '~> 1.1.2'
+gem 'capistrano-rails', '~> 1.1.1'
+gem 'capistrano-rbenv', github: "capistrano/rbenv"
+#gem 'net-ssh', '~> 2.8.1', :git => "https://github.com/net-ssh/net-ssh"
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
