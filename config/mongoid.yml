@@ -75,10 +75,10 @@ production:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: app25195833
-      username: heroku
-      password: deepender
+      database: bingo_production
+      #username: heroku
+      #password: deepender
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - oceanic.mongohq.com:10011
+         - localhost:27017
