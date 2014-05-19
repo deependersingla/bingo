@@ -2,6 +2,7 @@
 <html>
 <head>
 <% ip = Ip.where(ip: request.remote_ip).last %>
+
 <script type="text/javascript">
 function callPieWin(human, tie, comp) {
 var chart = AmCharts.makeChart("chartdiv", {
@@ -269,7 +270,7 @@ background-color:yellow;
 <td style="background:transparent;">
 <br>
 
-
+<%= ip.ip %>
 <% @matrix %>
 <% y=20-((game.level-5)/ 1.80) %>
 
