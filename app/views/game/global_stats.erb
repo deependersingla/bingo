@@ -115,7 +115,10 @@ var chart = AmCharts.makeChart(chartdiv, {
 <script type="text/javascript">window.onload=callPieWin("chartdiv_ip", <%=ip.computer_win %>, <%=ip.human_win %>,<%=ip.tie %>);
 </script>
  <% else %>
+<div style="height: 400px; width: 100%;">
+    <br><br><br><br><br><br><br><br>
  <center><h4>No games have been played!</h4></center>
+</div>
  <% end %>
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
  <h5>Number of Human wins: <%=ip.human_win %>

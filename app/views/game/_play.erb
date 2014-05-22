@@ -404,12 +404,19 @@ See Examples.
 <h6>Your statistics </h6>
 </center>
     
-<center><canvas id="canvas" height="300" width="300"></canvas></center>
-<script type="text/javascript">
+
 
 <% if (ip.computer_win==0 && ip.human_win ==0  && ip.tie ==0) %>
-console.log("hi");
+
+<div style="height: 200px; width: 100%;">
+<br><br><br><center><h4> No games have been played! </h4></center>
+
+</div>
+
 <% else %>
+
+<center><canvas id="canvas" height="300" width="300"></canvas></center>
+<script type="text/javascript">
   window.onload= callpiechart();
 <% end %>
   </script>
