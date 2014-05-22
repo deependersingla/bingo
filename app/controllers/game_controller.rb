@@ -27,6 +27,7 @@ class GameController < ApplicationController
     @global_stat = Ip.new.global_stat
     @level_winner = Game.new.level_winner_info
     @level
+    @lev_win
   end
 
   def play
@@ -34,6 +35,7 @@ class GameController < ApplicationController
       game = Game.where(ip_id: Ip.where(ip: cookies[:user_id]).last.id).last
       # computer
       comp = ComputerPlay.new(game.opponent_matrix)
+
       @comp_cut_lines = comp.total_cut_lines
       if @comp_cut_lines <= game.level + 5
         @matrix = game.starter_matrix

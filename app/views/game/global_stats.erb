@@ -62,15 +62,15 @@ var chart = AmCharts.makeChart(chartdiv2, {
     },
       {
         "levels": "Level 11",
-        "level_wins":  <%if(((@level_winner.length*2) + 1)>=23) %>  <%= @level_winner[25] %> <% else %> 0 <% end %>   
+        "level_wins":  <%if(((@level_winner.length*2) + 1)>=25) %>  <%= @level_winner[25] %> <% else %> 0 <% end %>   
     },
     {
         "levels": "Level 12",
-        "level_wins":  <%if(((@level_winner.length*2) + 1)>=23) %>  <%= @level_winner[27] %> <% else %> 0 <% end %>   
+        "level_wins":  <%if(((@level_winner.length*2) + 1)>=27) %>  <%= @level_winner[27] %> <% else %> 0 <% end %>   
     },
     {
         "levels": "Level 13",
-        "level_wins":  <%if(((@level_winner.length*2) + 1)>=23) %>  <%= @level_winner[29] %> <% else %> 0 <% end %>   
+        "level_wins":  <%if(((@level_winner.length*2) + 1)>=29) %>  <%= @level_winner[29] %> <% else %> 0 <% end %>   
     },  
 
 
@@ -180,6 +180,16 @@ var chart = AmCharts.makeChart(chartdiv, {
 <div class="column-right">
     <br><br><br>
 <center>
+<% for j in 1..5 %> 
+<% for i in 5..((@level_winner.length*2) - 1)%>
+<% if ((i%2)==1) %>
+<% if (@level_winner[i] < @level_winner[i+2]) %>
+    <% @level_winner[i] = @level_winner[i+2] %>
+<% end %>
+<% end %>
+<% end %>
+<% end %>
+
 <% for i in 5..((@level_winner.length*2) + 1)%>
 <% if ((i%2)==1) %>
 <h5 style="font-family: impact">Level <font style="font-family: impact; color:red;"> <%=(i-3)/2%> </font> has been crossed by <font style="font-family: impact; color:red;"> <%= @level_winner[i] %></font> people.</h5>
