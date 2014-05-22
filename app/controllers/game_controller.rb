@@ -2,14 +2,20 @@ class GameController < ApplicationController
   #require 'actionpack/action_caching'
    #caches_action :play
   def start_game
-    if !Ip.where(ip: request.remote_ip).exists? 
-      Ip.create(ip: request.remote_ip)
+    if cookies.has_key?(:user_id)
+      #do nothing  
+    else
+    begin  
+      last_ip = Ip.last.ip
+    rescue
+      last_ip = 1
     end
-
-    Game.new.game_initialization(Ip.where(ip: request.remote_ip).last, 5)
+      cookies.permanent[:user_id] = last_ip + 1
+      Ip.create(ip: cookies[:user_id])
+  end
+    Game.new.game_initialization(Ip.where(ip: cookies[:user_id]).last, 5)
     redirect_to :action => :play
   end
-
 
 
   def computer_win
@@ -24,8 +30,8 @@ class GameController < ApplicationController
   end
 
   def play
-    if Ip.where(ip: request.remote_ip).exists? 
-      game = Game.where(ip_id: Ip.where(ip: request.remote_ip).last.id).last
+    if Ip.where(ip: cookies[:user_id]).exists? 
+      game = Game.where(ip_id: Ip.where(ip: cookies[:user_id]).last.id).last
       # computer
       comp = ComputerPlay.new(game.opponent_matrix)
       @comp_cut_lines = comp.total_cut_lines
@@ -44,7 +50,7 @@ class GameController < ApplicationController
 
 
   def search
-    Game.new.update_matrix(params[:q], Ip.where(ip: request.remote_ip).last)
+    Game.new.update_matrix(params[:q], Ip.where(ip: cookies[:user_id]).last)
     redirect_to :action => :play
   end
 
@@ -53,7 +59,7 @@ class GameController < ApplicationController
   end
 
   def restart_level
-    ip = Ip.where(ip: request.remote_ip).last
+    ip = Ip.where(ip: cookies[:user_id]).last
     ip.tie += 1
     ip.save
     last_level = ip.game.last.level
@@ -62,7 +68,7 @@ class GameController < ApplicationController
   end
 
   def next_level
-    ip = Ip.where(ip: request.remote_ip).last
+    ip = Ip.where(ip: cookies[:user_id]).last
     ip.human_win += 1
     ip.save
     last_level = ip.game.last.level
@@ -71,14 +77,14 @@ class GameController < ApplicationController
   end
 
   def start_level_again
-    ip = Ip.where(ip: request.remote_ip).last
+    ip = Ip.where(ip: cookies[:user_id]).last
     last_level = ip.game.last.level
     Game.new.game_initialization(ip, last_level)
     redirect_to :action => :play
   end
 
   def comp_win
-    ip = Ip.where(ip: request.remote_ip).last
+    ip = Ip.where(ip: cookies[:user_id]).last
     ip.computer_win += 1
     ip.save
     last_level = ip.game.last.level

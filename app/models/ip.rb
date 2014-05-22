@@ -1,6 +1,6 @@
 class Ip
   include Mongoid::Document
-  field :ip,   :type => String
+  field :ip,   :type => Integer
   
   # Number of wins
   field :human_win,         type: Integer, default: 0

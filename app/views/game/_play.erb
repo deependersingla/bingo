@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<% ip = Ip.where(ip: request.remote_ip).last %>
+<% ip = Ip.where(ip: cookies[:user_id]).last %>
 
 <script type="text/javascript">
 function callPieWin(human, tie, comp) {
@@ -334,6 +334,7 @@ background-color:yellow;
 <% (0..cut_line - 1).each {|i| d[i] = "X"} %>
 <br>
 <center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4>
+
 
 <% for j in 0..(cut_line-1) do %>
 <font style="font-family: Courier New; color:orange; font-size: 26px;">

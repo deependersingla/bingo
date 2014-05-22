@@ -28,7 +28,7 @@ group :development do
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'hub', :require=>nil
   gem 'rails_layout'
- # gem 'debugger'
+  gem 'debugger'
 end
 group :development, :test do
   gem 'factory_girl_rails'
