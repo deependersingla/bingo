@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://ogp.me/ns/fb#">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Boxes" %></title>
@@ -13,6 +14,7 @@
     <%= javascript_include_tag "application", media: "all" %>
     
     <%= csrf_meta_tags %>
+    <meta property="og:image" content="/assets/logo.png" />
   </head>
   <body oncontextmenu="return false;">
     <main role="main">
