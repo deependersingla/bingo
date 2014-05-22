@@ -11,27 +11,23 @@ var chart = AmCharts.makeChart("chartdiv", {
   "colors": ["#0D8ECF","#8A0CCF",  "#2A0CD0"],
     "dataProvider": [
 {
-        "country": "Computer",
-        "litres": comp
+        "player": "Computer",
+        "num_wins": comp
     },
 {
-        "country": "Human",
-        "litres": human
-    }, {
-        "country": "Tie",
-        "litres": tie 
+        "player": "Human",
+        "num_wins": human
+    }, 
+{
+        "player": "Tie",
+        "num_wins": tie 
     }],
-    "valueField": "litres",
-    "titleField": "country"
+    "valueField": "num_wins",
+    "titleField": "player"
 });
 }
 
-
-
-</script>
-
-  <script>
-  function callpiechart() {
+function callpiechart() {
 var labelSize = '14';
                     var labelColor = 'black';
     var pieData = [
@@ -71,8 +67,8 @@ var labelSize = '14';
 
 <% d = (ip.computer_win + ip.human_win + ip.tie)  %>
 <% if d == 0 %>
- <% d = 1 %>
- <% end %>
+  <% d = 1 %>
+<% end %>
 
 <script type="text/javascript">
 {
@@ -112,10 +108,10 @@ var labelSize = '14';
     chart.render();
   }
 }
-  </script>
+</script>
   
-      <style type="text/css">
-      table.center{
+<style type="text/css">
+    table.center{
     margin:0 auto;   
 }
 .highlight {
@@ -140,7 +136,7 @@ input {
 .separating_line {
     border-top: 1px #000 solid; /* top border only */
 } 
-#portfolios {
+#boxes_id {
     margin-left:auto; 
     margin-right:auto;
     -webkit-backface-visibility: hidden;
@@ -220,64 +216,38 @@ body {
 
 <% game = Game.where(ip_id: ip).last %>
 <% if (game.level < 25) %>
-th:hover {
-background-color:yellow;
+  th:hover {
+  background-color:yellow;
 }
 <% end %>
-</style>
 
+</style>
 </head>
 
-  <body style="color:white;">
-    
- <br>
+<body style="color:white;">
+<br>
    
-<% #d = ComputerPlay.new(@matrix) %>
 <%cut_line = @human_cut_lines %>
-<% # change this to 7 * 7  or 9 * 9%>
-
-
-<%# comp_matrix = game.opponent_matrix %>
-<%# comp = ComputerPlay.new(comp_matrix) %>
 <% cut_lines = @comp_cut_lines %>
-<%# ip = Ip.where(ip: request.remote_ip).last %>
 <% if cut_line < game.level && cut_lines < game.level %>
 <table style="width:100%;">
-  <tr><td style="width:45%;">
- <br><br><br><br>
- <h1 style="font-family: impact"><center> BOXES!</center></h1>
-<h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
-<center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.theboxes.co" data-via="thethingygirl" data-hashtags="TheBoxes">Tweet</a></center>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-<div id="fb-root"></div>
+  <tr>
+    <td style="width:45%;">
+    <br><br><br><br>
+    <h1 style="font-family: impact"><center> BOXES!</center></h1>
+    <h3 style="font-family: impact"><center> Level <%=(game.level - 3)/2 %></center></h3>
+    
 
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<br><br><br><br>
 <center>
-<div class="fb-like" data-href="https://www.theboxes.co" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
-
-
-</center>
-<br><br><br><br><center>
-
 </td>
 <td style="background:transparent;">
 <br>
-
 <% @matrix %>
 <% y=20-((game.level-5)/ 1.80) %>
-
-<center><table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
-
-
-  <% @matrix.each do |z| %>
-  <colgroup>
+<center><table id="boxes_id" class="table" border="3" style="table-layout:fixed; width:200px;">
+<% @matrix.each do |z| %>
+<colgroup>
 <% for i in 1..game.level %>
   <col />
 <% end %>
@@ -306,47 +276,43 @@ background-color:yellow;
 <table style="border:0;">
   <tr>
     <td>
-<center>
-<form action="/game/start_level_again" align="center">
-<button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Level</button>
-
-
-</form>
-</center>
-</td>
-<% if (game.level >5) %>
-<td>
-<center>
-<form action="/game/start_game" align="center">
-<button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Game</button>
-
-
-</form>
-</center>
-
-</td>
-<% end %>
-</tr>
+      <center>
+      <form action="/game/start_level_again" align="center">
+      <button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Level</button>
+      </form>
+      </center>
+    </td>
+    <% if (game.level >5) %>
+    <td>
+      <center>
+      <form action="/game/start_game" align="center">
+      <button class="sample btn custom large m" data-h="190" data-s="30" data-l="40", data-p="5" onclick="stopWatch()">Restart Game</button>
+      </form>
+      </center>
+    </td>
+    <% end %>
+  </tr>
 </table>
 </center>
+
 <td style="width:45%;background:transparent;"> 
-  <% d = ['B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S'] %>
+<% d = ['B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S'] %>
 <% (0..cut_line - 1).each {|i| d[i] = "X"} %>
 <br>
 <center><h4 style="font-family: Courier New"><b>Human's Score:</b></h4>
 
-
 <% for j in 0..(cut_line-1) do %>
-<font style="font-family: Courier New; color:orange; font-size: 26px;">
-<b>X</b>
-</font>
+  <font style="font-family: Courier New; color:orange; font-size: 26px;">
+  <b>X</b>
+  </font>
 <% end %>
-<% for i in cut_line..(game.level-1) do %>
 
-<font style="font-family: Courier New;font-size: 26px;">
-<%= d[i] %>
-</font>
+<% for i in cut_line..(game.level-1) do %>
+  <font style="font-family: Courier New;font-size: 26px;">
+  <%= d[i] %>
+  </font>
 <% end %>
+
 </center>
   <% d = ['B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S','B','O','X','E','S'] %>
 <% (0..cut_lines - 1).each {|i| d[i] = "X"} %>
@@ -354,25 +320,24 @@ background-color:yellow;
 <center><h4 style="font-family: Courier New"><b>Robot's Score:</b></h4>
 
 <% for j in 0..(cut_lines-1) do %>
-<font style="font-family: Courier New; color:orange; font-size: 26px;">
-<b>X</b>
-</font>
+  <font style="font-family: Courier New; color:orange; font-size: 26px;">
+  <b>X</b>
+  </font>
 <% end %>
-<% for i in cut_lines..(game.level-1) do %>
 
-<font style="font-family: Courier New;font-size: 26px;">
-<%= d[i] %>
-</font>
+<% for i in cut_lines..(game.level-1) do %>
+  <font style="font-family: Courier New;font-size: 26px;">
+  <%= d[i] %>
+  </font>
 <% end %>
+
 </center>
-  
- 
 </td>
 </tr>
 </table>
 <br>
-<div class="column-left" style="position:relative;">
 
+<div class="column-left" style="position:relative;">
 <h1> Rules</h1>
 <p style="color:black;"> 
   <b><center><h5>For a 5x5 matrix, your aim is to make <U>5 lines</U> of length 5 - horizontal, vertical or diagonal. </h5></center></b><font style="color: black;">
@@ -386,307 +351,289 @@ See Examples.
 <img src="/assets/robot_win1.png" width="150" height="140"><img src="/assets/robot_win2.png" width="150" height="140">
 </div>
 <br>4. Whoever makes the first 5 lines wins the round.
-<br>5. As you keep winning levels, the size of the matrix increases, and hence, the number of lines you have to make increases. So, in a 7x7 matrix, you need to make 7 lines (of length 7).</font>
+<br>5. As you keep winning levels, the size of the matrix increases, and hence, the number of lines you have to make increases. So, in a 7x7 matrix, you need to make 7 lines (of length 7).
+<br><br> Oh and thank you <a href="http://accredible.com"> Accredible </a> for hosting us. The best place for learning online. Mark our words.</font>
 <br><br><center><h5><b> Happy playing! </b></h5></center>
-
-  <br>
-
-  </p>
+<center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="www.theboxes.co" data-text="Play The Boxes Game!" data-via="theboxesgame" data-hashtags="TheBoxes">Tweet</a>
+    </center>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    <center>
+    <div class="fb-like" data-href="https://www.theboxes.co" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+    </center>
 <br>
-
+</p>
+<br>
 </div>
 
-
-
-  <div class="column-right">
-  
+<div class="column-right">
 <center><h4 style="font-family:impact;">Let's see if you can Beat the Robot.</h4>
 <h6>Your statistics </h6>
 </center>
     
-
-
 <% if (ip.computer_win==0 && ip.human_win ==0  && ip.tie ==0) %>
-
-<div style="height: 200px; width: 100%;">
-<br><br><br><center><h4> No games have been played! </h4></center>
-
-</div>
-
+  <div style="height: 200px; width: 100%;">
+  <br><br><br><center><h4> No games have been played! </h4></center>
+  </div>
 <% else %>
-
-<center><canvas id="canvas" height="300" width="300"></canvas></center>
-<script type="text/javascript">
-  window.onload= callpiechart();
+  <center><canvas id="canvas" height="300" width="300"></canvas></center>
+  <script type="text/javascript">
+    window.onload= callpiechart();
 <% end %>
   </script>
-  <br>
-
-  <center>
- <h5>Number of Computer wins: <%=ip.computer_win %>
- 
+<br>
+<center>
+<h5>Number of Computer wins: <%=ip.computer_win %>
 <h5>Number of Human wins: <%=ip.human_win %>
 <h5>Number of Ties: <%=ip.tie %>
 <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
-  </center>
+</center>
+
 <center><a href = "/game/global_stats"> View Global Stats </a></center>
 <br>
 </div>
+
+
 <div id="footer" style="width:100%;">
   <div class="inner">
-        <p>
+  <p>
 Mail us here: <a href="mailto:deepender281190@gmail.com?Subject=Hello%20Team%20Boxes" target="_top"><font style="color:white;">Deepender</font></a>
 and <a href="mailto:rachana.ramchand@gmail.com?Subject=Hello%20Team%20Boxes" target="_top"><font style="color:white;">Rachana</font></a>
-        </p>
-    </div>
+  </p>
+  </div>
 </div>
 <% elsif (cut_line >= game.level) && (cut_lines <game.level) %>
 <% y=20-((game.level-5)/ 1.80) %>
 <table style="width:100%">
-  <tr><td><% ip.human_win +=1 %>
-<h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
-
-<h3 style="font-family: impact"><center>But let's see what happens in Level <%=((game.level-3)/2) + 1 %>.</center></h3>
-
-<center> 
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://theboxes.co" data-via="theboxesgame" data-text="I just won Level <%=(game.level-3)/2 %> on The Boxes Game." data-lang="en">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><br>
-</center>
-
-<center>
-
-<form action="/game/next_level" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
-</form></center>
- <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
- <center><h6>Your stats</h6></center>
-<%# level = game.level + 2 %>
-<% #Game.new.game_initialization(ip, level) %>
-<div id="chartdiv" style="height: 400px; width: 100%;"></div>
+  <tr>
+    <td><% ip.human_win +=1 %>
+    <h1 style="font-family: impact"><center>YOU WIN LEVEL <%=(game.level-3)/2 %>.</h1></center>
+    <h3 style="font-family: impact"><center>But let's see what happens in Level <%=((game.level-3)/2) + 1 %>.</center></h3>
+    <center> 
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://twitter.com/share" class="twitter-share-button" data-url="theboxes.co" data-via="theboxesgame" data-text="I just won Level <%=(game.level-3)/2 %> on The Boxes Game." data-lang="en">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><br>
+    </center>
+    <center>
+    <form action="/game/next_level" align="center">
+    <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Next Level</button>
+    </form>
+    </center>
+    <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
+    <center><h6>Your stats</h6></center>
+    <div id="chartdiv" style="height: 400px; width: 100%;"></div>
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
- <h5>Number of Human wins: <%=ip.human_win %>
-<h5>Number of Ties: <%=ip.tie %>
-  <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
+    <h5>Number of Human wins: <%=ip.human_win %>
+    <h5>Number of Ties: <%=ip.tie %>
+    <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %>
     </center>
     <center><h5><a href = "/game/global_stats"> View Global Stats </a></h5></center>
-
-<center><table id="matrices" style="border:0; width:60%"><tr><td>
-
-<center><h5><b>Human's Matrix</b></h5></center>
-<table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
-
-  <% @matrix.each do |z| %>
-  <tr style="background-color:white;">
-    <% z.each do |x| %>
-    
+    <center><table id="matrices" style="border:0; width:60%"><tr><td>
+    <center><h5><b>Human's Matrix</b></h5></center>
+    <table id="boxes_id" class="table" border="3" style="table-layout:fixed; width:200px;">
+    <% @matrix.each do |z| %>
+      <tr style="background-color:white;">
+      <% z.each do |x| %>
       <% if x == 0 %>
       <% x = "X" %>
       <% end %>
-    <% if x == "X" %>
-  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white; ">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
-    <% elsif x == "Y"%>
-       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+      <% if x == "X" %>
+      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white; ">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+      <% elsif x == "Y"%>
+      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+      <% else %>
+      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+      <% end %>
+      </td>
+      <% end %>
+      </tr>
+    <% end %>
+    </table>
+    <% if (game.level >= 9) %>
+      <br>
     <% else %>
-     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
-    <% end %>
     </td>
-    <% end %>
-  </tr>
-  <% end %>
-</table>
-<% if (game.level >= 9) %>
-<br>
-<% else %>
-</td>
-
-<td>
+  <td>
 <% end %>
 <center><h5><b>Robot's Matrix</b></h5></center>
-  <table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
-
-
-  <% @comp_matrix.each do |z| %>
+<table id="boxes_id" class="table" border="3" style="table-layout:fixed; width:200px;">
+<% @comp_matrix.each do |z| %>
   <tr>
     <% z.each do |x| %>
     
       <% if x == 0 %>
       <% x = "X" %>
       <% end %>
-    <% if x == "X" %>
-  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
-    <% elsif x == "Y"%>
-       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+      <% if x == "X" %>
+    <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+      <% elsif x == "Y"%>
+      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
     <% else %>
-     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
     <% end %>
   </tr>
-  <% end %>
+<% end %>
 </table>
 <% if game.level >= 9 %>
   </td>
-  <% end %>
-
-</tr>
-</table>
-</center>
-<script type="text/javascript">
-
-
-window.onload=callPieWin(<%=ip.human_win %>,<%=ip.tie%>,<%=ip.computer_win%>);
-</script>
-
-</td></tr></table>
-<% elsif (cut_line >= game.level) && (cut_lines >=game.level) %>
-<% y=20-((game.level-5)/ 1.80) %>
-<table style="width:100%;"<tr><td>
-<h1 style="font-family: impact;"><center>It's a tie. </h1></center>
-<h3 style="font-family: impact;"><center>I'll give you another chance. Try again. </h3></center>
-
-
-<% ip.tie +=1 %>
-<center><table style="border:0;">
-<tr>
-  <td>
-<center><form action="/game/restart_level" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
-</form></center>
-</td>
-<% if (game.level>5) %> <td>
-<center><form action="/game/start_game" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Game</button>
-</form>
-</center>
-</td>
 <% end %>
 </tr>
 </table>
 </center>
- <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
- <center><h6>Your stats</h6></center>
-<div id="chartdiv" style="height: 400px; width: 100%;">
 
+<script type="text/javascript">
+  window.onload=callPieWin(<%=ip.human_win %>,<%=ip.tie%>,<%=ip.computer_win%>);
+</script>
+</td>
+</tr>
+</table>
+<% elsif (cut_line >= game.level) && (cut_lines >=game.level) %>
+  <% y=20-((game.level-5)/ 1.80) %>
+  <table style="width:100%;">
+  <tr>
+    <td>
+    <h1 style="font-family: impact;"><center>It's a tie. </h1></center>
+    <h3 style="font-family: impact;"><center>I'll give you another chance. Try again. </h3></center>
+    <% ip.tie +=1 %>
+    <center>
+    <table style="border:0;">
+    <tr>
+      <td>
+      <center><form action="/game/restart_level" align="center">
+      <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
+      </form></center>
+      </td>
+      <% if (game.level>5) %> 
+      <td>
+      <center><form action="/game/start_game" align="center">
+      <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Game</button>
+      </form>
+      </center>
+      </td>
+      <% end %>
+    </tr>
+    </table>
+    </center>
+    <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
+    <center><h6>Your stats</h6></center>
+    <div id="chartdiv" style="height: 400px; width: 100%;">
     </div>
     <center> <h5>Number of Robot wins: <%=ip.computer_win %>
- <h5>Number of Human wins: <%=ip.human_win %>
-<h5>Number of Ties: <%=ip.tie %>
-  <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %></center>
-  <h5><center><a href = "/game/global_stats"> View Global Stats </a></center></h5>
-
-<center><table id="matrices" style="border:0; width:60%"><tr><td>
-
-<center><h5><b>Human's Matrix</b></h5></center>
-<table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
-
-  <% @matrix.each do |z| %>
-  <tr>
-    <% z.each do |x| %>
-    
+    <h5>Number of Human wins: <%=ip.human_win %>
+    <h5>Number of Ties: <%=ip.tie %>
+    <h5>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %></center>
+    <h5><center><a href = "/game/global_stats"> View Global Stats </a></center></h5>
+    <center><table id="matrices" style="border:0; width:60%"><tr><td>
+    <center><h5><b>Human's Matrix</b></h5></center>
+    <table id="boxes_id" class="table" border="3" style="table-layout:fixed; width:200px;">
+      <% @matrix.each do |z| %>
+      <tr>
+      <% z.each do |x| %>
       <% if x == 0 %>
       <% x = "X" %>
       <% end %>
-    <% if x == "X" %>
-  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
-    <% elsif x == "Y"%>
-       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+      <% if x == "X" %>
+        <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+      <% elsif x == "Y"%>
+        <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+      <% else %>
+        <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+        <% end %>
+        </td>
+      <% end %>
+      </tr>
+      <% end %>
+    </table>
+    <% if (game.level >= 9) %>
+      <br>
     <% else %>
-     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px; background-color:white;"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
-    <% end %>
-    </td>
-    <% end %>
-  </tr>
+      </td>
+    <td>
   <% end %>
-</table>
-<% if (game.level >= 9) %>
-<br>
-<% else %>
-</td>
-
-<td>
-<% end %>
-
-<center><h5><b>Robot's Matrix</b></h5></center>
-  <table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
-
-
+  <center><h5><b>Robot's Matrix</b></h5></center>
+  
+  <table id="boxes_id" class="table" border="3" style="table-layout:fixed; width:200px;">
   <% @comp_matrix.each do |z| %>
   <tr>
     <% z.each do |x| %>
-    
-      <% if x == 0 %>
+    <% if x == 0 %>
       <% x = "X" %>
       <% end %>
-    <% if x == "X" %>
-  <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
-    <% elsif x == "Y"%>
-       <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
-    <% else %>
-     <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
-    <% end %>
-    </td>
-    <% end %>
+      <% if x == "X" %>
+      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px">  <h4 style="color:red;font-size:<%=y%>px;">  <%= x%> </h4></td>
+        <% elsif x == "Y"%>
+      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px" id="y"> <h4  style="color:red;font-size:<%=y%>px;">X</h4></td>
+        <% else %>
+      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
+        <% end %>
+      </td>
+      <% end %>
   </tr>
   <% end %>
-</table>
-<% if (game.level >= 9) %>
-  </td>
+  </table>
+  <% if (game.level >= 9) %>
+    </td>
   <% end %>
-</tr>
+  </tr>
 </table>
 </center>
+
 <script type="text/javascript">window.onload=callPieWin(<%=ip.human_win%>,<%=ip.tie %>,<%=ip.computer_win%>);</script>
-
-
 </td>
 </tr>
 </table>
 <% else %>
+
 <% y=20-((game.level-5)/ 1.80) %>
 <table style="width:100%;border:0;">
-  <tr><td><% ip.computer_win += 1 %>
-<h1 style="font-family: impact;"><center>ROBOT WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
-
-<h3 style="font-family: impact;"><center><%#= @level_winner[game.level]%><%#=(game.level-3)/2 %> Why didn't you? </h3></center>
-
-<center><table style="border:0;">
 <tr>
-  <td>
-<center><form action="/game/comp_win" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
-</form></center>
-</td>
-<% if (game.level>5) %> <td>
-<center><form action="/game/start_game" align="center">
-<button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Game</button>
-</form>
-</center>
-</td>
-<% end %>
+  <td><% ip.computer_win += 1 %>
+  <h1 style="font-family: impact;"><center>ROBOT WINS LEVEL <%=(game.level-3)/2 %>!</h1></center>
+  <h3 style="font-family: impact;"><center><%#= @level_winner[game.level]%><%#=(game.level-3)/2 %> Why didn't you? </h3></center>
+  <center>
+    <table style="border:0;">
+    <tr>
+    <td>
+      <center><form action="/game/comp_win" align="center">
+      <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Level</button>
+      </form></center>
+    </td>
+    <% if (game.level>5) %> 
+    <td>
+    <center>
+    <form action="/game/start_game" align="center">
+      <button class="sample btn custom large m" data-h="195" data-s="60" data-l="40", data-p="5">Restart Game</button>
+    </form>
+    </center>
+    </td>
+  <% end %>
 </tr>
 </table>
 </center>
-
 <center><h5><a href = "#matrices"> View Human's and Robot's matrices </a></h5></center>
 <center><h6>Your stats</h6></center>
 <div id="chartdiv" style="height: 400px; width: 100%;">
+</div>
 
-    </div>
-
-
-  <br>
- 
+<br>
 <script type="text/javascript">window.onload=callPieWin(<%=ip.human_win%>,<%=ip.tie%>,<%=ip.computer_win %>);</script>
 <h5><center>Human wins: <%= ip.human_win %> </h1></center>
 <h5><center>Robot wins: <%= ip.computer_win %> </h1></center>
 <h5><center>Tie: <%= ip.tie %> </h1></center>
-  <h5><center>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %></center>
+<h5><center>Total games played: <%=ip.computer_win + ip.human_win+ip.tie %></center>
 
 <center><h5><a href = "/game/global_stats"> View Global Stats </a></h5></center>
-
 <center><table id="matrices" style="border:0; width:60%"><tr><td>
-
 <center><h5><b>Human's Matrix</b></h5></center>
-<table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
+<table id="boxes_id" class="table" border="3" style="table-layout:fixed; width:200px;">
 
   <% @matrix.each do |z| %>
   <tr>
@@ -709,20 +656,18 @@ window.onload=callPieWin(<%=ip.human_win %>,<%=ip.tie%>,<%=ip.computer_win%>);
 </table>
 
 <% if (game.level >= 9) %>
-<br>
+  <br>
 <% else %>
 </td>
-
 <td>
 <% end %>
 <center><h5><b>Robot's Matrix</b></h5></center>
-  <table id="portfolios" class="table" border="3" style="table-layout:fixed; width:200px;">
+  <table id="boxes_id" class="table" border="3" style="table-layout:fixed; width:200px;">
 
 
   <% @comp_matrix.each do |z| %>
   <tr>
     <% z.each do |x| %>
-    
       <% if x == 0 %>
       <% x = "X" %>
       <% end %>
@@ -733,20 +678,18 @@ window.onload=callPieWin(<%=ip.human_win %>,<%=ip.tie%>,<%=ip.computer_win%>);
     <% else %>
      <td align="center" style="width:<%=45+((game.level-5)/ 3) %>px"><h4 style="font-size:<%=y%>px;"><%= x%> </h4></td>
     <% end %>
-    
     <% end %>
   </tr>
   <% end %>
 </table>
-
-
-  </td>
+</td>
 </tr>
 </table>
 </center>
 
 
-</td></tr>
+</td>
+</tr>
 </table>
 
 <% end %>
@@ -779,18 +722,16 @@ function toggle() {
 <% if (game.level>8) %>
 $(function(){
  $("th").hover(function(){
-   $("#portfolios col").eq($(this).index()).addClass("hover");
+   $("#boxes_id col").eq($(this).index()).addClass("hover");
    $(this).closest("tr").addClass("hover");
  },function(){
-   $("#portfolios col").eq($(this).index()).removeClass("hover");
+   $("#boxes_id col").eq($(this).index()).removeClass("hover");
    $(this).closest("tr").removeClass("hover");
  });
 });
 
 <% end %>
 
-//  $("tr:even").css("background-color", "white");
- //$("#y").css('backgroundColor', '#00FF00').fadeOut("slow").fadeIn("slow").fadeOut("slow").fadeIn("slow").css('backgroundColor', '#00FF00');
 fadeDivIn();
 
 
@@ -812,10 +753,6 @@ function fadeDivIn3(){
     $("#y").animate({backgroundColor: "#white" }, 300);
 }
 
-
-
-
-
 $('tr th').click(function(){
     var cval = $(this).text();
     var cell="cell";
@@ -827,22 +764,13 @@ $('tr th').click(function(){
     getval(cval);
 });
 
-
-
-
-        function getval(cel) {
-
-      
-        if (isNaN(cel)==true){
-        
-              window.alert("Oops! Click again.");
-
-            }
-            else {
-              c="<% cut_line %>";
-              
-              
- jQuery.ajax({
+function getval(cel) {
+  if (isNaN(cel)==true){
+        window.alert("Oops! Click again.");
+      }
+  else {
+        c="<% cut_line %>";
+        jQuery.ajax({
                 data: 'q=' + cel,
                 //dataType: 'script',
                 type: 'post',
@@ -850,10 +778,6 @@ $('tr th').click(function(){
               });
               //post_to_url("/game/search", {q: cel});
               
-            }
-        }
-
-
-
-
-    </script>
+      }
+  }
+</script>
