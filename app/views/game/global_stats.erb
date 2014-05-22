@@ -60,7 +60,18 @@ var chart = AmCharts.makeChart(chartdiv2, {
         "levels": "Level 10",
         "level_wins":  <%if(((@level_winner.length*2) + 1)>=23) %>  <%= @level_winner[23] %> <% else %> 0 <% end %>   
     },
-        
+      {
+        "levels": "Level 11",
+        "level_wins":  <%if(((@level_winner.length*2) + 1)>=23) %>  <%= @level_winner[25] %> <% else %> 0 <% end %>   
+    },
+    {
+        "levels": "Level 12",
+        "level_wins":  <%if(((@level_winner.length*2) + 1)>=23) %>  <%= @level_winner[27] %> <% else %> 0 <% end %>   
+    },
+    {
+        "levels": "Level 13",
+        "level_wins":  <%if(((@level_winner.length*2) + 1)>=23) %>  <%= @level_winner[29] %> <% else %> 0 <% end %>   
+    },  
 
 
 ],
