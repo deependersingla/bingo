@@ -67,19 +67,19 @@ test:
         # low amounts for fast failures.
         max_retries: 1
         retry_interval: 0
-
 production:
    # Configure available database sessions. (required)
   sessions:
     # Defines the default session. (required)
     default:
-      # Defines the name of the default database that Mongoid can connect to.
-      # (required).
-      database: bingo_production
-      #username: heroku
-      #password: deepender
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-         - <%= ENV['MONGOLAB_URI'] %>
+         - mongodb://heroku_1ndj47rb:e8d9flk1761fvpbr8on52uvb6b@ds033915.mongolab.com:33915/heroku_1ndj47rb
          - localhost:27017
+     options:
+       # The default timeout is 5, which is the time in seconds
+       # for a connection to time out.
+       # We recommend 15 because it allows for plenty of time
+       # in most operating environments.
+       connect_timeout: 15
