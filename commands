@@ -1,0 +1,2 @@
+For heroku mongodb config
+ heroku config | grep MONGOLAB_URI

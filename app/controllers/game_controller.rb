@@ -94,4 +94,7 @@ class GameController < ApplicationController
     Game.new.game_initialization(ip, last_level)
     redirect_to :action => :play
   end
+
+  def static
+  end
 end
