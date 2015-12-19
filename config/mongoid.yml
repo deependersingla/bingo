@@ -5,13 +5,14 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: heroku_1ndj47rb
-      username: heroku_1ndj47rb
-      password: e8d9flk1761fvpbr8on52uvb6b@ds033915
+      #database: heroku_1ndj47rb
+      #user: heroku_1ndj47rb
+      #password: e8d9flk1761fvpbr8on52uvb6b@ds033915
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
-      hosts:
-        - ds033915.mongolab.com:33915
+      #hosts:
+       # - ds033915.mongolab.com:33915
+      uri: "mongodb://heroku_1ndj47rb:e8d9flk1761fvpbr8on52uvb6b@ds033915.mongolab.com:33915/heroku_1ndj47rb"
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
@@ -142,13 +143,14 @@ production:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: heroku_1ndj47rb
-      username: heroku_1ndj47rb
-      password: e8d9flk1761fvpbr8on52uvb6b@ds033915
+      #database: heroku_1ndj47rb
+      #username: heroku_1ndj47rb
+      #password: e8d9flk1761fvpbr8on52uvb6b@ds033915
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
-      hosts:
-        - ds033915.mongolab.com:33915
+      #hosts:
+      #  - ds033915.mongolab.com:33915
+      uri: "mongodb://heroku_1ndj47rb:e8d9flk1761fvpbr8on52uvb6b@ds033915.mongolab.com:33915/heroku_1ndj47rb"
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
