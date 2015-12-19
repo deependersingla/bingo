@@ -81,4 +81,5 @@ production:
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
+         - <%= ENV['MONGOLAB_URI'] %>
          - localhost:27017
