@@ -15,6 +15,7 @@ gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 #gem 'thin'
 gem 'newrelic_rpm'
+gem 'pry'
 #gem 'unicorn'
 #gem 'capistrano'
 #gem 'capistrano-ext'

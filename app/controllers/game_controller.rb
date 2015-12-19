@@ -5,14 +5,14 @@ class GameController < ApplicationController
     if cookies.has_key?(:user_id)
       #do nothing  
     else
-    begin  
-      last_ip = Ip.last.ip
-    rescue
-      last_ip = 1
-    end
+      begin  
+        last_ip = Ip.last.ip
+      rescue
+        last_ip = 1
+      end
       cookies.permanent[:user_id] = last_ip + 1
       Ip.create(ip: cookies[:user_id])
-  end
+    end
     Game.new.game_initialization(Ip.where(ip: cookies[:user_id]).last, 5)
     redirect_to :action => :play
   end
@@ -32,6 +32,7 @@ class GameController < ApplicationController
 
   def play
     if Ip.where(ip: cookies[:user_id]).exists? 
+      binding.pry
       game = Game.where(ip_id: Ip.where(ip: cookies[:user_id]).last.id).last
       # computer
       comp = ComputerPlay.new(game.opponent_matrix)
