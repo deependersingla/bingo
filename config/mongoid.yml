@@ -72,12 +72,12 @@ production:
   sessions:
     # Defines the default session. (required)
     default:
-      uri: 'mongodb://heroku_1ndj47rb:e8d9flk1761fvpbr8on52uvb6b@ds033915.mongolab.com:33915/heroku_1ndj47rb'
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      #database: bingo_production
-      #username: heroku
-      #password: deepender
+      database: heroku_1ndj47rb
+      username: heroku_1ndj47rb
+      password: e8d9flk1761fvpbr8on52uvb6b@ds033915
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
-      #hosts:
+      hosts:
+        - ds033915.mongolab.com:33915
