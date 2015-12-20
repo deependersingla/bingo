@@ -16,6 +16,7 @@ class Game
     game.level = level
   	game.ip = user
   	game.save
+    return game
   end
 
   def random_matrix(number)

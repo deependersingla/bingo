@@ -1,2 +1,9 @@
 For heroku mongodb config
  heroku config | grep MONGOLAB_URI
+
+@doucmentation
+for getting game matrix
+http://localhost:3000/game_api/play_game?user_id=2
+
+for cutting number
+http://localhost:3000/game_api/give_number?user_id=2&q=9
