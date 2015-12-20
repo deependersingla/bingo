@@ -30,7 +30,7 @@ class Game
   end
 
   def update_matrix(number, user)
-    game = Game.where(ip_id: user.id).last
+    game = user.game[-1]
     game_hash = {}
     game_hash[:user_matrix] = game.starter_matrix
     game_hash[:computer_matrix] = game.opponent_matrix
