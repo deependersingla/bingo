@@ -15,6 +15,9 @@
 //= require foundation
 //= require convnent
 //= require_tree .
-$(function() {
-  $(document).foundation();
-});
+//
+// From old app
+// 
+// $(function() {
+//   $(document).foundation();
+// });

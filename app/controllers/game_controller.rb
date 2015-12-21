@@ -93,5 +93,10 @@ class GameController < ApplicationController
   end
 
   def static
+    if(cookies[:user_id])
+      @user_id = cookies[:user_id]
+    else
+      redirect_to :action => :start_game # dumb redirect for inital demo
+    end
   end
 end
