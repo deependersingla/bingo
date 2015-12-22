@@ -66,6 +66,7 @@ var brain = new deepqlearn.Brain(num_inputs, num_actions);
 // 
 var iteration = 1;
 var intervalDelayInMS = 0;
+var actions = 0; var wastedClicks = 0;
 
 // Steps 
 // 1. record the reward from the play_game response
@@ -81,12 +82,22 @@ function iterationResponseHandler(data, status) {
 	// visualization library for the convnet brain
 	brain.visSelf(document.getElementById('brain_info_div'));
 
+	// Curious about ratio of wasted clicks to real actions
+	if(data.illegal_move) {
+		wastedClicks += 1;
+	} else {
+		actions += 1;
+	}
+
 	// Interface
-	$('#human-wins').text(parseInt(data.human_win));
-	$('#computer-wins').text(parseInt(data.computer_win));
-	$('#last-reward').text(parseInt(data.reward));
+	$('#last-move').text(data.illegal_move ? 'No' : 'Yes');
+	$('#last-reward').text(data.reward);
 	$('#human-lines').text(parseInt(data.human_cut_lines));
 	$('#computer-lines').text(parseInt(data.comp_cut_lines));
+
+	$('#human-wins').text(parseInt(data.human_win));
+	$('#computer-wins').text(parseInt(data.computer_win));
+	$('#action-ratio').text(actions + '/' + (actions+wastedClicks) + ' (' + actions / (actions+wastedClicks) + '%)');
 
 	iteration++; // Deep - do we even need to limit iterations?
 	if(iteration < 100000) { // Deep - let me know if you want to put a timer in to change the speed of the requests
@@ -136,6 +147,7 @@ $.ajax({
 		<div class="large-6 columns">
 			<h4>Current game:</h4>
 			<p>
+				Last move was an action: <span id="last-move"></span><br/>
 				Last reward: <span id="last-reward"></span><br/>
 				Boxkiller's score: <span id="human-lines"></span><br/>
 				DeepAI's score: <span id="computer-lines"></span>
@@ -161,6 +173,7 @@ $.ajax({
 		<div class="large-6 columns">
 			<h4>History:</h4>
 			<p>
+				Real Actions / Total Actions: <span id="action-ratio"></span><br/>
 				Boxkiller's wins: <span id="human-wins"></span><br/>
 				DeepAI's wins: <span id="computer-wins"></span>
 			</p>

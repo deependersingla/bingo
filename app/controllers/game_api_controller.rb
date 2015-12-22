@@ -48,7 +48,8 @@ class GameApiController < ApplicationController
         reward: reward,
         human_win: ip.human_win,
         computer_win: ip.computer_win,
-        comp_cut_lines: @comp_cut_lines
+        comp_cut_lines: @comp_cut_lines,
+        illegal_move: params[:wrong_number]
       }
     else 
       render json: {
