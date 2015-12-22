@@ -67,7 +67,7 @@ class GameApiController < ApplicationController
     else
       params[:wrong_number] = true
     end
-    redirect_to :action => :play_game, params: params
+    redirect_to :action => :play_game, params: params and return
   end
 
   protected
