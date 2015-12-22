@@ -10,9 +10,9 @@ body {
 </style>
  
 <!-- TODO - replace with asset pipeline -->
-<script type="text/javascript" src="https://cs.stanford.edu/people/karpathy/convnetjs/build/util.js"></script>
+<!-- <script type="text/javascript" src="https://cs.stanford.edu/people/karpathy/convnetjs/build/util.js"></script>
 <script type="text/javascript" src="https://cs.stanford.edu/people/karpathy/convnetjs/build/vis.js"></script>
-<script type="text/javascript" src="https://cs.stanford.edu/people/karpathy/convnetjs/build/deepqlearn.js"></script>
+<script type="text/javascript" src="https://cs.stanford.edu/people/karpathy/convnetjs/build/deepqlearn.js"></script> -->
 
 <script type="text/javascript">
 
@@ -65,6 +65,7 @@ var brain = new deepqlearn.Brain(num_inputs, num_actions);
 // 
 // 
 var iteration = 1;
+var intervalDelayInMS = 0;
 
 // Steps 
 // 1. record the reward from the play_game response
@@ -80,16 +81,36 @@ function iterationResponseHandler(data, status) {
 	// visualization library for the convnet brain
 	brain.visSelf(document.getElementById('brain_info_div'));
 
+	// Interface
+	$('#human-wins').text(parseInt(data.human_win));
+	$('#computer-wins').text(parseInt(data.computer_win));
+	$('#last-reward').text(parseInt(data.reward));
+	$('#human-lines').text(parseInt(data.human_cut_lines));
+	$('#computer-lines').text(parseInt(data.comp_cut_lines));
+
 	iteration++; // Deep - do we even need to limit iterations?
 	if(iteration < 100000) { // Deep - let me know if you want to put a timer in to change the speed of the requests
 
-		// send next action to the API via AJAX (XHR)
-		$.ajax({
-			url: "/game_api/give_number?user_id=" + user_id + "&q=" + nextAction + "&human_cut_lines=" + data.human_cut_lines,
-			context: document.body
-		}).done( iterationResponseHandler );
+		setTimeout( function () {
+			// send next action to the API via AJAX (XHR)
+			$.ajax({
+				url: "/game_api/give_number?user_id=" + user_id + "&q=" + nextAction + "&human_cut_lines=" + data.human_cut_lines,
+				context: document.body
+			}).done( iterationResponseHandler );
+		}, intervalDelayInMS);
 
 	}
+}
+
+function setIntervalDelay(delay) {
+	intervalDelayInMS = delay;
+}
+
+function startLearning() {
+	brain.learning = true;
+}
+function stopLearning() {
+	brain.learning = false;
 }
 
 // first request
@@ -104,9 +125,48 @@ $.ajax({
 </head>
 
 <body>
-	<h1>Minimal UI Demo of ConvNet.js killing the Boxes AI</h1>
+	<div class="row">
+		<div class="large-12 columns">
+			<h1>Box Killer</h1>
+			<p>Minimal UI Demo of ConvNet.js killing the Boxes AI</p>
+		</div>
+	</div>
 
-	<div id="brain_info_div"></div>
+	<div class="row">
+		<div class="large-6 columns">
+			<h4>Current game:</h4>
+			<p>
+				Last reward: <span id="last-reward"></span><br/>
+				Boxkiller's score: <span id="human-lines"></span><br/>
+				DeepAI's score: <span id="computer-lines"></span>
+			</p>
+		</div>
+		<div class="large-6 columns">
+			<h4>Settings:</h4>
+			<div>
+				<button onclick="setIntervalDelay(0)">No Delay</button>
+				<button onclick="setIntervalDelay(1000)">Slower (1 sec)</button>
+				<br/>
+				<button onclick="stopLearning()">Stop Learning</button>
+				<button onclick="startLearning()">Start Learning</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<h4>Brain info:</h4>
+			<div id="brain_info_div" style="margin-bottom: 40px"></div>
+		</div>
+		<div class="large-6 columns">
+			<h4>History:</h4>
+			<p>
+				Boxkiller's wins: <span id="human-wins"></span><br/>
+				DeepAI's wins: <span id="computer-wins"></span>
+			</p>
+		</div>
+	</div>
+
 </body>
 
 </html>
