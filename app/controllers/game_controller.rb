@@ -1,6 +1,5 @@
 class GameController < ApplicationController
-  #require 'actionpack/action_caching'
-   #caches_action :play
+  
   def start_game
     if cookies.has_key?(:user_id)
       #do nothing  

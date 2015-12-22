@@ -38,7 +38,8 @@ var network_size = num_inputs * temporal_window + num_actions * temporal_window 
 // to just insert simple relu hidden layers.
 var layer_defs = [];
 layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth: network_size});
-layer_defs.push({type:'fc', num_neurons: 50, activation:'relu'});
+layer_defs.push({type:'fc', num_neurons: 100, activation:'relu'});
+layer_defs.push({type:'fc', num_neurons: 100, activation:'relu'});
 layer_defs.push({type:'fc', num_neurons: 50, activation:'relu'});
 layer_defs.push({type:'regression', num_neurons: num_actions});
 
@@ -80,11 +81,11 @@ function iterationResponseHandler(data, status) {
 	brain.visSelf(document.getElementById('brain_info_div'));
 
 	iteration++; // Deep - do we even need to limit iterations?
-	if(iteration < 10000000) { // Deep - let me know if you want to put a timer in to change the speed of the requests
+	if(iteration < 100000) { // Deep - let me know if you want to put a timer in to change the speed of the requests
 
 		// send next action to the API via AJAX (XHR)
 		$.ajax({
-			url: "/game_api/give_number?user_id=" + user_id + "&q=" + nextAction,
+			url: "/game_api/give_number?user_id=" + user_id + "&q=" + nextAction + "&human_cut_lines=" + data.human_cut_lines,
 			context: document.body
 		}).done( iterationResponseHandler );
 
