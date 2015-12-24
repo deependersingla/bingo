@@ -29,7 +29,7 @@ var user_id = <%= @user_id %>;
 // 
 var num_inputs = 25; // each box
 var num_actions = 25; // every box is clickable
-var temporal_window = 1; // amount of temporal memory. 0 = agent lives in-the-moment :simple_smile:
+var temporal_window = 0; // amount of temporal memory. 0 = agent lives in-the-moment :simple_smile:
 var network_size = num_inputs * temporal_window + num_actions * temporal_window + num_inputs;
 
 // the value function network computes a value of taking any of the possible actions
@@ -57,7 +57,7 @@ opt.epsilon_test_time = 0.05;
 opt.layer_defs = layer_defs;
 opt.tdtrainer_options = tdtrainer_options;
 
-var brain = new deepqlearn.Brain(num_inputs, num_actions);
+var brain = new deepqlearn.Brain(num_inputs, num_actions, opt);
 
 
 
@@ -74,12 +74,16 @@ var actions = 0; var wastedClicks = 0;
 // 3. send a request with the nextAction
 function iterationResponseHandler(data, status) {
 	// record reward
-	brain.backward(data.reward);
+	
 	// wrap input vector (boxes grid)
 	var vol = new convnetjs.Vol(data.input_vector);
 	// pass the input to the brain
-	var nextAction = brain.forward(vol);
+	var nextAction = brain.forward(data.input_vector);
 	// visualization library for the convnet brain
+
+	brain.backward(data.reward);
+	
+
 	brain.visSelf(document.getElementById('brain_info_div'));
 
 	// Curious about ratio of wasted clicks to real actions
