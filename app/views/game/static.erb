@@ -39,7 +39,6 @@ var network_size = num_inputs * temporal_window + num_actions * temporal_window 
 var layer_defs = [];
 layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth: network_size});
 layer_defs.push({type:'fc', num_neurons: 100, activation:'relu'});
-layer_defs.push({type:'fc', num_neurons: 100, activation:'relu'});
 layer_defs.push({type:'fc', num_neurons: 50, activation:'relu'});
 layer_defs.push({type:'regression', num_neurons: num_actions});
 
@@ -48,10 +47,10 @@ var tdtrainer_options = {learning_rate:0.001, momentum:0.0, batch_size:64, l2_de
 var opt = {};
 opt.temporal_window = temporal_window;
 opt.experience_size = 30000;
-opt.start_learn_threshold = 1000;
+opt.start_learn_threshold = 5000;
 opt.gamma = 0.7;
-opt.learning_steps_total = 200000;
-opt.learning_steps_burnin = 3000;
+opt.learning_steps_total = 500000;
+opt.learning_steps_burnin = 10000;
 opt.epsilon_min = 0.00;
 opt.epsilon_test_time = 0.00;
 opt.layer_defs = layer_defs;
@@ -105,7 +104,7 @@ function iterationResponseHandler(data, status) {
 	$('#action-ratio').text(actions + '/' + (actions+wastedClicks) + ' (' + actions / (actions+wastedClicks) + '%)');
 
 	iteration++; // Deep - do we even need to limit iterations?
-	if(iteration < 100000) { // Deep - let me know if you want to put a timer in to change the speed of the requests
+	if(iteration < 10000000) { // Deep - let me know if you want to put a timer in to change the speed of the requests
 
 		setTimeout( function () {
 			// send next action to the API via AJAX (XHR)
