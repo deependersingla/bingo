@@ -228,7 +228,7 @@ var deepqlearn = deepqlearn || { REVISION: 'ALPHA' };
         var n = this.window_size;
         e.state0 = this.net_window[n-2];
         e.action0 = this.action_window[n-2];
-        e.reward0 = this.reward_window[n-2];
+        e.reward0 = this.reward_window[n-1];
         e.state1 = this.net_window[n-1];
         if(this.experience.length < this.experience_size) {
           this.experience.push(e);

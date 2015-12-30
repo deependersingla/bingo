@@ -67,6 +67,7 @@ var brain = new deepqlearn.Brain(num_inputs, num_actions, opt);
 var iteration = 1;
 var intervalDelayInMS = 0;
 var actions = 0; var wastedClicks = 0;
+var old_reward = 0;
 
 // Steps 
 // 1. record the reward from the play_game response

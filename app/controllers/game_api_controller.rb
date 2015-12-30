@@ -33,6 +33,7 @@ class GameApiController < ApplicationController
         if @human_cut_lines == 5
           ip.human_win += 1
           ip.save
+          binding.pry
           reward = 3
         elsif @human_cut_lines > params[:human_cut_lines].to_i
           reward = 1
@@ -61,6 +62,11 @@ class GameApiController < ApplicationController
   def give_number
   	user = Ip.where(ip: params[:user_id]).last
   	game = user.game[-1]
+    if user.game.count > 10
+      user.game[0..-2].each do |g|
+        g.delete
+      end
+    end
   	number = reverse_mapping_to_number(game.starter_matrix, params[:q])
   	#todo 00 may be want to update reward
   	unless number == 0 || number == "Y"
@@ -68,9 +74,8 @@ class GameApiController < ApplicationController
     else
       params[:wrong_number] = true
     end
+    ip = user
     if Ip.where(ip: params[:user_id]).exists? 
-      ip = Ip.where(ip: params[:user_id]).last
-      game = ip.game[-1]
       game = Game.new.game_initialization(ip, 5) unless game
       comp = ComputerPlay.new(game.opponent_matrix)
       @comp_cut_lines = comp.total_cut_lines
