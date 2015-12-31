@@ -101,6 +101,7 @@ function iterationResponseHandler(data, status) {
 
 	$('#human-wins').text(parseInt(data.human_win));
 	$('#computer-wins').text(parseInt(data.computer_win));
+	$('#tie').text(parseInt(data.tie));
 	$('#action-ratio').text(actions + '/' + (actions+wastedClicks) + ' (' + actions / (actions+wastedClicks) + '%)');
 
 	iteration++; // Deep - do we even need to limit iterations?
@@ -179,7 +180,8 @@ $.ajax({
 			<p>
 				Real Actions / Total Actions: <span id="action-ratio"></span><br/>
 				Boxkiller's wins: <span id="human-wins"></span><br/>
-				DeepAI's wins: <span id="computer-wins"></span>
+				DeepAI's wins: <span id="computer-wins"></span><br/>
+				Tie: <span id="tie"></span>
 			</p>
 		</div>
 	</div>
