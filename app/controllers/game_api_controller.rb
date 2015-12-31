@@ -33,7 +33,6 @@ class GameApiController < ApplicationController
         if @human_cut_lines == 5
           ip.human_win += 1
           ip.save
-          binding.pry
           reward = 3
         elsif @human_cut_lines > params[:human_cut_lines].to_i
           reward = 1
@@ -50,6 +49,7 @@ class GameApiController < ApplicationController
         human_win: ip.human_win,
         computer_win: ip.computer_win,
         comp_cut_lines: @comp_cut_lines,
+        tie: ip.tie,
         illegal_move: params[:wrong_number]
       }
     else 
@@ -79,32 +79,43 @@ class GameApiController < ApplicationController
       game = Game.new.game_initialization(ip, 5) unless game
       comp = ComputerPlay.new(game.opponent_matrix)
       @comp_cut_lines = comp.total_cut_lines
-
-      if @comp_cut_lines >= game.level 
+      @matrix = game.starter_matrix
+      hum = ComputerPlay.new(@matrix)
+      @human_cut_lines = hum.total_cut_lines
+      reward_flag = false
+      if (@comp_cut_lines >= game.level) || (@human_cut_lines >= game.level)
         last_level = ip.game.last.level
-        ip.computer_win += 1
+        reward_flag = true
+        if @comp_cut_lines == @human_cut_lines
+          ip.tie += 1
+          reward = 3
+        elsif @human_cut_lines > @comp_cut_lines
+          ip.human_win += 1
+          reward = 3
+        elsif @comp_cut_lines > @human_cut_lines
+          ip.computer_win += 1
+          if @human_cut_lines > params[:human_cut_lines].to_i
+             reward = 1
+          else
+            reward = 0
+          end
+        end
         ip.save
         game = Game.new.game_initialization(ip, last_level)
         comp = ComputerPlay.new(game.opponent_matrix)
         params[:human_cut_lines] = 0
-        @comp_cut_lines = comp.total_cut_lines
+        @comp_cut_lines = 1
+        @human_cut_lines = 1
+        @matrix = game.starter_matrix
       end
-
-      @matrix = game.starter_matrix
       @comp_matrix = game.opponent_matrix
-      hum = ComputerPlay.new(@matrix)
-      @human_cut_lines = hum.total_cut_lines
       unless params[:human_cut_lines]
         params[:human_cut_lines] = 0
       end
       if params[:wrong_number]
         reward = -1
-      else
-        if @human_cut_lines == 5
-          ip.human_win += 1
-          ip.save
-          reward = 3
-        elsif @human_cut_lines > params[:human_cut_lines].to_i
+      elsif !reward_flag
+        if @human_cut_lines > params[:human_cut_lines].to_i
           reward = 1
         else
           reward = 0
@@ -118,6 +129,7 @@ class GameApiController < ApplicationController
         reward: reward,
         human_win: ip.human_win,
         computer_win: ip.computer_win,
+        tie: ip.tie,
         comp_cut_lines: @comp_cut_lines,
         illegal_move: params[:wrong_number]
       }

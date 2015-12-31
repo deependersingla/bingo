@@ -31,8 +31,9 @@ class GameController < ApplicationController
 
   def play
     if Ip.where(ip: cookies[:user_id]).exists? 
-      game = Game.where(ip_id: Ip.where(ip: cookies[:user_id]).last.id).last
-      comp = ComputerPlay.new(game.opponent_matrix)
+      game = Game.where(ip_id: Ip.where(ip: cookies[:user_id]).last.id).all[-1]
+      game = Game.new.game_initialization(Ip.where(ip: cookies[:user_id]).last.id, 5) unless game
+      comp = ComputerPlay.new(game.opponent_matrix) 
       @comp_cut_lines = comp.total_cut_lines
       if @comp_cut_lines <= game.level + 5
         @matrix = game.starter_matrix
@@ -61,7 +62,7 @@ class GameController < ApplicationController
     ip = Ip.where(ip: cookies[:user_id]).last
     ip.tie += 1
     ip.save
-    last_level = ip.game.last.level
+    last_level = ip.game[-1].level
     Game.new.game_initialization(ip, last_level)
     redirect_to :action => :play
   end
@@ -70,14 +71,14 @@ class GameController < ApplicationController
     ip = Ip.where(ip: cookies[:user_id]).last
     ip.human_win += 1
     ip.save
-    last_level = ip.game.last.level
+    last_level = ip.game[-1].level
     Game.new.game_initialization(ip, last_level+2)
     redirect_to :action => :play
   end
 
   def start_level_again
     ip = Ip.where(ip: cookies[:user_id]).last
-    last_level = ip.game.last.level
+    last_level = ip.game[-1].level
     Game.new.game_initialization(ip, last_level)
     redirect_to :action => :play
   end
@@ -86,7 +87,7 @@ class GameController < ApplicationController
     ip = Ip.where(ip: cookies[:user_id]).last
     ip.computer_win += 1
     ip.save
-    last_level = ip.game.last.level
+    last_level = ip.game[-1].level
     Game.new.game_initialization(ip, last_level)
     redirect_to :action => :play
   end
