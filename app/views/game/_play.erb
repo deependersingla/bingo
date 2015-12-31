@@ -214,7 +214,7 @@ body {
 }
 
 
-<% game = Game.where(ip_id: ip).last %>
+<% game = Game.where(ip_id: ip).all[-1] %>
 <% if (game.level < 25) %>
   th:hover {
   background-color:yellow;
