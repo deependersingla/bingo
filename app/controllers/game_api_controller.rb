@@ -95,7 +95,7 @@ class GameApiController < ApplicationController
         elsif @comp_cut_lines > @human_cut_lines
           ip.computer_win += 1
           if @human_cut_lines > params[:human_cut_lines].to_i
-             reward = 1
+            reward = @human_cut_lines - params[:human_cut_lines].to_i
           else
             reward = 0
           end
@@ -116,7 +116,7 @@ class GameApiController < ApplicationController
         reward = -1
       elsif !reward_flag
         if @human_cut_lines > params[:human_cut_lines].to_i
-          reward = 1
+          reward = @human_cut_lines - params[:human_cut_lines].to_i
         else
           reward = 0
         end 
