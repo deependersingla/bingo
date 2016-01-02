@@ -80,7 +80,6 @@ function iterationResponseHandler(data, status) {
 	// pass the input to the brain
 	var nextAction = brain.forward(data.input_vector);
 	// visualization library for the convnet brain
-
 	brain.backward(data.reward);
 	
 

@@ -104,8 +104,8 @@ class GameApiController < ApplicationController
         game = Game.new.game_initialization(ip, last_level)
         comp = ComputerPlay.new(game.opponent_matrix)
         params[:human_cut_lines] = 0
-        @comp_cut_lines = 1
-        @human_cut_lines = 1
+        @comp_cut_lines = 0
+        @human_cut_lines = 0
         @matrix = game.starter_matrix
       end
       @comp_matrix = game.opponent_matrix
@@ -121,7 +121,6 @@ class GameApiController < ApplicationController
           reward = 0
         end 
       end
-
       render json: {
         matrix: @matrix,
         input_vector: mapping_of_number(@matrix),
